@@ -4,7 +4,7 @@
 
 namespace:
   create: true
-  name: "one37"
+  name: one37
 
 image:
   # Specifies whether to create a secret for pulling images from a registry.
