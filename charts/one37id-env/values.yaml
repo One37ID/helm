@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 namespace:
-  create: false
-  name: "one37id"
+  create: true
+  name: "one37"
 
 image:
   # Specifies whether to create a secret for pulling images from a registry.
