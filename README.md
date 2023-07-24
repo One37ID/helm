@@ -9,6 +9,17 @@ helm search repo fedoraman137
 ```
 
 ## Pre-Requisite Installations
+Before installation, make sure your CLI namespace is set to `default`.
+
+#### OpenShift
+```bash
+oc project default
+```
+
+#### Kubernetes
+```bash
+kubectl config set-context --current --namespace=<namespace>
+```
 
 Start with the 3rd Party pre-requisites
 
@@ -18,9 +29,10 @@ See bitnami/redis chart for full install configuration parameters
 ``` bash
 helm install redis \
   --set auth.password=secretpassword \
+  --set global.storageClass=ibmc-vpc-block-general-purpose \
     fedoraman137/redis
 ```
-The above command sets the Redis&reg; server password to `secretpassword`.
+The above command sets the Redis&reg; server password to `secretpassword`, and create persistent volumes of 8Gb for master and slaves in the general purpose storage class.
 
 ### 2. PostgreSQL
 This chart bootstraps a [PostgreSQL](https://github.com/bitnami/containers/tree/main/bitnami/postgresql) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
