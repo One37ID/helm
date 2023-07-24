@@ -3,7 +3,7 @@ annotations:
   licenses: Apache-2.0
 apiVersion: v2
 type: application
-name: one37id-platform-setup
+name: one37id-env
 description: The One37id Platform support for deployment of the One37id workloads and services.
 home: https://one37id.com
 icon: https://www.one37id.com/favicon.ico
@@ -19,4 +19,4 @@ maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
 appVersion: "1.2307.2101"
-version: 1.2307.0
+version: 1.2307.1
