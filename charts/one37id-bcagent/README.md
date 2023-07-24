@@ -2,15 +2,15 @@
 
 # One37ID BusinessConnector package  (Aries Agent DotNet)
 
-The One37 bcagent is an open source, advanced store and forward handler to intermediate between Aries based Agents and connected edge wallets. 
+The One37 bcagent is an open source, advanced store and forward handler to intermediate between Aries based Agents and connected edge wallets.
 
 ## TL;DR
 
 
 ```bash
-git clone https://github.com/one37id/charts
-cd charts
-helm install [AGENTNAME] one37id-arsagent
+helm repo add fedoraman137 https://fedoraman137.github.io/helm-test
+helm repo update
+helm install [AGENTNAME] fedoraman137/one37id-bcagent
 ```
 
 ## Introduction
@@ -32,7 +32,7 @@ The main features of the chart are the following:
 - Kubernetes 1.19+
 - Helm 3.2.0+
 - Pre installed PostgreSQL database and Redis cache. You can use the [One37ID PostgreSQL]() and [One37ID Redis]() charts to deploy them in your cluster.
-- [Optional] Kubernetes Ingress Controller up and running in the cluster with optional external load balancer to auto-scalar support. 
+- [Optional] Kubernetes Ingress Controller up and running in the cluster with optional external load balancer to auto-scalar support.
 
 ## Installing the Chart
 
@@ -41,10 +41,10 @@ To install the chart with the release name `bcagent`:
 ```bash
 git clone https://github.com/one37id/charts
 cd charts
-helm install bcagent one37id-arsagent
+helm install bcagent one37id-bcagent
 ```
 
-The command deploys the BusinessConnector Agent on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation. 
+The command deploys the BusinessConnector Agent on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 ## NOTE: These parameters MUST be edited in the `values.yaml` file before installation.
 

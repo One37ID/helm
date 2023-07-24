@@ -1,0 +1,230 @@
+# Default values for one37 Business Connector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace:
+  create: false
+  name: "one37id"
+
+name: "one37id-bcagent"
+fullname: "one37id-bcagent"
+
+image:
+  repository: registry.gitlab.com/one37id/registry/solitaire/staging
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.2306.1401"
+
+imagePullSecrets: [{"name": "gitlab-auth"}]
+
+# Any value here above 1 will require the REDIS or MQ service 
+# to be enabled and specified below
+replicaCount: 0
+
+# Supported values: redis, rabbitmq
+replicaQueHandler:
+  enabled: false
+  handler: redis
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "svc-bcagent"
+
+podAnnotations: {}
+
+## Mediator pods' Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enable Mediator pods' Security Context
+## @param podSecurityContext.fsGroup User ID for the container
+##
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+## Mediator containers' Security Context (only main container)
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @param containerSecurityContext.enabled Enable Mediator containers' Security Context
+## @param containerSecurityContext.runAsUser Group ID for the volumes of the pod
+## @param containerSecurityContext.runAsNonRoot Set Mediator container's Security Context runAsNonRoot
+##
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
+
+updateStrategy:
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
+  type: "RollingUpdate"
+
+service:
+  type: "ClusterIP"
+  publicport: "8080"
+  adminport:  "8081"
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    class: "nginx"
+    affinity: "cookie"
+    proxybodysize: "50m"
+    sessioncookietimeout: "36000"
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: changeme.one37.id
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretname: tls-one37id
+     hosts:
+       - changeme.one37.id
+
+resources:
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## limits:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  limits: {}
+  ## requests:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  requests: {}
+
+pvc:
+  enabled: false
+  name: "bcagent-pvc"
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "default"
+  size: "5Gi"
+
+
+nodeSelector: {}
+
+tolerations: 
+
+affinity: {}
+
+secrets:
+  create: true
+  wallet:
+    name: "bcagent-secrets"
+    WALLET_ID: "CHANGEME"
+    WALLET_KEY: "CHANGEME"
+    PG_USER: "postgres"
+    PG_CONNECTION: "psql-postgresql:5432"
+  postgres: 
+    name: "psql-postgresql"
+    passwordKey: "postgres-password"
+  redis: 
+    name: "redis"
+    passwordKey: "redis-password"
+
+
+## @param extraVolumes Optionally specify extra list of additional volumes for PhpMyAdmin pods
+##
+extraVolumes: 
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for PhpMyAdmin container(s)
+##
+extraVolumeMounts: 
+
+environment:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
+  - name: USE_HTTPS
+    value: "false"
+  - name: USE_HTTPS_MESSAGE_TYPES
+    value: "false"
+  - name: SSO_ENABLED
+    value: "false"
+  - name: AGENT_CATEGORY
+    value: "Business"
+  - name: RECREATE_WORKFLOWS
+    value: "false"
+  - name: IS_RUN_BEHIND_PROXY
+    value: "true"
+  - name: CREDENTIAL_CLEANER_SERVICE_CRON
+    value: "*/5 * * * *"
+  - name: WORKFLOW_CLEANER_SERVICE_CRON
+    value: "*/1 * * * *"
+  
+  - name: USE_STUDIO_CONFIG
+    value: "true"
+  - name: STUDIO_URL
+    value: "https://marketplace.one37id.com:8587"
+  - name: STUDIO_CONTACT_ID
+    value: 
+  - name: CONFIGURATION_SECRET_KEY
+    value: 
+  - name: STUDIO_RSA_PRIVATE_KEY
+    value: 
+  
+  - name: AGENT_SETUP_MODE
+    value: "true"
+  
+  
+  - name: OTEL_METRICS_ENABLED
+    value: "true"
+  - name: OTEL_LOGGING_ENABLED
+    value: "false"
+  - name: OTEL_PROMETHEUS_EXPORT
+    value: "true"
+  - name: OTEL_ENDPOINT
+    value: "https://az-dev-db.one37id.com:4317"
+  - name: OTEL_PROTOCOL
+    value: GRPC
+  # - name: APP_INSIGHTS_CS
+  #   value: "InstrumentationKey=CHANGEME"
+  
+  
+  #Dashboard Support
+  - name: PROMETHEUS_URL
+    value: https://monprom.one37.id:9090/api/v1
+  
+  #Workflow Engine Files
+  - name: SERVICE_MODE
+    value: 2
+  - name: ENGINE_WORKFLOW_DLL_FOLDER
+    value: "/app/workflows"
+
+envfrom:
+  - name: WALLET_ID
+    secretname: "bcagent-secrets"
+    key: "WALLET_ID"
+  - name: WALLET_KEY
+    secretname: "bcagent-secrets"
+    key: "WALLET_KEY"
+  - name: PG_USER
+    secretname: "bcagent-secrets"
+    key: "PG_USER"
+  - name: PG_ADMIN_USER
+    secretname: "bcagent-secrets"
+    key: "PG_USER"
+  - name: PG_CONNECTION
+    secretname: "bcagent-secrets"
+    key: "PG_CONNECTION"
+  - name: PG_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
+  - name: PG_ADMIN_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
+  - name: REDIS_PSWD
+    secretname: "redis"
+    key: "redis-password"

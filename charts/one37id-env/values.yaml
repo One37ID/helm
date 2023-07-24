@@ -1,0 +1,13 @@
+# Default values for one37-mediator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace:
+  create: false
+  name: "one37id"
+
+image:
+  # Specifies whether to create a secret for pulling images from a registry.
+  createSecret: true
+  # Secret name to be used for pulling images from a registry.
+  secretName: gitlab-auth
