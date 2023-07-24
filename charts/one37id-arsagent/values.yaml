@@ -1,0 +1,254 @@
+# Default values for one37 Business Connector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace:
+  create: false
+  name: "one37id"
+
+#Valuse for the Deployment.yaml file
+name: "ars-agent"
+fullname: "ars-agent"
+
+image:
+  repository: registry.gitlab.com/one37id/registry/solitaire/staging
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: [{"name": "gitlab-auth"}]
+
+# Any value here above 1 will require the REDIS or MQ service 
+# to be enabled and specified below
+replicaCount: 0
+
+# Supported values: redis, rabbitmq
+replicaQueHandler:
+  enabled: false
+  handler: redis
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+podAnnotations: {}
+
+## Mediator pods' Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enable Mediator pods' Security Context
+## @param podSecurityContext.fsGroup User ID for the container
+##
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+## Mediator containers' Security Context (only main container)
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @param containerSecurityContext.enabled Enable Mediator containers' Security Context
+## @param containerSecurityContext.runAsUser Group ID for the volumes of the pod
+## @param containerSecurityContext.runAsNonRoot Set Mediator container's Security Context runAsNonRoot
+##
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
+
+updateStrategy:
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
+  type: "RollingUpdate"
+
+resources:
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## limits:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  limits: {}
+  ## requests:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  requests: {}
+
+
+
+nodeSelector: {}
+
+tolerations: 
+
+affinity: {}
+
+## @param extraVolumes Optionally specify extra list of additional volumes for PhpMyAdmin pods
+##
+extraVolumes: 
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for PhpMyAdmin container(s)
+##
+extraVolumeMounts: 
+
+environment:
+  #Values not read from Studio Config
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
+  - name: AGENT_SETUP_MODE
+    value: "true"
+  - name: USE_HTTPS_MESSAGE_TYPES
+    value: "false"
+  - name: SSO_ENABLED
+    value: "false"
+  - name: AGENT_CATEGORY
+    value: "Business"
+  - name: RECREATE_WORKFLOWS
+    value: "false"
+  - name: IS_RUN_BEHIND_PROXY
+    value: "true"
+  - name: USE_HTTPS
+    value: "false"
+  - name: CREDENTIAL_CLEANER_SERVICE_CRON
+    value: "*/5 * * * *"
+  - name: WORKFLOW_CLEANER_SERVICE_CRON
+    value: "*/1 * * * *"
+  
+  #Define the Studio to use for this Agent Configuration
+  - name: USE_STUDIO_CONFIG
+    value: "true"
+  - name: STUDIO_URL
+    value: "https://marketplace.one37id.com:8587"
+  
+  
+  #Metrics Support
+  - name: OTEL_METRICS_ENABLED
+    value: "true"
+  - name: OTEL_LOGGING_ENABLED
+    value: "false"
+  - name: OTEL_PROMETHEUS_EXPORT
+    value: "true"
+  - name: OTEL_ENDPOINT
+    value: "https://az-dev-db.one37id.com:4317"
+  - name: OTEL_PROTOCOL
+    value: GRPC
+  # - name: APP_INSIGHTS_CS
+  #   value: "InstrumentationKey=CHANGE_ME"
+  
+  #Dashboard Support
+  - name: PROMETHEUS_URL
+    value: https://monprom.one37.id:9090/api/v1
+  
+  #Workflow Engine Files
+  - name: SERVICE_MODE
+    value: 2
+  - name: ENGINE_WORKFLOW_DLL_FOLDER
+    value: "/app/workflows"
+
+#Read Secrets from Kubernetes Secrets - see below for details
+envfrom:
+  - name: WALLET_KEY
+    secretname: "arsagent-secrets"
+    key: "WALLET_KEY"
+  - name: PG_USER
+    secretname: "arsagent-secrets"
+    key: "PG_USER"
+  - name: PG_ADMIN_USER
+    secretname: "arsagent-secrets"
+    key: "PG_USER"
+  - name: PG_CONNECTION
+    secretname: "arsagent-secrets"
+    key: "PG_CONNECTION"
+  - name: AUTH_SECRET_KEY
+    secretname: "arsagent-secrets"
+    key: "AUTH_SECRET_KEY"
+  - name: AUTH_WEBHOOK_SECRET_KEY
+    secretname: "arsagent-secrets"
+    key: "AUTH_WEBHOOK_SECRET_KEY"
+  - name: STUDIO_CONTACT_ID
+    secretname: "arsagent-secrets"
+    key: "STUDIO_CONTACT_ID"
+  - name: CONFIGURATION_SECRET_KEY
+    secretname: "arsagent-secrets"
+    key: "CONFIGURATION_SECRET_KEY"
+  - name: STUDIO_RSA_PRIVATE_KEY
+    secretname: "arsagent-secrets"
+    key: "STUDIO_RSA_PRIVATE_KEY"
+
+  #Read Secrets from Postgres Instance Secrets
+  - name: PG_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
+  - name: PG_ADMIN_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
+
+  #Read Secrets from Redis Instance Secrets
+  - name: REDIS_PSWD
+    secretname: "redis"
+    key: "redis-password"
+
+
+
+# Values for Secrets.yaml file
+secrets:
+  create: true
+  wallet:
+    name: "arsagent-secrets"
+    PG_USER: "postgres"
+    PG_CONNECTION: "psql-postgresql:5432"
+    AUTH_SECRET_KEY: "hlDXaacmGg4v6xajIFVonkITOYTH9XIUKkjBmqGIfk0="
+    AUTH_WEBHOOK_SECRET_KEY: "hlDXaacmGg4v6xajIFVonkITOYTH9XIUKkjBmqGIfk0="
+    STUDIO_CONTACT_ID: "e6ac1177-e378-45d4-b01f-cb129b0d91e2"
+    CONFIGURATION_SECRET_KEY: "wKgJB63C87DLb81BzVK92BP0xW65m0V5"
+    STUDIO_RSA_PRIVATE_KEY: "-----BEGIN RSA PRIVATE KEY-----MIIEogIBAAKCAQEAgggpdvouTeachbgDb6+gro15AFcpKiY4gxxk/H/rta8nQNiS9djCiEcVDzWFwn6ZOjpIh8EtSxQsnkG86C99ugW7oX8HOHcmkkd0ZqHPThlPS5ykJPQGbUbAowvsWOE2WLYJ9ZvCFFqPFZZrLvfIbOayUJ1d+rsihnwsnYdm9RPeOXczu/X11aHmwPCnMefQU97bQi9xH7s3p+f8R+XgYuVB+VBqCnLWeD/QeLfmwF0G1I2ruRjp5CifA43fvQrUQYrm9xf7MoFuBoyQXQ37vRgmXwBoCIK8mJF4HADmGbWr0ZdqFHm8SZmzGoUdx8mNgdyzWTiEV3L7awRfoXeBPwIDAQABAoIBAB3Xw7RzrKbiU2/5EIjUdPs6qteiKWdsCDJHFQJCVZWIEmk2i1vzGIpwTewEq6M8rOwJLlZBxqRhh+/2RGXBaIiGAk8JOV4DMo4F6jgX0N0qv+EpnR6CBuuTfmitNtwbK/7mIJkG218SfZ5FvGm2IoCj3a7UvxnpUv4sh4zL45xBU8oUyhYEGR60kjt0qqVkdBUX3ICRDJTS5aKw1skqkPOUKB3QxXsgMQIarBpSFP5hMzni1DZahC0SYkIsFNEpRlD/KeG0NYljhb4F5qm/T9W47B3vUSZOM1qerAAUjmj8Iida/dHo1oEwJm9iGi2hERmB+lkjgyWnuG1xAWljQnECgYEAzEINSjkxW7LG85vH4rduYMWq8O2XHtrdVWNDNpOSCeHSIoLb4KGA3qXD9utr7uoJDbArzDnCVpiUgpUl0tOpwU0CRbmHNsyTelhzfFlt1ZtQogEpVV+waM60KA0xIBfnMiGYv1NhX8iVVvQfqxP4ZajhKw7vMAA+/3WGtLjf3OcCgYEAovicv5xLiRXXEfw142cr/GwCocQrcOPyJaQRSNyOn5yciB68PNIvsqW1j8UNNaEnXsA8HuTz/FVjwE8Mr70+kOqrvpXhqOrfcs+vTaZ95P7KQpGxcJ35Ss4RaviOiz6KzQbc9tGpXa2ML+fSMn1u+JcC2n7Y1qTeRPSh7EsTlekCgYASongJ7HvXTNEfyneK9IcqZv44asSduQP2VU79fKsXIbYFFgEvViymo2LkdQfszQc0a30jbaWQNu1dmHPR7yOOkhMB/3IZisJtqAIpNxNxKHFLxmVZ95flh+4htUplDik2hqAj3FyG24rcWvtEpVbFF4orXnpt26fjsHowpKkvwwKBgBExbUgBsy5ZMYFiPEUrY0aUFor+aR7VzXwPHQu0yQ8ptJHfvDgmbIXKWac7QLOBtueWHEGeIedjEsz9CfeYXXtoZooKwe3SKZSxOGtWvz1ja+8t86xP3jb4GnpQkqk6BeavbKxVXirV3k5HhLNy7DwpolFuxG2QoypfLJ4DJaPRAoGAOfnDREVOIgeienDJ7h8JggN7IJkOPPLaaZvkmeJiP8q9isfvxUWhfZBKe2ZABwqnFloCBrUTp3Va4dovBONDAjklbts3aDSpLlP7hBa0EgvsaMnk4zfFyVlZCWey8eeGK7xz7wxrxiKsR6RInJkxGlgZ3C75TxfCdc+K2NMXnpg=-----END RSA PRIVATE KEY-----"
+  postgres: 
+    name: "psql-postgresql"
+    passwordKey: "postgres-password"
+  redis: 
+    name: "redis"
+    passwordKey: "redis-password"
+
+
+#Values for Service.yaml file
+service:
+  type: "ClusterIP"
+  publicport: "8080"
+  adminport:  "8081"
+
+#values for serviceaccount.yaml file
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+#Values for Ingress.yaml file
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    class: "nginx"
+    affinity: "cookie"
+    proxybodysize: "50m"
+    sessioncookietimeout: "36000"
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: aks-arsagent.one37.id
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretname: tls-one37id
+     hosts:
+       - aks-arsagent.one37.id
+
+
+# values for pvc.yaml file
+pvc:
+  enabled: false
+  name: "arsagent-pvc"
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "default"
+  size: "5Gi"
