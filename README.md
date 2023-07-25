@@ -11,8 +11,6 @@ helm repo add fedoraman137 https://fedoraman137.github.io/helm-test
 # 3rd Party Helm Charts
 # When deploying to Azure Kubernetes, use the official marketplace versions.
 helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
-# Else add the default Bitnami&reg; chart repo.
-helm repo add bitnami https://charts.bitnami.com/bitnami
 
 helm repo update
 ```
@@ -42,6 +40,8 @@ kubectl config set-context --current --namespace=one37
 
 ## Install 3rd Party packages
 
+> OpenShift Note: The Redis & PostgreSQL components need to be installed using OpenShift certified Operators
+
 ### REDIS
 
 This chart bootstraps a [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -50,10 +50,10 @@ Bitnami charts can also be used with [Kubeapps](https://kubeapps.dev/) for deplo
 
 #### Global parameters
 
-| Name                      | Description                                            | Value |
-| ------------------------- | ------------------------------------------------------ | ----- |
-| `global.storageClass`     | Global StorageClass for Persistent Volume(s)           | `""`  |
-| `global.redis.password`   | Global Redis&reg; password (overrides `auth.password`) | `""`  |
+| Name                    | Description                                            | Value |
+|-------------------------|--------------------------------------------------------|-------|
+| `global.storageClass`   | Global StorageClass for Persistent Volume(s)           | `""`  |
+| `global.redis.password` | Global Redis&reg; password (overrides `auth.password`) | `""`  |
 
 #### On AKS from the marketplace
 
@@ -64,7 +64,7 @@ helm install one37-redis --set global.redis.password=secretpassword azure-market
 #### Other K8s
 
 ``` bash
-helm install one37-redis --set global.redis.password=secretpassword bitnami/redis
+helm install one37-redis --set global.redis.password=secretpassword oci://registry-1.docker.io/bitnamicharts/redis
 ```
 
 These commands set the specified password to be used when accessing the REDIS&reg; instance.
@@ -83,7 +83,7 @@ helm install one37-pg --set auth.postgresPassword=secretpassword azure-marketpla
 #### Other K8s
 
 ``` bash
-helm install one37-pg --set auth.postgresPassword=secretpassword bitnami/postgresql-ha
+helm install one37-pg --set auth.postgresPassword=secretpassword oci://registry-1.docker.io/bitnamicharts/postgresql-ha
 ```
 
 The above command sets the PostgreSQL `postgres` account password to `secretpassword`.
