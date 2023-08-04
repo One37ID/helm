@@ -1,18 +1,24 @@
-# One37 ID Base Environment
+# Helm Chart to define Base One37 Kubernetes environment
 
-This chart sets up base configuration environment and is required before installing any individual One37 Platform component.
+> This chart **MUST** be installed with a passed in `values.yaml` with edited properties.
 
-Before installation, make sure your CLI namespace is set to `default`
+Create a local `values.yaml` file with correct secret values:
 
-## Installation
+``` yaml
+namespace:
+  create: false
+  name: "one37id"
 
-``` bash
-helm install one37-env fedoraman137/one37id-env
+image:
+  createSecret: true
+  secretName: gitlab-auth
+  user: ....
+  password: ....
+  repohost: ....
 ```
 
-## Uninstalling the Chart
+Install the chart:
 
-To uninstall/delete the `one37-env` deployment:
 ```bash
-helm delete one37-env
+helm install one37id-env one37/one37id-env -f values.yaml
 ```
