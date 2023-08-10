@@ -1,0 +1,140 @@
+# Default values for one37id-ledgercache.
+# MUST MAKE A COPY OF THIS AND EDIT SECRETS!!!!!!!
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry.gitlab.com/one37id/registry/ledgercache/prod
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: [{"name": "gitlab-auth"}]
+name: "one37-ledgercache"
+fullname: "on37-ledgercache"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1001
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: ledgercache.one37-dev.id
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: tls-one37dev-id
+      hosts:
+        - ledgercache.one37-dev.id
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+secrets:
+  create: true
+  app:
+    name: ledgercache-secrets
+    AUTH_SECRET_KEY: string
+    AUTH_BACKDOOR_SECRET_KEY: string
+    PG_USER: string
+  postgres:
+    name: "psql-postgresql"
+    passwordKey: "postgres-password"
+
+
+environ:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
+  - name: SERVICE_ROOT
+    value: "http://0.0.0.0:8080"
+  - name: DEFAULT_LOG_LEVEL
+    value: "0"
+  - name: MINIMUM_LOG_LEVEL
+    value: "0"
+  - name: LEDGER_URL
+    value: "https://testnet.one37.id/"
+  - name: LEDGER_SYNC_SERVICE_CRON
+    value: "*/1 * * * *"
+  - name: AUTH_REQUEST_MAX_TTL_MINUTES
+    value: "1"
+  - name: AUTH_NONCE_TTL_MINUTES
+    value: "1"
+  - name: STORAGE_TYPE
+    value: "postgres_storage"
+  - name: PG_DBNAME
+    value: "aks_ledgercache_db"
+  - name: PG_HOST
+    value: "psql-postgresq" #postgres service name
+  - name: PG_PORT
+    value: "5432"
+
+
+envfrom:
+  - name: AUTH_SECRET_KEY
+    secretname: "ledgercache-secrets"
+    key: "AUTH_SECRET_KEY"
+  - name: AUTH_BACKDOOR_SECRET_KEY
+    secretname: "ledgercache-secrets"
+    key: "AUTH_BACKDOOR_SECRET_KEY"
+  - name: PG_USER
+    secretname: "ledgercache-secrets"
+    key: "PG_USER"
+  - name: PG_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
+  - name: PG_ADMIN_PSWD
+    secretname: "psql-postgresql"
+    key: "postgres-password"
