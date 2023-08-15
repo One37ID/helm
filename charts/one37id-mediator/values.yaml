@@ -17,7 +17,7 @@ image:
   repository: registry.gitlab.com/one37id/registry/mediatoragent/r2dev
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  #tag: ""
 
 imagePullSecrets: [{"name": "gitlab-auth"}]
 nameOverride: "one37id-mediator"
