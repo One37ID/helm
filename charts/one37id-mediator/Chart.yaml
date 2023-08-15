@@ -1,18 +1,24 @@
-annotations:
-  category: Infrastructure
-  licenses: Apache-2.0
 apiVersion: v2
-type: application
 name: one37id-mediator
-description: The One37id Mediator is a component that acts as a store/forward inbox between the Aries v1 Agents and the One37id Upa! Wallet. It is responsible for notifying and holding messages for each connected wallet.
-home: https://bitnami.com
-icon: https://bitnami.com/assets/stacks/phpmyadmin/img/phpmyadmin-stack-220x234.png
-keywords:
-  - mariadb
-  - mysql
-  - phpmyadmin
-maintainers:
-  - name: One37 Solutions, Inc.
-    url: https://github.com/one37id/charts
-appVersion: "1.2306.3001"
-version: 1.2306.0
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"

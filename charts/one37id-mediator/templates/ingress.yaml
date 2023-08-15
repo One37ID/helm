@@ -1,10 +1,9 @@
-{{- if .Values.ingresssticky.enabled }}
-{{- $fullName := .Values.fullname -}}
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "one37id-mediator.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $annotate := .Values.ingresssticky.annotations -}}
-{{- if and .Values.ingresssticky.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.ingresssticky.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.ingresssticky.annotations "kubernetes.io/ingress.class" .Values.ingresssticky.className}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
   {{- end }}
 {{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -16,32 +15,29 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ .Values.fullname }}-ingresssticky
-  namespace: {{ .Values.namespace.name }}
+  name: {{ $fullName }}
   labels:
     {{- include "one37id-mediator.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingresssticky.annotations.class  }}
-    nginx.ingress.kubernetes.io/affinity: {{ .Values.ingresssticky.annotations.affinity  }}
-    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingresssticky.annotations.proxybodysize }}
-    nginx.ingress.kubernetes.io/session-cookie-timeout: {{ .Values.ingresssticky.annotations.sessioncookietimeout | quote }}
-
-spec:
-  {{- if and .Values.ingresssticky.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: {{ .Values.ingresssticky.className }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.ingresssticky.tls }}
+spec:
+  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
   tls:
-    {{- range .Values.ingresssticky.tls }}
+    {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .secretname }}
+      secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingresssticky.hosts }}
+    {{- range .Values.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
