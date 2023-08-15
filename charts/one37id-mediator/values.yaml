@@ -65,7 +65,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretname: tls-dev-one37-id
+    - secretName: tls-dev-one37-id
       hosts:
         - mediator.dev-one37.id
 
