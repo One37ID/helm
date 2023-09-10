@@ -1,8 +1,8 @@
-<!--- app-name: one37id-agent -->
+!--- app-name: one37id-agent -->
 
-# One37ID BusinessConnector package  (Aries Agent DotNet)
+# One37 Business Connector package  (Aries Agent DotNet)
 
-The One37 bcagent is an open source, advanced store and forward handler to intermediate between Aries based Agents and connected edge wallets.
+The One37 Business Connector is Verifiable Credentials base data exchange platform.
 
 ## TL;DR
 
