@@ -9,7 +9,7 @@ annotations:
   licenses: Apache-2.0
 dependencies:
   - name: one37secrets
-    repository: https://fedoraman137.github.io/helm-test/one37secrets
+    repository: https://fedoraman137.github.io/helm-test/
     tags:
     - one37secrets
     version: 0.1.x
