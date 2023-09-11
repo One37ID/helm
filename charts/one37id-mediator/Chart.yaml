@@ -1,0 +1,20 @@
+apiVersion: v2
+name: one37id-mediator
+description: Run the One37ID Aries Mediator
+icon: "https://pbs.twimg.com/profile_images/1519012545989943297/3ENZiRqF_400x400.jpg"
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+home: https://one37id.com
+keywords:
+  - mediator
+  - ssi
+  - aries
+  - agent
+  - one37id
+  - one37
+  - one37id.com
+
+type: application
+version: 0.1.0
+appVersion: "1.2308.0301"
