@@ -7,13 +7,6 @@
 helm repo add fedoraman137 https://fedoraman137.github.io/helm-test
 ```
 
-``` bash
-# 3rd Party Helm Charts
-# When deploying to Azure Kubernetes, use the official marketplace versions.
-helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
-
-helm repo update
-```
 
 ``` bash
 # List the charts available from One37
@@ -38,140 +31,89 @@ kubectl create namespace one37
 kubectl config set-context --current --namespace=one37
 ```
 
-## Install 3rd Party packages
+### Pull the chart to you local environment
 
-> OpenShift Note: The Redis & PostgreSQL components need to be installed using OpenShift certified Operators
-
-### REDIS
-
-This chart bootstraps a [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
-
-Bitnami charts can also be used with [Kubeapps](https://kubeapps.dev/) for deployment and management of Helm Charts in clusters.
-
-#### Global parameters
-
-| Name                    | Description                                            | Value |
-|-------------------------|--------------------------------------------------------|-------|
-| `global.storageClass`   | Global StorageClass for Persistent Volume(s)           | `""`  |
-| `global.redis.password` | Global Redis&reg; password (overrides `auth.password`) | `""`  |
-
-#### On AKS from the marketplace
-
-``` bash
-helm install one37-redis --set global.redis.password=secretpassword azure-marketplace/redis
-```
-
-#### Other K8s
-
-``` bash
-helm install one37-redis --set global.redis.password=secretpassword oci://registry-1.docker.io/bitnamicharts/redis
-```
-
-These commands set the specified password to be used when accessing the REDIS&reg; instance.
-
-### PostgreSQL
-
-This chart bootstraps a [PostgreSQL](https://github.com/bitnami/containers/tree/main/bitnami/postgresql) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
-For HA, please see [this repo](https://github.com/bitnami/charts/tree/main/bitnami/postgresql-ha)
-
-#### On AKS from the Azure Marketplace
-
-``` bash
-helm install one37-pg --set auth.postgresPassword=secretpassword azure-marketplace/postgresql-ha
-```
-
-#### Other K8s
-
-``` bash
-helm install one37-pg --set auth.postgresPassword=secretpassword oci://registry-1.docker.io/bitnamicharts/postgresql-ha
-```
-
-The above command sets the PostgreSQL `postgres` account password to `secretpassword`.
-
-> **NOTE:** Once this chart is deployed, it is not possible to change the application's access credentials, such as usernames or passwords, using Helm. To change these application credentials after deployment, delete any persistent volumes (PVs) used by the chart and re-deploy it, or use the application's built-in administrative tools if available.
-
-> **Warning** Setting a password will be ignored on new installation in case when previous PostgreSQL release was deleted through the helm command. In that case, old PVC will have an old password, and setting it through helm won't take effect. Deleting persistent volumes (PVs) will solve the issue. Refer to [issue 2061](https://github.com/bitnami/charts/issues/2061) for more details
-
-Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
-
-``` bash
-helm install one37-pg -f values.yaml bitnami/postgresql-ha
-```
-
-### 3. Database Admin Tool [optional]
-
-For more information please refer to the [bitnami/phpmyadmin](https://github.com/bitnami/containers/tree/main/bitnami/phpmyadmin) image documentation.
-
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+In a working folder in your setup, download the complete chart and it template files.
 
 ```bash
-helm install one37-dbadmin bitnami/phpmyadmin
+helm pull fedoraman137/one37id-bcagent --untar
 ```
-
-## One37 Component Installation
 
 ### One37 Licensing & Secrets
 
-``` bash
-helm install one37-env fedoraman137/one37id-env
-```
+Update the 2 template files in `charts/one37secrets/templates/` with the values you where provided during the registration of the product.
 
-### One37 Mediator [optional]
+### Configure the included 3rd Party packages
 
-If your users are using a *white labelled* **Upa! App**, you can run your own Mediator Service.
+> OpenShift Note: <br/>
+> The Redis & PostgreSQL components need to be installed using OpenShift certified Operators? The component folders should be removed from the `charts` folder and the Operators installed using the OpenShift console.
 
-``` bash
-helm install [my-mediator] fedoraman137/one37id-mediator
-```
+#### REDIS
+
+This chart includes a default install of a replicated [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment using the Bitnami Redis sub-chart.
+The `charts/redis/values.yaml` file includes the following parameters to configure the Redis&reg; installation:
+
+##### Global parameters section
+
+| Name                    | Description                                            | Value |
+|-------------------------|--------------------------------------------------------|-------|
+| `global.storageClass`   | Global StorageClass for Persistent Volume(s). You must configure this according to the available classes defined in the k8s environment.          | `""`  |
+| `global.redis.password` | Global Redis&reg; password (overrides `auth.password`). Leave blank to have a random password generated and stored in a secret. | `""`  |
+
+#### PostgreSQL
+
+This chart includes a default install of a single instance [PostgreSQL](https://github.com/bitnami/containers/tree/main/bitnami/postgresql) as defined in the Bitnami postgresql sub-chart.
+The `charts/postgresql/values.yaml` file includes the following parameters to configure the PostgreSQL installation:
+
+##### Global parameters
+
+| Name                    | Description                                            | Value |
+|-------------------------|--------------------------------------------------------|-------|
+| `global.storageClass`   | StorageClass for Persistent Volume(s). You must configure this according to the available classes defined in the k8s environment.          | `""`  |
+| `global.postgresql.auth.postgresPassword` | 'postgres' user password override. Leave blank to have a random password generated and stored in a secret. | `""`  |
+
+#### 3. Database Admin Tool [optional]
+
+In non-production environments, you may want to manually install a database admin tool to simplify the process of managing your databases.
+
+For more information please refer to the [bitnami/phpmyadmin](https://github.com/bitnami/containers/tree/main/bitnami/phpmyadmin) image documentation.
+
+## One37 Component Configuration
+
+Please refer to the chart **README** for additional component configuration parameter documentation.
+
+ > **Note:** <br>
+ > A local `values.yaml` file of instance specific parameters **MUST** be specified in your installation command
 
 ### One37 Business Studio&reg;
 
 One [Business Studio&reg;](https://github.com/FedoraMan137/helm-test/tree/main/charts/one37id-studio) instance is required to manage all your locally deployed Business Connector Agents.
 
-``` bash
-helm install [my-studio] fedoraman137/one37id-studio
-```
+Edit the `charts/one37id-studio/values.yaml` file as required.
 
-### One37 Business Connector&reg; (Agent)
+### Configure the One37 Business Connector&reg; (Agent)
 
 The command deploys the [BusinessConnector&reg;](https://github.com/FedoraMan137/helm-test/tree/main/charts/one37id-bcagent) agent on the cluster.
 
-Please refer to the chart **README** for configuration parameter documentation.
+Using values you where given by One37 Support during the registration of your product, edit the `charts/values.yaml` file
 
- > **Note:** A local `values.yaml` file of instance specific parameters **MUST** be specified in your installation command
-
-Download the `values.yaml` template.
+## Install the One37 Platform
 
 ```bash
-wget https://github.com/FedoraMan137/helm-test/raw/main/charts/one37id-bcagent/values.yaml
+helm upgrade --install -f values.yaml [RELEASE_NAME]  one37id-bcagent
 ```
 
-Edit the file as required.
-
-```bash
-helm install [AGENTNAME] -f values.yaml  fedoraman137/one37id-bcagent
-```
+ > **Note**: <br />
+ > The [RELEASE_NAME] is the name you want to give to your installation. This name will be used to create and manage the Helm deployment.
+ If this will be only unique instance of the One37 Platform, you can use the default name of `one37id-bcagent`
 
 ## Uninstallation
 
-### One37 Charts
+To uninstall/delete the `[RELEASE_NAME]` deployment:
 
 ``` bash
-helm delete --purge [chart-name]
+helm uninstall [RELEASE_NAME]
 ```
 
-### 3rd Party Charts
-
-#### PostgreSQL HA
-
-```bash
-helm delete --purge one37-pg
-```
-
-Additionally, if `persistence.resourcePolicy` is set to keep, you should manually delete the PVCs.
-
-#### Redis
-
-``` bash
-helm delete --purge one37-redis
-```
+ > **Note**: <br />
+ > This command removes ALL the Kubernetes components, including any data stores, associated with the chart and deletes the release.
