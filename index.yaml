@@ -36,7 +36,7 @@ entries:
       maintainers:
         - name: One37 Solutions, Inc.
           url: https://github.com/one37id/charts
-      appVersion: "1.1.2308.1802"
+      appVersion: "1.2308.1802"
       version: 1.2309.0804
   one37secrets:
     - apiVersion: v2
