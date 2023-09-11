@@ -9,8 +9,20 @@ annotations:
   licenses: Apache-2.0
 dependencies:
   - name: one37secrets
+    repository: https://fedoraman137.github.io/helm-test/one37secrets
+    tags:
+    - one37secrets
+    version: 0.1.x
   - name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - postgresql
+    version: 12.x.x
   - name: redis
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - redis
+    version: 18.x.x
 keywords:
   - businessconnector
   - ssi
