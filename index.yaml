@@ -6,10 +6,10 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.1.2308.1802
-    created: "2023-09-11T13:11:08.5125835+02:00"
+    created: "2023-09-11T13:29:01.5390154+02:00"
     dependencies:
     - name: one37secrets
-      repository: https://fedoraman137.github.io/helm-test/one37secrets
+      repository: https://fedoraman137.github.io/helm-test/
       tags:
       - one37secrets
       version: 0.1.x
@@ -24,7 +24,7 @@ entries:
       - redis
       version: 18.x.x
     description: A Kubernetes Helm chart for the One37 Business Connector Agent
-    digest: f2304eb3e9a47dfa08d3fa856676333f6c93f00f11800f8424a5aab60f4bf43d
+    digest: 148f88cef85a5bd66b2aaff18215ed2af9ba0213bcb69a958510a9c5c9063a7f
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -49,9 +49,9 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2308.0301
-    created: "2023-09-11T13:11:08.5136414+02:00"
+    created: "2023-09-11T13:29:01.5395564+02:00"
     description: Run the One37ID Aries Mediator
-    digest: 7cbd8f726218e94f9d749eafb83e30ecf0dbf3692aa85559653df5e7bda62d1d
+    digest: 7e06f588a8db06acf4cb9d8d9826872999cce7a91a5b002c9482de152f8ff396
     home: https://one37id.com
     icon: https://pbs.twimg.com/profile_images/1519012545989943297/3ENZiRqF_400x400.jpg
     keywords:
@@ -70,12 +70,12 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-09-11T13:11:08.514194+02:00"
+    created: "2023-09-11T13:29:01.5400904+02:00"
     description: Setup some basic Kubernetes Secrets
-    digest: 96b8d1e7c404785caf686284cde3d3fd86376c89d734a7b333e18a9a9836421d
+    digest: 5fc7afe656dfbd8d83ab7a09347362ad9285cbaabad95f2bf358c256c65a1002
     name: one37secrets
     type: application
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-11T13:11:08.5003983+02:00"
+generated: "2023-09-11T13:29:01.5268342+02:00"
