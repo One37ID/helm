@@ -1,1 +1,0 @@
-This chart deploys the necessary secrets to pull the parent chart's image from the private registry.
