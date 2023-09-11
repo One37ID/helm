@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "one37id-bcagent.fullname" . }}
+  labels:
+    {{- include "one37id-bcagent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.publicPort }}
+      targetPort: {{ .Values.service.publicPort }}
+      protocol: TCP
+      name: http-public
+    {{- if .Values.service.twoPortMode }}
+    - port: {{ .Values.service.adminPort }}
+      targetPort: {{ .Values.service.adminPort }}
+      protocol: TCP
+      name: http-admin
+    {{- end }}
+  selector:
+    {{- include "one37id-bcagent.selectorLabels" . | nindent 4 }}
