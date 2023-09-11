@@ -18,11 +18,11 @@ dependencies:
     tags:
     - postgresql
     version: 12.x.x
-  # - name: redis
-  #   repository: oci://registry-1.docker.io/bitnamicharts
-  #   tags:
-  #   - redis
-  #   version: 18.x.x
+  - name: redis
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - redis
+    version: 18.x.x
 keywords:
   - businessconnector
   - ssi
@@ -35,4 +35,4 @@ maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
 appVersion: "1.2308.1802"
-version: 1.2309.8
+version: 1.2309.11

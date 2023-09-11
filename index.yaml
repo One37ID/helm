@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2308.1802
-    created: "2023-09-11T18:44:27.267882+02:00"
+    created: "2023-09-11T19:23:57.1360842+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -18,8 +18,13 @@ entries:
       tags:
       - postgresql
       version: 12.x.x
+    - name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - redis
+      version: 18.x.x
     description: A Kubernetes Helm chart for the One37 Business Connector Agent
-    digest: 2a633585c0d4ccce003be995b5042026ab2e6004c04cf79233508da33dfab09c
+    digest: 02b0373912f24eb301e35664a762639398b2b2938fc6a86c8f4a22547cb19db7
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -36,15 +41,15 @@ entries:
     name: one37id-bcagent
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-1.2309.8.tgz
-    version: 1.2309.8
+    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-1.2309.11.tgz
+    version: 1.2309.11
   one37id-mediator:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2308.0301
-    created: "2023-09-11T18:44:27.268893+02:00"
+    created: "2023-09-11T19:23:57.1368353+02:00"
     description: Run the One37ID Aries Mediator
     digest: 4b475b6d55c595cc9260f652727faeaccde3410910c75d6c9aaabb2a59bbec63
     home: https://one37id.com
@@ -65,7 +70,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2309.11
-    created: "2023-09-11T18:44:27.268893+02:00"
+    created: "2023-09-11T19:23:57.1379729+02:00"
     description: Setup some basic Kubernetes Secrets
     digest: 9dde5c8ee559c352a43698ee65cb23a5ebecdf92e9e4a183e37c20c6b887a41e
     name: one37secrets
@@ -73,4 +78,4 @@ entries:
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.11.tgz
     version: 1.2309.11
-generated: "2023-09-11T18:44:27.2598581+02:00"
+generated: "2023-09-11T19:23:57.1232086+02:00"
