@@ -44,7 +44,7 @@ ingress:
         #       port:
         #         number: 8081
   tls:
-    - secretname: one37id-bcagent-one37secrets-tls
+    - secretname: one37secrets-tls
       hosts:
         - ibmtest.dev-one37.id
 
