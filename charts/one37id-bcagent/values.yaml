@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: ""
-fullname: ""
+nameOverride: "one37id-bcagent"
+fullname: "one37id-bcagent"
 
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
@@ -11,7 +11,7 @@ liveCheck: false
 
 # Any value here above 1 will require the REDIS or MQ service
 # to be enabled and specified below
-replicaCount: 0
+replicaCount: 1
 
 # The Business Connector can host the public and admin API on the different ports if needed
 service:
@@ -52,7 +52,7 @@ ingress:
 configmap:
   ASPNETCORE_ENVIRONMENT: "Development"
   MINIMUM_LOG_LEVEL: 1
-  AGENT_ALIAS: "ibm-agent"
+  AGENT_ALIAS: "ibmtest"
 
 environment:
   AGENT_SETUP_MODE: "true"
@@ -118,7 +118,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-bcagent-one37secrets-repo-secret"}]
+imagePullSecrets: [{"name": "one37secrets-repo-secret"}]
 
 ## @param extraVolumes Optionally specify extra list of additional volumes for PhpMyAdmin pods
 ##

@@ -2,5 +2,5 @@ apiVersion: v2
 name: one37secrets
 description: Setup some basic Kubernetes Secrets
 type: application
-version: 1.2309.11
-appVersion: "1.2309.11"
+version: 1.2309.12
+appVersion: "1.2309.12"

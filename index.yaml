@@ -6,13 +6,13 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2308.1802
-    created: "2023-09-11T20:38:30.5031452+02:00"
+    created: "2023-09-12T08:43:45.1263598+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
       tags:
       - one37secrets
-      version: 0.1.x
+      version: 1.2309.12
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
       tags:
@@ -24,7 +24,7 @@ entries:
       - redis
       version: 18.x.x
     description: A Kubernetes Helm chart for the One37 Business Connector Agent
-    digest: a03d5c50733c0112cc81991ad6dbf987544b2bb2021983f3d471dee1496f561a
+    digest: e9204afc206ec31545c8268e1bbc00999d0820ae46f2a0222b5b15a3aec8ac7f
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -41,41 +41,17 @@ entries:
     name: one37id-bcagent
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-1.2309.11.tgz
-    version: 1.2309.11
-  one37id-mediator:
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 1.2308.0301
-    created: "2023-09-11T20:38:30.5054554+02:00"
-    description: Run the One37ID Aries Mediator
-    digest: d1ee13afc65fdf5057a1c26756f85fe15ca49cd3dc66737bfe95a9b29f8d960e
-    home: https://one37id.com
-    icon: https://pbs.twimg.com/profile_images/1519012545989943297/3ENZiRqF_400x400.jpg
-    keywords:
-    - mediator
-    - ssi
-    - aries
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    name: one37id-mediator
-    type: application
-    urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-mediator-1.2308.3.tgz
-    version: 1.2308.3
+    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-1.2309.12.tgz
+    version: 1.2309.12
   one37secrets:
   - apiVersion: v2
-    appVersion: 1.2309.11
-    created: "2023-09-11T20:38:30.5059797+02:00"
+    appVersion: 1.2309.12
+    created: "2023-09-12T08:43:45.1275648+02:00"
     description: Setup some basic Kubernetes Secrets
-    digest: 2875a5cca4a38d76af666b8a7517710969858b90b84aae93102a31f88e6ebc2f
+    digest: 8a75d202ff16ab1e2637a0caec8abc0e4e7038a77ecef055727973a32260d8cd
     name: one37secrets
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.11.tgz
-    version: 1.2309.11
-generated: "2023-09-11T20:38:30.4915098+02:00"
+    - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.12.tgz
+    version: 1.2309.12
+generated: "2023-09-12T08:43:45.1137464+02:00"
