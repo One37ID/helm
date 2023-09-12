@@ -457,7 +457,7 @@ primary:
   ##
   podSecurityContext:
     enabled: true
-    fsGroup: 1001
+    fsGroup: 1000650000
   ## Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param primary.containerSecurityContext.enabled Enable container security context
@@ -470,7 +470,7 @@ primary:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -820,7 +820,7 @@ readReplicas:
   ##
   podSecurityContext:
     enabled: true
-    fsGroup: 1001
+    fsGroup: 1000650000
   ## Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param readReplicas.containerSecurityContext.enabled Enable container security context
@@ -833,7 +833,7 @@ readReplicas:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -1111,7 +1111,7 @@ backup:
     ## @param backup.cronjob.containerSecurityContext.seccompProfile.type Set backup container's Security Context seccompProfile type
     ## @param backup.cronjob.containerSecurityContext.capabilities.drop Set backup container's Security Context capabilities to drop
     containerSecurityContext:
-      runAsUser: 1001
+      runAsUser: 1000650000
       runAsGroup: 0
       runAsNonRoot: true
       allowPrivilegeEscalation: false
@@ -1434,7 +1434,7 @@ metrics:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false

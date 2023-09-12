@@ -279,7 +279,7 @@ master:
   ##
   podSecurityContext:
     enabled: true
-    fsGroup: 1001
+    fsGroup: 1000650000
   ## Configure Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param master.containerSecurityContext.enabled Enabled Redis&reg; master containers' Security Context
@@ -292,7 +292,7 @@ master:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -712,7 +712,7 @@ replica:
   ##
   podSecurityContext:
     enabled: true
-    fsGroup: 1001
+    fsGroup: 1000650000
   ## Configure Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param replica.containerSecurityContext.enabled Enabled Redis&reg; replicas containers' Security Context
@@ -725,7 +725,7 @@ replica:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -1241,7 +1241,7 @@ sentinel:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -1591,7 +1591,7 @@ metrics:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1000650000
     runAsGroup: 0
     runAsNonRoot: true
     allowPrivilegeEscalation: false

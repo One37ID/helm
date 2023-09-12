@@ -183,10 +183,10 @@ podAnnotations: {}
 
 podSecurityContext:
   enabled: true
-  fsGroup: 1001
+  fsGroup: 1000650000
 
 containerSecurityContext:
-  runAsUser: 1001
+  runAsUser: 1000650000
   runAsNonRoot: true
 
 updateStrategy:
