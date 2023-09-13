@@ -1,0 +1,38 @@
+apiVersion: v2
+name: one37id-bcagent-oc
+type: application
+description: A OpenShift Helm chart for the One37 Business Connector Agent
+home: https://one37id.com
+icon: https://www.one37id.com/images/connector.svg
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+dependencies:
+  - name: one37secrets
+    repository: https://fedoraman137.github.io/helm-test/
+    tags:
+    - one37secrets
+    version: 1.2309.12
+  - name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - postgresql
+    version: 12.x.x
+  - name: redis
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - redis
+    version: 18.x.x
+keywords:
+  - businessconnector
+  - ssi
+  - aries
+  - agent
+  - one37id
+  - one37
+  - one37id.com
+maintainers:
+  - name: One37 Solutions, Inc.
+    url: https://github.com/one37id/charts
+appVersion: 1.2309.13
+version: 1.2309.13

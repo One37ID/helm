@@ -181,13 +181,15 @@ serviceAccount:
 podAnnotations: {}
 
 
-podSecurityContext:
-  enabled: true
-  fsGroup: 1001
+podSecurityContext: {}
+  # enabled: false
+  # fsGroup: 1001
+  # fsGroupChangePolicy: "OnRootMismatch"
 
-containerSecurityContext:
-  runAsUser: 1001
-  runAsNonRoot: true
+containerSecurityContext: {}
+  # runAsUser: 1001
+  # runAsNonRoot: true
+  # fsGroupChangePolicy: "OnRootMismatch"
 
 updateStrategy:
 #   ## StrategyType
