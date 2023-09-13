@@ -1,4 +1,4 @@
-{{- $fullName := include "one37id-bcagent.fullname" . -}}
+{{- $fullName := include "one37id-bcagent-oc.fullname" . -}}
 {{- $svcPort := .Values.service.publicPort -}}
 {{- $svcAdminPort := .Values.service.adminPort -}}
 apiVersion: v1

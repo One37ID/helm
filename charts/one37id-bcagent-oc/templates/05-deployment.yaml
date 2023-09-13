@@ -1,4 +1,4 @@
-{{- $fullName := include "one37id-bcagent.fullname" . -}}
+{{- $fullName := include "one37id-bcagent-oc.fullname" . -}}
 {{- $postgresSecretName := printf "%s" .Values.secrets.postgresSecretName | trunc 63 | trimSuffix "-" -}}
 {{- $redisSecretName := printf "%s" .Values.secrets.redisSecretName | trunc 63 | trimSuffix "-" -}}
 apiVersion: apps/v1
@@ -6,14 +6,14 @@ kind: Deployment
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "one37id-bcagent.labels" . | nindent 4 }}
+    {{- include "one37id-bcagent-oc.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "one37id-bcagent.selectorLabels" . | nindent 6 }}
+      {{- include "one37id-bcagent-oc.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -21,13 +21,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "one37id-bcagent.selectorLabels" . | nindent 8 }}
+        {{- include "one37id-bcagent-oc.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "one37id-bcagent.serviceAccountName" . }}
+      serviceAccountName: {{ include "one37id-bcagent-oc.serviceAccountName" . }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       restartPolicy: Always
       containers:
