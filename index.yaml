@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:15:30.8045974+02:00"
+    created: "2023-09-13T14:50:16.3529853+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -24,7 +24,7 @@ entries:
       - redis
       version: 18.x.x
     description: A Kubernetes Helm chart for the One37 Business Connector Agent
-    digest: 8687c731215ba84b178fbf59a9f52c0534d656891ced97ed6f1b6948a0414bc7
+    digest: ff8e35f5ac3d76ac14f0f4b0bfba1e39efc55f3390f67a19ed628919682cda38
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -49,7 +49,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2309.13
-    created: "2023-09-13T14:15:30.8160053+02:00"
+    created: "2023-09-13T14:50:16.3642521+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -67,7 +67,7 @@ entries:
       - redis
       version: 18.x.x
     description: A OpenShift Helm chart for the One37 Business Connector Agent
-    digest: fd36a2d0fa569c93b9e00e2f2d230e5ccead3866932a0d6d7d2fe9ccc27f1c1b
+    digest: 814c83f0cdcd8b125113b4997a259ded3edf59bbdc28129d242e13703e2e698e
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -89,12 +89,12 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:15:30.8165423+02:00"
+    created: "2023-09-13T14:50:16.3647741+02:00"
     description: Setup some basic Kubernetes Secrets
-    digest: 565567ea98f23385a28dadae7c38fcb900748fd096720b448b587846334e5183
+    digest: 2805cb909be0bc7118c700f8def239db377cbd5a6ac403edeaade1adef0dbeb2
     name: one37secrets
     type: application
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.12.tgz
     version: 1.2309.12
-generated: "2023-09-13T14:15:30.7931229+02:00"
+generated: "2023-09-13T14:50:16.3406673+02:00"
