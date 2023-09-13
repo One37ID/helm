@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:50:16.3529853+02:00"
+    created: "2023-09-13T16:15:45.5906231+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -48,26 +48,16 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 1.2309.13
-    created: "2023-09-13T14:50:16.3642521+02:00"
+    appVersion: 1.2309.14
+    created: "2023-09-13T16:15:45.5929866+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
       tags:
       - one37secrets
       version: 1.2309.12
-    - name: postgresql
-      repository: oci://registry-1.docker.io/bitnamicharts
-      tags:
-      - postgresql
-      version: 12.x.x
-    - name: redis
-      repository: oci://registry-1.docker.io/bitnamicharts
-      tags:
-      - redis
-      version: 18.x.x
     description: A OpenShift Helm chart for the One37 Business Connector Agent
-    digest: 814c83f0cdcd8b125113b4997a259ded3edf59bbdc28129d242e13703e2e698e
+    digest: 210e320d4361b28a4135b4c73f0fd337df20063e8cd925ac7db27e81d219960c
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -84,12 +74,12 @@ entries:
     name: one37id-bcagent-oc
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-oc-1.2309.13.tgz
-    version: 1.2309.13
+    - https://fedoraman137.github.io/helm-test/packages/one37id-bcagent-oc-1.2309.14.tgz
+    version: 1.2309.14
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:50:16.3647741+02:00"
+    created: "2023-09-13T16:15:45.5935773+02:00"
     description: Setup some basic Kubernetes Secrets
     digest: 2805cb909be0bc7118c700f8def239db377cbd5a6ac403edeaade1adef0dbeb2
     name: one37secrets
@@ -97,4 +87,4 @@ entries:
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.12.tgz
     version: 1.2309.12
-generated: "2023-09-13T14:50:16.3406673+02:00"
+generated: "2023-09-13T16:15:45.5798427+02:00"

@@ -13,16 +13,6 @@ dependencies:
     tags:
     - one37secrets
     version: 1.2309.12
-  - name: postgresql
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-    - postgresql
-    version: 12.x.x
-  - name: redis
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-    - redis
-    version: 18.x.x
 keywords:
   - businessconnector
   - ssi
@@ -34,5 +24,5 @@ keywords:
 maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
-appVersion: "1.2309.13"
-version: 1.2309.13
+appVersion: "1.2309.14"
+version: 1.2309.14

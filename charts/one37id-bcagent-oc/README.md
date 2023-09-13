@@ -50,14 +50,6 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ## Parameters
 
-### Global parameters (common to the PostgreSql & Redis charts)
-
-| Name                      | Description                                            | Value |
-| ------------------------- | ------------------------------------------------------ | ----- |
-| `global.storageClass`     | Global StorageClass for Persistent Volume(s)           | `""`  |
-
-### Required parameters for the BusinessConnector Agent
-
 | Name                                  | Description                                                                                       | Value           |
 | --------------------------------------| --------------------------------------------------------------------------------------------------| --------------- |
 | `fullnameOverride`                    | String to fully override common.names.fullname template                                           | `""`            |
