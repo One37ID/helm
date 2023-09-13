@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:07:13.0233509+02:00"
+    created: "2023-09-13T14:15:30.8045974+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -24,7 +24,7 @@ entries:
       - redis
       version: 18.x.x
     description: A Kubernetes Helm chart for the One37 Business Connector Agent
-    digest: f28d1256b83363baff5f7a68c4e70215c21c6e8e92fc0c987eb9ec166f25bc1b
+    digest: 8687c731215ba84b178fbf59a9f52c0534d656891ced97ed6f1b6948a0414bc7
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -49,7 +49,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2309.13
-    created: "2023-09-13T14:07:13.0341351+02:00"
+    created: "2023-09-13T14:15:30.8160053+02:00"
     dependencies:
     - name: one37secrets
       repository: https://fedoraman137.github.io/helm-test/
@@ -67,7 +67,7 @@ entries:
       - redis
       version: 18.x.x
     description: A OpenShift Helm chart for the One37 Business Connector Agent
-    digest: 4f04775e7d9d37491addc67ff22d498c070e66382a751b0da38438541f8f6173
+    digest: fd36a2d0fa569c93b9e00e2f2d230e5ccead3866932a0d6d7d2fe9ccc27f1c1b
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -89,7 +89,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2309.12
-    created: "2023-09-13T14:07:13.0346679+02:00"
+    created: "2023-09-13T14:15:30.8165423+02:00"
     description: Setup some basic Kubernetes Secrets
     digest: 565567ea98f23385a28dadae7c38fcb900748fd096720b448b587846334e5183
     name: one37secrets
@@ -97,4 +97,4 @@ entries:
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2309.12.tgz
     version: 1.2309.12
-generated: "2023-09-13T14:07:13.0114432+02:00"
+generated: "2023-09-13T14:15:30.7931229+02:00"
