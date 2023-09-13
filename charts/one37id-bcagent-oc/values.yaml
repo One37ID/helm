@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: "one37id-bcagent"
-fullname: "one37id-bcagent"
+nameOverride: ""
+fullname: ""
 
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
@@ -21,14 +21,14 @@ service:
   adminPort:  "8080"
 
 ingress:
-  enabled: true
+  enabled: false
   # className: nginx # use this for Azure with open source nginx ingress controller
   className: ""  # use this for IBM Cloud
   annotations:
     kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
     proxybodysize: "50m"
   hosts:
-    - host: ibmtest.dev-one37.id
+    - host: ibmtest2.dev-one37.id
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -46,7 +46,7 @@ ingress:
   tls:
     - secretname: one37secrets-tls
       hosts:
-        - ibmtest.dev-one37.id
+        - ibmtest2.dev-one37.id
 
 
 configmap:
@@ -91,11 +91,11 @@ secrets:
   app:
     PG_USER: postgres
     PG_ADMIN_USER: postgres
-    WALLET_KEY: Ns7eExZYeFO0dHVn2qqPKHmnrxTFa7wb
-    AGENT_NYM: 4p85wwn25cgNMdstGSZ2EC
-    STUDIO_CONTACT_ID: c0e85c4b-2648-4bfe-9e5c-c1da17119f51
-    CONFIGURATION_SECRET_KEY: 3Zfx5GfO9K7M6C7b48o1HSOvRhl4iOgB
-    STUDIO_RSA_PRIVATE_KEY: -----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAmEI9TAMUtWZdoxnMJYpNZzxvEvUfa0HnXphKsABcw2AIn18YHFhQcP9+90REdNU30z309uQ1JF43JTPITBh7fNh8dDDAwDbe5nZlWalrI1AOcsFNOCiTwijIXrYHkRo66t/vB0wSgcWxe3YNrCNooEfDvq7n0oRMTnDsgia5wPcQuSofTxToCq6Y1l16oc1sl6lPeAtttQ2bK1jc+UndfxjwzZ/tO7zt7S1LLVjBXGuf0r6kmqmgk59krPsUJIo/5zb8CxjXT6lOX3Zytt7Uuvej/ocawRzHN6CUo016fr9/bsVHk0YMW5z0e5v3rJmF/eHtNDNSZCHQ5TpagXH8ywIDAQABAoIBADmbdk24LLGllXAMZq0dcsPInc3yaHzQZpXn0PpeaLqTLy/9bsXqtCTMxmEPt0btFT4bhv+SwHiOHRc6TGJeMPq/ffcIKyWOnS9dRGN0MlEeDRlmAa1pzN39SDJtdNd1sS0EpQ+BvM7U2Z34wJuMmh1qiakvzA5ed/CF0TY9KLLVMQ+hv5Y3E3GR7DsC+0ZXHzeGH9tafsnc5qeGGnwoxvvDpzRnGvD0zi8Q+woSe3PfJ6ddOD0CuCm4qYpBlBaEveYAHghS3IglcPbLBv4z3GN1RkB/u1JBkiAMpBtMOFQ18jfmeFWEvnmh+rC4TuCeqVLGPGbHE5Z0Axt0YNhu70ECgYEA4UUNaQ3sEadDXEB+bflXWIL/AgUc3iH3wEeRm/f8a7wi6TvcigQM/jD4I0gybh9WtM9LmPMZWTweOyAIlzPI54LgHgrC+tkeBSFvPwMBhm9mqOfuClDr52J7O0nKAmkyS5vo1Pbq36jnKq5JvMitX/k7ws+iOXzsPynXKxaSwcMCgYEArQd42oN/DGXshNhzPZ9keEf7ybJB1bFxHbQyRmRB+QDrrLcnih5f8/13KwCOIUlHWLarVmEKApPp25fRQtWn5uu7N/EL2SDVHRfpPkMNjiW4m7cZSw83ZTSDbAQ7Xk93voVsE4EBpI8GWvlvzYa9ljUNvzd50pmTNvd62GV24FkCgYEAiNeMnOuTIuordifLZXzY/XCd/hki/yE9QfV303oiQUPJJUty3fg1+FfA9JXP5Ktu3WkrcB8En/twFdSQw2D2wwPypu08omsv3EgCLxHhZEvZ3fL93BBqLWXanBpn92z12447MttHtFQDER9Mtbxl7W4WSnIdBrUHQhtllMwinEcCgYBG8mFjd7eIZeJtNjNKeSjBCQL82NKVxIQVIeXbZxCGARKhZxgXUg0WBj/uqfOdQma2wW/Po0pvdCbXm5B6TxDhZpcFgRjSltvLahqBJQ1R07W2Y4VDeaHFJZsdlz6glQUMYbjG5oa96sc4Vj65jx39kRNp7F1PNRlf2GnOgQwVQQKBgEoGYeZQExKWeumoyOhAAP2l1XVV+AQVUJALtlIqUhm2NoEqFJpf6dEBNiDfUJwJ/jfe1tvoeAm8Og4fgL7jc0P5Ee9D6sBPoYhWDo8tg2GgRPCrFrhY8qOCZxBw7sLDOGK0wIxB9NItjsitpphbar4OpLodNirnkIKy5QzobnrV-----END RSA PRIVATE KEY-----
+    WALLET_KEY: ""
+    AGENT_NYM: ""
+    STUDIO_CONTACT_ID: ""
+    CONFIGURATION_SECRET_KEY: ""
+    STUDIO_RSA_PRIVATE_KEY: ""
 
   postgres:
     passwordKey: "postgres-password"
