@@ -1,6 +1,6 @@
 apiVersion: v2
 name: one37secrets
-description: Setup some basic Kubernetes Secrets
+description: Add Kubernetes Secrets to the One37 GitLab Registry
 type: application
-version: 1.2309.12
-appVersion: 1.2309.12
+version: 1.2310.08
+appVersion: 1.2310.08

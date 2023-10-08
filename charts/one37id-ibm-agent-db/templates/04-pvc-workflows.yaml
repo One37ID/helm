@@ -1,0 +1,12 @@
+{{- $fullName := include "one37id-ibm-agent-db.name" . -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $fullName}}_{{ .Values.workflowVolume.name }}
+spec:
+  accessModes:
+{{ toYaml .Values.workflowVolume.accessModes | indent 4 }}
+  storageClassName: {{ .Values.workflowVolume.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.workflowVolume.size }}

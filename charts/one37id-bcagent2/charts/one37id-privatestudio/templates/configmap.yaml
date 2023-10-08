@@ -1,0 +1,14 @@
+{{- $fullName := include "one37id-privatestudio.fullname" . -}}
+{{- $justName := include "one37id-privatestudio.name" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $svcRoot := printf "%s:%v" "https://0.0.0.0" .Values.service.port -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+data:
+  STUDIO_PG_DBNAME: {{ $justName }}_db
+  SERVICE_ROOT: {{ $svcRoot }}
+{{- range $key, $value := .Values.configmap }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}

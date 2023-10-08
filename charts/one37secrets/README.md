@@ -40,8 +40,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | Name               | Description                                                               | Value |
 | -------------------| --------------------------------------------------------------------------| ----- |
 | `dockerconfigjson` | Base64 encoded dockeconfig json with Image repository access credentials  | `""`  |
-| `tls.key`          | Base64 encoded TLS certificate key data                                   | `""`  |
-| `tls.crt`          | Base64 encoded TLS certificate data                                       | `""`  |
 
 ## Installing the software from the IBM Cloud catalog
 

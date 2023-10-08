@@ -1,0 +1,9 @@
+dependencies:
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 12.12.10
+- name: one37secrets
+  repository: file://../one37secrets
+  version: 1.2310.08
+digest: sha256:6c4d77b0ea0e072529a011a3a6de6e355357050a04ca8a3808d01de947d17b86
+generated: "2023-10-08T20:21:01.4305096+02:00"

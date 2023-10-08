@@ -1,0 +1,99 @@
+{{- $fullName := include "one37id-ibm-studio.fullname" . -}}
+{{- $justName := include "one37id-ibm-studio.name" . -}}
+{{- $postgresSecretName := "default" }}
+{{- if .Values.postgresql.enabled }}
+  {{- $postgresSecretName = .Values.postgresql.fullnameOverride -}}
+{{- else }}
+  {{- $postgresSecretName = .Values.secrets.postgresSecretName -}}
+{{- end }}
+{{- $redisSecretName := printf "%s" .Values.secrets.redisSecretName | trunc 63 | trimSuffix "-" -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "one37id-ibm-studio.fullname" . }}
+  labels:
+    {{- include "one37id-ibm-studio.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "one37id-ibm-studio.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "one37id-ibm-studio.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "one37id-ibm-studio.serviceAccountName" . }}
+      securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      restartPolicy: Always
+      containers:
+        - name: {{ $justName }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ $fullName }}
+          env:
+            {{- range $key, $value := .Values.environment }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- if .Values.secrets.create }}
+            {{- range $key, $value := .Values.secrets.app }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $key }}
+                  name: {{ $fullName }}
+                  optional: false
+            {{- end }}
+            {{- range $key, $value := .Values.secretsPGRef }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $value | quote }}
+                  name: {{ $postgresSecretName | quote }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+          ports:
+            - name: http-{{ .Values.service.port }}
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- if .Values.liveCheck }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

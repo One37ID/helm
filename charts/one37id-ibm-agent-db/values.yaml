@@ -1,0 +1,234 @@
+# Overide values for the redis subchart
+redis:
+  nameOverride: "one37-redis"
+  fullnameOverride: "one37-redis"
+  global:
+    storageClass: "ibmc-vpc-block-general-purpose"
+  persistence:
+    enabled: true
+    size: 8Gi
+  replica:
+    replicaCount: 1
+
+# Overide values for the postgres subchart
+postgresql:
+  nameOverride: "one37-psql"
+  fullnameOverride: "one37-psql"
+  global:
+    storageClass: "ibmc-vpc-block-general-purpose"
+  persistence:
+    enabled: true
+    size: 8Gi
+
+
+# Default values for one37 Business Connector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: "one37id-ibm-agent-db"
+fullname: "one37id-ibm-agent-db"
+
+# Enable this if you want have liveness and readiness probes
+liveCheck: false
+
+
+# Any value here above 1 will require the REDIS or MQ service
+# to be enabled and specified below
+replicaCount: 0
+
+# The Business Connector can host the public and admin API on the different ports if needed
+service:
+  type: "ClusterIP"
+  twoPortMode: true
+  ports:
+    bootport: "8083"
+    openport: "8080"
+    adminport: "8081"
+
+ingress:
+  enabled: true
+  # className: nginx # use this for Azure with open source nginx ingress controller
+  className: ""  # use this for IBM Cloud
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    proxybodysize: "50m"
+  hosts:
+    - host: ibmtest.dev-one37.id
+      paths:
+        - path: /studio
+          pathType: Prefix
+          port: 8083
+        - path: /bc/studio
+          pathType: Prefix
+          port: 8083
+        - path: /bc/agent
+          pathType: Prefix
+          port: 8080
+        - path: /agent
+          pathType: Prefix
+          port: 8080
+        - path: /vc
+          pathType: Prefix
+          port: 8080
+        - path: /
+          pathType: Prefix
+          port: 8083
+    - host: ibmtest-admin.dev-one37.id
+      paths:
+        - path: /api/agency
+          pathType: Prefix
+          port: 8081
+        - path: /bc/agency
+          pathType: Prefix
+          port: 8081
+  tls:
+    - secretname: "one37id-tls-dev"
+      hosts:
+        - ibmtest.dev-one37.id
+        - ibmtest-admin.dev-one37.id
+
+
+configmap:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  MINIMUM_LOG_LEVEL: 1
+  USE_HTTPS_MESSAGE_TYPES: "false"
+  USE_HTTPS: "false"
+  IS_RUNNING_BEHIND_PROXY: "true"
+  PG_HOST: "one37-psql"
+  PG_PORT: "5432"
+  PG_CONNECTION: "one37-psql:5432"
+  # PG_DBNAME defined in the configmap will be used as the default database name
+  REDIS_HOST: "one37-redis-master"
+  REDIS_PORT: "6379"
+  AGENT_GENESIS: https://raw.githubusercontent.com/One37ID/indy-did-networks/one37/networks/one37id/testnet/pool_transactions_genesis
+  AGENT_POOL: "one37id-devnet"
+  ARS_ALIAS: "ars"
+  ARS_URL: https://ars.dev-one37.id
+  ARS_ENDPOINT: https://ars-agent.dev-one37.id/agent
+
+environment:
+  CREDENTIAL_CLEANER_SERVICE_CRON: "*/5 * * * *"
+  WORKFLOW_CLEANER_SERVICE_CRON: "*/1 * * * *"
+    #Metrics Support
+  OTEL_METRICS_ENABLED: "false"
+  OTEL_LOGGING_ENABLED: "false"
+  OTEL_PROMETHEUS_EXPORT: "false"
+  OTEL_ENDPOINT: "https://simplist-collector:4317"
+  OTEL_PROTOCOL: "GRPC"
+  PROMETHEUS_URL: http://prometheus:9090/api/v1
+
+secrets:
+  create: true
+  postgresSecretName: "one37-psql"
+  redisSecretName: "one37-redis"
+  app:
+    PG_USER: postgres
+    PG_ADMIN_USER: postgres
+    APP_INSIGHTS_CS: "InstrumentationKey=fe47e6cf-d4bc-44a8-96ae-7ede2471e1f8;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+
+  postgres:
+    passwordKey: "postgres-password"
+  redis:
+    passwordKey: "redis-password"
+
+
+#Read Secrets from Postgres Secrets
+secretsPGRef:
+  PG_PSWD: "postgres-password"
+  PG_ADMIN_PSWD: "postgres-password"
+
+#Read Secrets from Redis Instance Secrets
+secretsREDISRef:
+  REDIS_PSWD: "redis-password"
+
+image:
+  repository: registry.gitlab.com/one37id/registry/solitaire/private
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: [{"name": "one37secrets"}]
+
+## @param extraVolumes Optionally specify extra list of additional volumes for PhpMyAdmin pods
+##
+extraVolumes:
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for PhpMyAdmin container(s)
+##
+extraVolumeMounts:
+
+
+resources:
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## limits:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  limits: {}
+  ## requests:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  requests: {}
+
+
+workflowVolume:
+  name: app-workflows
+  mountPath: /app/workflows/custom
+  accessModes:
+    - ReadWriteOnce
+  storageClass: default
+  size: 1Gi
+
+resourceVolume:
+  name: app-resources
+  mountPath: /app/ResourcesExternal
+  accessModes:
+    - ReadWriteOnce
+  storageClass: default
+  size: 1Gi
+
+
+nodeSelector: {}
+
+tolerations:
+
+affinity: {}
+
+# Supported values: redis, rabbitmq
+replicaQueHandler:
+  enabled: false
+  handler: redis
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
+
+updateStrategy:
+#   ## StrategyType
+#   ## Can be set to RollingUpdate or OnDelete
+#   ##
+  type: "OnDelete"

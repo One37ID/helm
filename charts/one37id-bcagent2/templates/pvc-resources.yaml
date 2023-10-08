@@ -1,0 +1,14 @@
+{{- if .Values.resourceVolume.enabled }}
+{{- $fullName := include "one37id-bcagent2.fullname" . -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.resourceVolume.name }}
+spec:
+  accessModes:
+{{ toYaml .Values.resourceVolume.accessModes | indent 4 }}
+  storageClassName: {{ .Values.resourceVolume.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.resourceVolume.size }}
+{{- end -}}

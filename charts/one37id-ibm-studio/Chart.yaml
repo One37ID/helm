@@ -1,0 +1,34 @@
+apiVersion: v2
+name: one37id-ibm-studio
+type: application
+description: Helm chart for the deployment of the One37 Business Studio (Agent Manager) on IBM Cloud Kubernetes Service.
+home: https://one37id.com
+icon: https://www.one37id.com/images/connector.svg
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+dependencies:
+  - name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - postgresql
+    version: 12.x.x
+  - name: one37secrets
+    repository: file://../one37secrets
+    tags:
+    - one37secrets
+    version: 1.2310.08
+keywords:
+  - studio
+  - agent manager
+  - workflows
+  - schema
+  - agent
+  - one37id
+  - one37
+  - one37id.com
+maintainers:
+  - name: One37 Solutions, Inc.
+    url: https://github.com/one37id/charts
+appVersion: "2.2310.0801"
+version: 2.2310.0801

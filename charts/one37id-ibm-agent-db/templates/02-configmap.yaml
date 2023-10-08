@@ -1,0 +1,14 @@
+{{- $fullName := include "one37id-ibm-agent-db.fullname" . -}}
+{{- $svcPort := .Values.service.publicPort -}}
+{{- $svcAdminPort := .Values.service.adminPort -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+data:
+  PG_DBNAME: {{ $fullName }}_agent_db
+  WORKFLOW_PG_DBNAME: {{ $fullName }}_workflow_db
+  AUDIT_PG_DBNAME: {{ $fullName }}_audit_db
+{{- range $key, $value := .Values.configmap }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}

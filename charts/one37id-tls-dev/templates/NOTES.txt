@@ -1,0 +1,3 @@
+This chart will have deployed the following resources:
+
+- 1x `Secret` named `{{ include "one37id-tls-dev.name" . }}`

@@ -1,0 +1,25 @@
+{{- $fullName := include "one37id-ibm-studio.fullname" . -}}
+{{- $justName := include "one37id-ibm-studio.name" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $svcRoot := printf "%s:%v" "http://0.0.0.0" .Values.service.port -}}
+
+{{- $pgHost := "" -}}
+{{- if .Values.postgresql.enabled }}
+  {{- $pgHost = .Values.postgresql.fullnameOverride -}}
+{{- else -}}
+  {{- $pgHost = .Values.existingDBHost -}}
+{{- end }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+data:
+  SERVICE_ROOT: {{ $svcRoot }}
+  STUDIO_PG_HOST: {{ $pgHost }}
+  STUDIO_PG_PORT: 5432
+  STUDIO_PG_DBNAME: {{ $justName }}_db
+
+{{- range $key, $value := .Values.configmap }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
