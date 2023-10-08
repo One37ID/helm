@@ -6,17 +6,23 @@ The One37 Business Connector is a Verifiable Credentials exchange platform.
 
 This chart bootstraps a [Business Connector v1.2]() deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It is available to execute as a simple Click & Configure installation through the IBM Cloud Catalog.
+It is available to execute as a simple Click & Configure installation through the
+IBM Cloud Catalog.
 
 ## Requirements
 
 - IBM Cloud Kubernetes Service Cluster deployed  v1.19+
-- PostgreSQL database and Redis cache. The chart includes [Bitnami PostgreSQL]() and [Bitnami Redis]() charts and will automatically deploy pre-configured instances of them in your cluster.
-- At least one installed instance of the [One37 Business Studio](). This is also available as a Click & Configure installation through the IBM Cloud Catalog.
+- PostgreSQL database and Redis cache. The chart includes [Bitnami PostgreSQL]()
+  and [Bitnami Redis]() charts and will automatically deploy pre-configured instances
+  of them in your cluster.
+- At least one installed instance of the [One37 Business Studio](). This is also available
+  as a Click & Configure installation through the IBM Cloud Catalog.
 
 ## Installing the software from the IBM Cloud catalog
 
-In IBM Cloud, you can configure your installation by using IBM Cloud Schematics, and after the installation is complete, you can view the chart instance, update the version, or uninstall from your Schematics workspace.
+In IBM Cloud, you can configure your installation by using IBM Cloud Schematics, and
+after the installation is complete, you can view the chart instance, update the version,
+or uninstall from your Schematics workspace.
 
 ## Parameters
 
@@ -59,7 +65,8 @@ Complete the following steps to uninstall a Helm Chart from your account.
 
 Copyright &copy; 2023 One37 Solutions, Inc.
 
-Portions of the codebase are licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.
+Portions of the codebase are licensed under the Apache 2.0 License. See
+[LICENSE](LICENSE) for details.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

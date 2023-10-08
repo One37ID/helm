@@ -107,12 +107,12 @@ configmap:
   ARS_ENDPOINT: https://ars-agent.dev-one37.id/agent
 
 environment:
-  CREDENTIAL_CLEANER_SERVICE_CRON: "*/5 * * * *"
-  WORKFLOW_CLEANER_SERVICE_CRON: "*/1 * * * *"
+  CREDENTIAL_CLEANER_SERVICE_CRON: "*/10 * * * *"
+  WORKFLOW_CLEANER_SERVICE_CRON: "*/2 * * * *"
     #Metrics Support
   OTEL_METRICS_ENABLED: "false"
   OTEL_LOGGING_ENABLED: "false"
-  OTEL_PROMETHEUS_EXPORT: "false"
+  OTEL_PROMETHEUS_EXPORT: "true"
   OTEL_ENDPOINT: "https://simplist-collector:4317"
   OTEL_PROTOCOL: "GRPC"
   PROMETHEUS_URL: http://prometheus:9090/api/v1
@@ -149,11 +149,7 @@ image:
 
 imagePullSecrets: [{"name": "one37secrets"}]
 
-## @param extraVolumes Optionally specify extra list of additional volumes for PhpMyAdmin pods
-##
 extraVolumes:
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for PhpMyAdmin container(s)
-##
 extraVolumeMounts:
 
 
