@@ -17,7 +17,7 @@ dependencies:
     repository: file://../one37secrets
     tags:
     - one37secrets
-    version: 1.2310.08
+    version: 1.2310.8
 keywords:
   - studio
   - agent manager
@@ -30,5 +30,5 @@ keywords:
 maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
-appVersion: "2.2310.0801"
-version: 2.2310.0801
+appVersion: "2.2310.9"
+version: 2.2310.9

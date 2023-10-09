@@ -4,6 +4,6 @@ dependencies:
   version: 12.12.10
 - name: one37secrets
   repository: file://../one37secrets
-  version: 1.2310.08
-digest: sha256:6c4d77b0ea0e072529a011a3a6de6e355357050a04ca8a3808d01de947d17b86
-generated: "2023-10-08T20:21:01.4305096+02:00"
+  version: 1.2310.8
+digest: sha256:c4465d079a58a104c2367f375b3a745a9c5a61b0a7c399f29f334f0f0964d9a2
+generated: "2023-10-08T22:09:22.9426042+02:00"

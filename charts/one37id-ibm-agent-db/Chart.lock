@@ -7,6 +7,6 @@ dependencies:
   version: 18.1.2
 - name: one37secrets
   repository: file://../one37secrets
-  version: 1.2310.08
-digest: sha256:601723616ae57076bd5fff21d5b4f8b225b54e17db36bc58e13d6b4435e57d8c
-generated: "2023-10-08T20:22:06.8243366+02:00"
+  version: 1.2310.8
+digest: sha256:023ab477fbd313fdcb5a116efee61c126caf74c833dd53766ada53150928bc15
+generated: "2023-10-08T22:09:43.80435+02:00"
