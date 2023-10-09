@@ -34,16 +34,16 @@ liveCheck: false
 
 # Any value here above 1 will require the REDIS or MQ service
 # to be enabled and specified below
-replicaCount: 0
+replicaCount: 1
 
 # The Business Connector can host the public and admin API on the different ports if needed
 service:
-  type: "ClusterIP"
+  type: ClusterIP
   twoPortMode: true
   ports:
-    bootport: "8083"
-    openport: "8080"
-    adminport: "8081"
+    bootport: 8083
+    openport: 8080
+    adminport: 8081
 
 ingress:
   enabled: true
@@ -55,34 +55,28 @@ ingress:
   hosts:
     - host: ibmtest.dev-one37.id
       paths:
-        - path: /studio
-          pathType: Prefix
-          port: 8083
         - path: /bc/studio
           pathType: Prefix
           port: 8083
         - path: /bc/agent
           pathType: Prefix
           port: 8080
-        - path: /agent
-          pathType: Prefix
-          port: 8080
-        - path: /vc
+        - path: /bc/vc
           pathType: Prefix
           port: 8080
         - path: /
           pathType: Prefix
           port: 8083
+        - path: /metrics
+          pathType: Prefix
+          port: 8083
     - host: ibmtest-admin.dev-one37.id
       paths:
-        - path: /api/agency
-          pathType: Prefix
-          port: 8081
         - path: /bc/agency
           pathType: Prefix
           port: 8081
   tls:
-    - secretname: "one37id-tls-dev"
+    - secretname: one37id-tls-dev
       hosts:
         - ibmtest.dev-one37.id
         - ibmtest-admin.dev-one37.id
@@ -112,7 +106,7 @@ environment:
     #Metrics Support
   OTEL_METRICS_ENABLED: "false"
   OTEL_LOGGING_ENABLED: "false"
-  OTEL_PROMETHEUS_EXPORT: "true"
+  OTEL_PROMETHEUS_EXPORT: "false"
   OTEL_ENDPOINT: "https://simplist-collector:4317"
   OTEL_PROTOCOL: "GRPC"
   PROMETHEUS_URL: http://prometheus:9090/api/v1

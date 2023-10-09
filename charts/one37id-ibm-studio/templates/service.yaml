@@ -10,6 +10,6 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.port }}
       protocol: TCP
-      name: http-{{ .Values.service.port }}
+      name: http
   selector:
     {{- include "one37id-ibm-studio.selectorLabels" . | nindent 4 }}

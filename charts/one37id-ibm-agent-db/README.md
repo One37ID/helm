@@ -28,18 +28,21 @@ or uninstall from your Schematics workspace.
 
 ### Global parameters (common to the included PostgreSql & Redis charts)
 
-| Name                  | Description                                                                | Value |
-|-----------------------|----------------------------------------------------------------------------|-------|
-| `global.storageClass` | Select the preferred StorageClass to use for the data Persistent Volume(s) | `""`  |
+| Name                             | Description                                          | Value                              |
+|----------------------------------|------------------------------------------------------|------------------------------------|
+| `redis.global.storageClass`      | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
+| `postgresql.global.storageClass` | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
+| `workflowVolume.storageClass`    | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
+| `resourceVolume.storageClass`    | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
 
 ### Required parameters for the BusinessConnector Agent
 
-| Name                                   | Description                                                                                      | Value |
-|----------------------------------------|--------------------------------------------------------------------------------------------------|-------|
-| `fullnameOverride`                     | String to fully override the Kubernetes instance name. Must be unique in each namespace          | `""`  |
-| `nameOverride`                         | String to partially override the Kubernetes instance name. Must be unique in each namespace      | `""`  |
-| `environment.AGENT_NAME`               | String value to set the public name of the Agent                                                 | `""`  |
-| `ingress.secret.secretname`            | String value of the name if the installed Ingress certificate to use for external access.        | `""`  |
+| Name                        | Description                                                                                 | Value |
+|-----------------------------|---------------------------------------------------------------------------------------------|-------|
+| `fullnameOverride`          | String to fully override the Kubernetes instance name. Must be unique in each namespace     | `""`  |
+| `nameOverride`              | String to partially override the Kubernetes instance name. Must be unique in each namespace | `""`  |
+| `environment.AGENT_NAME`    | String value to set the public name of the Agent                                            | `""`  |
+| `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | `""`  |
 
 ## Upgrading to a new version
 
@@ -65,8 +68,9 @@ Complete the following steps to uninstall a Helm Chart from your account.
 
 Copyright &copy; 2023 One37 Solutions, Inc.
 
-Portions of the codebase are licensed under the Apache 2.0 License. See
-[LICENSE](LICENSE) for details.
+[LICENSE](https://raw.githubusercontent.com/FedoraMan137/helm-test/main/LICENSE.md)
+
+Portions of the codebase are licensed under the Apache 2.0 License.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

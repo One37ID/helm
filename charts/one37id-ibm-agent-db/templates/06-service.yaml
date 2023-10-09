@@ -7,15 +7,17 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.publicPort }}
-      targetPort: {{ .Values.service.publicPort }}
+    - port: {{ .Values.service.bootPort }}
+      targetPort: {{ .Values.service.bootPort }}
       protocol: TCP
-      name: http-public
-    {{- if .Values.service.twoPortMode }}
+      name: http-boot
+    - port: {{ .Values.service.openPort }}
+      targetPort: {{ .Values.service.openPort }}
+      protocol: TCP
+      name: http-open
     - port: {{ .Values.service.adminPort }}
       targetPort: {{ .Values.service.adminPort }}
       protocol: TCP
       name: http-admin
-    {{- end }}
   selector:
     {{- include "one37id-ibm-agent-db.selectorLabels" . | nindent 4 }}
