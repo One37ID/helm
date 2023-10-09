@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $fullName}}_{{ .Values.workflowVolume.name }}
+  name: {{ $fullName}}-{{ .Values.workflowVolume.name }}
 spec:
   accessModes:
 {{ toYaml .Values.workflowVolume.accessModes | indent 4 }}
