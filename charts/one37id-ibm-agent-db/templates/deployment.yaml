@@ -72,30 +72,35 @@ spec:
 
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http-public
-              containerPort: {{ .Values.service.publicPort }}
+          {{- range $key, $value := .Values.service.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
               protocol: TCP
-            {{- if .Values.service.twoPortMode }}
-            - name: http-admin
-              containerPort: {{ .Values.service.adminPort }}
-              protocol: TCP
-            {{- end }}
+          {{- end }}
           {{- if .Values.liveCheck }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /bc/studio/health
+              port: {{ .Values.service.port.bootPort }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /bc/agency/health
+              port: {{ .Values.service.port.openPort }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if .Values.extraVolumeMounts }}
-            {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
-            {{- end }}
+          - name: {{ $fullName}}-{{ .Values.resourceVolume.name }}
+            mountPath: {{ .Values.resourceVolume.mountPath }}
+          - name: {{ $fullName}}-{{ .Values.workflowVolume.name }}
+            mountPath: {{ .Values.workflowVolume.mountPath }}
+      volumes:
+        - name: {{ $fullName}}-{{ .Values.resourceVolume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName}}-{{ .Values.resourceVolume.name }}
+        - name: {{ $fullName}}-{{ .Values.workflowVolume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName}}-{{ .Values.workflowVolume.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -108,8 +113,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
-      volumes:
-        {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
-        {{- end }}
