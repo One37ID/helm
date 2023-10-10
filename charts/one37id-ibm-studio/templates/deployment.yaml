@@ -70,17 +70,17 @@ spec:
             {{- end }}
           {{- end }}
           ports:
-            - name: http-{{ .Values.service.port }}
+            - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           {{- if .Values.liveCheck }}
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: {{ .Values.service.port }}
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: {{ .Values.service.port }}
           {{- end }}
           resources:

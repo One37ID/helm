@@ -10,7 +10,9 @@ postgresql:
     enabled: true
     size: 8Gi
 
-one37secrets.nameOverride: "one37id-studio-repo-secret"
+one37secrets:
+  nameOverride: ""
+  fullnameOverride: ""
 
 # If above is set to false, then provide the existing DB host
 existingDBHost: ""
@@ -27,7 +29,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-studio-repo-secret"}]
+imagePullSecrets: [{"name": "one37id-ibm-studio-one37secrets"}]
 
 nameOverride: "one37id-studio"
 fullnameOverride: "one37id-studio"
@@ -60,19 +62,20 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # className: nginx # use this for Azure with open source nginx ingress controller
+  className: ""  # use this for IBM Cloud
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
   hosts:
-    - host: aks-studio.dev-one37.id
+    - host: ibm-studio.dev-one37.id
       paths:
         - path: /
           pathType: Prefix
+          port: 8084
   tls:
-    - secretName: tls-dev-one37-id
+    - secretName: one37id-tls-dev
       hosts:
-        - aks-studio.dev-one37.id
+        - ibm-studio.dev-one37.id
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

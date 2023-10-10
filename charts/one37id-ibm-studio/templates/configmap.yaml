@@ -15,10 +15,10 @@ kind: ConfigMap
 metadata:
   name: {{ $fullName }}
 data:
-  SERVICE_ROOT: {{ $svcRoot }}
-  STUDIO_PG_HOST: {{ $pgHost }}
-  STUDIO_PG_PORT: 5432
-  STUDIO_PG_DBNAME: {{ $justName }}_db
+  SERVICE_ROOT: {{ $svcRoot | quote }}
+  STUDIO_PG_HOST: {{ $pgHost | quote }}
+  STUDIO_PG_PORT: "5432"
+  STUDIO_PG_DBNAME: {{ $justName }}-db
 
 {{- range $key, $value := .Values.configmap }}
   {{ $key }}: {{ $value | quote }}

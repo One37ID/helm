@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled }}
 {{- $fullName := include "one37id-ibm-agent-db.fullname" . -}}
-{{- $svcPort := .Values.service.publicPort -}}
 {{- $annotate := .Values.ingress.annotations -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
