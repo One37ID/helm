@@ -37,10 +37,7 @@ or uninstall from your Schematics workspace.
 
 | Name                        | Description                                                                                 | Value    |
 |-----------------------------|---------------------------------------------------------------------------------------------|----------|
-| `fullnameOverride`          | String to fully override the Kubernetes instance name. Must be unique in each namespace     | `""`     |
 | `nameOverride`              | String to partially override the Kubernetes instance name. Must be unique in each namespace | `""`     |
-| `postgresql.enabled`        | String (true/false) value to indicate if the Studio installs its own dedicate PG instance   | `"true"` |
-| `existingDBHost`            | String value of existing database hostname/service if `postgresql.enabled` is 'false'       | `""` |
 | `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | `""`     |
 
 ## Uninstalling the chart

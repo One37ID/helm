@@ -20,6 +20,7 @@ postgresql:
     enabled: true
     size: 8Gi
 
+one37secrets.nameOverride: "one37id-ibm-agent-db-repo-secret"
 
 # Default values for one37 Business Connector.
 # This is a YAML-formatted file.
@@ -141,7 +142,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37secrets"}]
+imagePullSecrets: [{"name": "one37id-ibm-agent-db-repo-secret"}]
 
 extraVolumes:
 extraVolumeMounts:

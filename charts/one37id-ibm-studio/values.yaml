@@ -10,6 +10,8 @@ postgresql:
     enabled: true
     size: 8Gi
 
+one37secrets.nameOverride: "one37id-studio-repo-secret"
+
 # If above is set to false, then provide the existing DB host
 existingDBHost: ""
 
@@ -25,7 +27,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37secrets"}]
+imagePullSecrets: [{"name": "one37id-studio-repo-secret"}]
 
 nameOverride: "one37id-studio"
 fullnameOverride: "one37id-studio"
