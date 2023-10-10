@@ -26,23 +26,23 @@ or uninstall from your Schematics workspace.
 
 ## Parameters
 
-### Global parameters (common to the included PostgreSql & Redis charts)
+### Sub-chart required parameters
 
-| Name                             | Description                                          | Value                              |
-|----------------------------------|------------------------------------------------------|------------------------------------|
-| `redis.global.storageClass`      | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
-| `postgresql.global.storageClass` | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
-| `workflowVolume.storageClass`    | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
-| `resourceVolume.storageClass`    | Select the StorageClass for the Persistent Volume(s) | `"ibmc-vpc-block-general-purpose"` |
+| Name                             | Description                                                                     | Value                              |
+|----------------------------------|---------------------------------------------------------------------------------|------------------------------------|
+| `redis.global.storageClass`      | Select the StorageClass for the REDIS Persistent Volume                         | "ibmc-vpc-block-general-purpose"   |
+| `postgresql.global.storageClass` | Select the StorageClass for the PGSQL Persistent Volume                         | "ibmc-vpc-block-general-purpose"   |
 
 ### Required parameters for the BusinessConnector Agent
 
-| Name                        | Description                                                                                 | Value |
-|-----------------------------|---------------------------------------------------------------------------------------------|-------|
-| `fullnameOverride`          | String to fully override the Kubernetes instance name. Must be unique in each namespace     | `""`  |
-| `nameOverride`              | String to partially override the Kubernetes instance name. Must be unique in each namespace | `""`  |
-| `environment.AGENT_NAME`    | String value to set the public name of the Agent                                            | `""`  |
-| `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | `""`  |
+| Name                          | Description                                                                                 | Value                            |
+|-------------------------------|---------------------------------------------------------------------------------------------|----------------------------------|
+| `fullnameOverride`            | String to fully override the Kubernetes instance name. Must be unique in each namespace     | ""                               |
+| `nameOverride`                | String to partially override the Kubernetes instance name. Must be unique in each namespace | ""                               |
+| `environment.AGENT_NAME`      | String value to set the public name of the Agent                                            | ""                               |
+| `ingress.secret.secretname`   | String value of the name if the installed Ingress certificate to use for external access.   | ""                               |
+| `workflowVolume.storageClass` | Select the StorageClass for the Workflow Persistent Volume                                  | "ibmc-vpc-block-general-purpose" |
+| `resourceVolume.storageClass` | Select the StorageClass for the Resources Persistent Volume                                 | "ibmc-vpc-block-general-purpose" |
 
 ## Upgrading to a new version
 

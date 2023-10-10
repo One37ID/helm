@@ -23,10 +23,8 @@ spec:
       labels:
         {{- include "one37id-ibm-agent-db.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: {{ .Values.one37secrets.fullnameOverride }}
       serviceAccountName: {{ include "one37id-ibm-agent-db.serviceAccountName" . }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       restartPolicy: Always

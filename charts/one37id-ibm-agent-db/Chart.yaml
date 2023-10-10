@@ -22,7 +22,7 @@ dependencies:
     repository: file://../one37secrets
     tags:
     - one37secrets
-    version: 1.2310.10-1
+    version: 1.2310.10-2
 keywords:
   - businessconnector
   - ssi

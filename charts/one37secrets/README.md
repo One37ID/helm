@@ -35,11 +35,11 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ## Parameters
 
-### Global parameters (common to the PostgreSql & Redis charts)
-
-| Name               | Description                                                               | Value |
-| -------------------| --------------------------------------------------------------------------| ----- |
-| `dockerconfigjson` | Base64 encoded dockeconfig json with Image repository access credentials  | `""`  |
+| Name               | Description                                                                               | Value       |
+|--------------------|-------------------------------------------------------------------------------------------|-------------|
+| `dockerconfigjson` | Base64 encoded dockerconfig json to access private Image repository                       | `""`        |
+| `fullnameOverride` | String to override the Kubernetes secret name. Must be unique in each namespace           | "one37repo" |
+| `nameOverride`     | String to partially override the Kubernetes secret name. Must be unique in each namespace | "one37repo" |
 
 ## Installing the software from the IBM Cloud catalog
 

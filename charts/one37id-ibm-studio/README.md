@@ -1,11 +1,14 @@
 # One37 Business Studio package for IBM Cloud Kubernetes Service
 
+v 2.2310.10-2
+
 The One37 Business Studio is the web-based tool for the configuration and management
 of the One37 Business Connector agents.
 
 ## Introduction
 
-This chart bootstraps a [Business Studio v2]() deployment on an IBM [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Business Studio v2]() deployment on an IBM [Kubernetes](https://kubernetes.io)
+cluster using the [Helm](https://helm.sh) package manager.
 
 It is available to execute as a simple Click & Configure installation through the
 IBM Cloud Catalog.
@@ -27,18 +30,18 @@ or uninstall from your Schematics workspace.
 
 ## Parameters
 
-### Global parameters (common to the included PostgreSql chart)
+### Sub-chart parameters
 
-| Name                  | Description                                                                | Value |
-|-----------------------|----------------------------------------------------------------------------|-------|
-| `global.storageClass` | Select the preferred StorageClass to use for the data Persistent Volume(s) | `""`  |
+| Name                             | Description                                                                     | Value                            |
+|----------------------------------|---------------------------------------------------------------------------------|----------------------------------|
+| `postgresql.global.storageClass` | Select the StorageClass for the data Persistent Volume(s)                       | "ibmc-vpc-block-general-purpose" |
 
 ### Required parameters for the Business Studio
 
-| Name                        | Description                                                                                 | Value    |
-|-----------------------------|---------------------------------------------------------------------------------------------|----------|
-| `nameOverride`              | String to partially override the Kubernetes instance name. Must be unique in each namespace | `""`     |
-| `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | `""`     |
+| Name                        | Description                                                                                 | Value              |
+|-----------------------------|---------------------------------------------------------------------------------------------|--------------------|
+| `fullnameOverride`          | String to partially override the Kubernetes instance name. Must be unique in each namespace | "one37-ibm-studio" |
+| `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | ""                 |
 
 ## Uninstalling the chart
 

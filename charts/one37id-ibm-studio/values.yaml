@@ -11,8 +11,8 @@ postgresql:
     size: 8Gi
 
 one37secrets:
-  nameOverride: ""
-  fullnameOverride: ""
+  nameOverride: "one37id-ibm-studio-one37secrets"
+  fullnameOverride: "one37id-ibm-studio-one37secrets"
 
 # If above is set to false, then provide the existing DB host
 existingDBHost: ""
