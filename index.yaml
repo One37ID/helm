@@ -5,8 +5,8 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 1.2310.10-3
-    created: "2023-10-11T15:11:10.9265945+02:00"
+    appVersion: 1.2310.11-1
+    created: "2023-10-11T16:36:37.9820137+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -25,7 +25,7 @@ entries:
       version: 1.2310.10-2
     description: A Combo Helm chart to deploy One37 Business Connector Agent v1 and
       its database dependencies
-    digest: 4026a7e592c02c8554b3d6fbd5e1d0b60d75f7d1f29d1e10e5a1cde4ebb1cf70
+    digest: e54a5b7ff5061bc588c4ee586ce09602e469757611f135aec445b1f8c6c0fc03
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -42,15 +42,15 @@ entries:
     name: one37id-ibm-agent-db
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-agent-db-1.2310.10-3.tgz
-    version: 1.2310.10-3
+    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-agent-db-1.2310.11-1.tgz
+    version: 1.2310.11-1
   one37id-ibm-studio:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2310.10-2
-    created: "2023-10-11T15:11:10.9337863+02:00"
+    created: "2023-10-11T16:36:37.989052+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -87,7 +87,7 @@ entries:
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2023-10-11T15:11:10.9343328+02:00"
+    created: "2023-10-11T16:36:37.989052+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -98,7 +98,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2310.10-2
-    created: "2023-10-11T15:11:10.9348604+02:00"
+    created: "2023-10-11T16:36:37.9900474+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
     digest: def0c4885785a1a60e6b4e11f56d450505ca674918b082ddac0ebc81b9f35e51
     name: one37secrets
@@ -106,4 +106,4 @@ entries:
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2310.10-2.tgz
     version: 1.2310.10-2
-generated: "2023-10-11T15:11:10.9137568+02:00"
+generated: "2023-10-11T16:36:37.9685959+02:00"

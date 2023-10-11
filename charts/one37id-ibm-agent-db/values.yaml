@@ -6,7 +6,7 @@ redis:
     storageClass: "ibmc-vpc-block-general-purpose"
   persistence:
     enabled: true
-    size: 8Gi
+    size: 10Gi
   replica:
     replicaCount: 1
 
@@ -18,7 +18,7 @@ postgresql:
     storageClass: "ibmc-vpc-block-general-purpose"
   persistence:
     enabled: true
-    size: 8Gi
+    size: 10Gi
 
 one37secrets:
   nameOverride: "one37id-ibm-agent-db-one37secrets"
@@ -29,7 +29,7 @@ one37secrets:
 # Declare variables to be passed into your templates.
 
 nameOverride: "one37id-ibm-agent"
-fullname: "one37id-ibm-agent"
+fullnameOverride: "one37id-ibm-agent"
 
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
@@ -161,22 +161,22 @@ resources:
   ##   memory: 128Mi
   requests: {}
 
+volumes:
+  storageClass: ibmc-vpc-block-general-purpose
 
 workflowVolume:
-  name: app-workflows
+  name: wf-pvc
   mountPath: /app/workflows/custom
   accessModes:
     - ReadWriteOnce
-  storageClass: default
-  size: 1Gi
+  size: 5Gi
 
 resourceVolume:
-  name: app-resources
+  name: res-pvc
   mountPath: /app/ResourcesExternal
   accessModes:
     - ReadWriteOnce
-  storageClass: default
-  size: 1Gi
+  size: 5Gi
 
 
 nodeSelector: {}

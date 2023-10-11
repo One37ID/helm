@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
 {{ toYaml .Values.workflowVolume.accessModes | indent 4 }}
-  storageClassName: {{ .Values.workflowVolume.storageClassName }}
+  storageClassName: {{ .Values.volumes.storageClassName }}
   resources:
     requests:
       storage: {{ .Values.workflowVolume.size }}
