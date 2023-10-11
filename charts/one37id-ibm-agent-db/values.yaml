@@ -1,7 +1,7 @@
 # Overide values for the redis subchart
 redis:
-  nameOverride: "one37-redis"
-  fullnameOverride: "one37-redis"
+  nameOverride: "one37id-ibm-agent-redis"
+  fullnameOverride: "one37id-ibm-agent-redis"
   global:
     storageClass: "ibmc-vpc-block-general-purpose"
   persistence:
@@ -12,8 +12,8 @@ redis:
 
 # Overide values for the postgres subchart
 postgresql:
-  nameOverride: "one37-psql"
-  fullnameOverride: "one37-psql"
+  nameOverride: "one37id-ibm-agent-psql"
+  fullnameOverride: "one37id-ibm-agent-psql"
   global:
     storageClass: "ibmc-vpc-block-general-purpose"
   persistence:
@@ -28,8 +28,8 @@ one37secrets:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: "one37id-ibm-agent-db"
-fullname: "one37id-ibm-agent-db"
+nameOverride: "one37id-ibm-agent"
+fullname: "one37id-ibm-agent"
 
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
@@ -56,7 +56,7 @@ ingress:
     kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
     proxybodysize: "50m"
   hosts:
-    - host: ibmtest.dev-one37.id
+    - host: ibm-agent.dev-one37.id
       paths:
         - path: /bc/studio
           pathType: Prefix
@@ -73,16 +73,13 @@ ingress:
         - path: /metrics
           pathType: Prefix
           port: 8083
-    - host: ibmtest-admin.dev-one37.id
-      paths:
         - path: /bc/agency
           pathType: Prefix
           port: 8081
   tls:
     - secretname: one37id-tls-dev
       hosts:
-        - ibmtest.dev-one37.id
-        - ibmtest-admin.dev-one37.id
+        - ibm-agent.dev-one37.id
 
 
 configmap:
@@ -91,11 +88,11 @@ configmap:
   USE_HTTPS_MESSAGE_TYPES: "false"
   USE_HTTPS: "false"
   IS_RUNNING_BEHIND_PROXY: "true"
-  PG_HOST: "one37-psql"
+  PG_HOST: "one37id-ibm-agent-psql"
   PG_PORT: "5432"
-  PG_CONNECTION: "one37-psql:5432"
+  PG_CONNECTION: "one37id-ibm-agent-psql:5432"
   # PG_DBNAME defined in the configmap will be used as the default database name
-  REDIS_HOST: "one37-redis-master"
+  REDIS_HOST: "one37id-ibm-agent-redis-master"
   REDIS_PORT: "6379"
   AGENT_GENESIS: https://raw.githubusercontent.com/One37ID/indy-did-networks/one37/networks/one37id/testnet/pool_transactions_genesis
   AGENT_POOL: "one37id-devnet"
@@ -116,8 +113,8 @@ environment:
 
 secrets:
   create: true
-  postgresSecretName: "one37-psql"
-  redisSecretName: "one37-redis"
+  postgresSecretName: "one37id-ibm-agent-psql"
+  redisSecretName: "one37id-ibm-agent-redis"
   app:
     PG_USER: postgres
     PG_ADMIN_USER: postgres
