@@ -41,7 +41,7 @@ or uninstall from your Schematics workspace.
 | `nameOverride`              | String to partially override the Kubernetes instance name. Must be unique in each namespace | "one37-ibm-agent"                |
 | `environment.AGENT_NAME`    | String value to set the public name of the Agent                                            | ""                               |
 | `ingress.secret.secretname` | String value of the name if the installed Ingress certificate to use for external access.   | ""                               |
-| `volumes.storageClass`      | Select the StorageClass for the App Persistent Volumes                                      | "ibmc-vpc-block-general-purpose" |
+| `volume.storageClass`       | Select the StorageClass for the App Persistent Volume                                       | "ibmc-vpc-block-general-purpose" |
 
 ## Upgrading to a new version
 
