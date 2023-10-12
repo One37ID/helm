@@ -118,7 +118,7 @@ secrets:
   app:
     PG_USER: postgres
     PG_ADMIN_USER: postgres
-    APP_INSIGHTS_CS: "InstrumentationKey=fe47e6cf-d4bc-44a8-96ae-7ede2471e1f8;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+    APP_INSIGHTS_CS: "InstrumentationKey=c6090685-8a49-4d28-90d6-beaf004fc3b3;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
 
   postgres:
     passwordKey: "postgres-password"
@@ -161,23 +161,13 @@ resources:
   ##   memory: 128Mi
   requests: {}
 
-volumes:
+volume:
+  name: external
+  mountPath: /app/external
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
   storageClass: ibmc-vpc-block-general-purpose
-
-workflowVolume:
-  name: wf-pvc
-  mountPath: /app/workflows/custom
-  accessModes:
-    - ReadWriteOnce
-  size: 5Gi
-
-resourceVolume:
-  name: res-pvc
-  mountPath: /app/ResourcesExternal
-  accessModes:
-    - ReadWriteOnce
-  size: 5Gi
-
 
 nodeSelector: {}
 
