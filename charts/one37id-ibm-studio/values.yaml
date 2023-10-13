@@ -1,25 +1,20 @@
 
 # Overide values for the postgres subchart
-postgresql:
-  enabled: true
-  nameOverride: "one37-studio-psql"
-  fullnameOverride: "one37-studio-psql"
-  global:
-    storageClass: "ibmc-vpc-block-general-purpose"
-  persistence:
-    enabled: true
-    size: 8Gi
-
 one37secrets:
-  nameOverride: "one37id-ibm-studio-one37secrets"
-  fullnameOverride: "one37id-ibm-studio-one37secrets"
+  nameOverride: "one37id-ibm-studio-reposecret"
+  fullnameOverride: "one37id-ibm-studio-reposecret"
 
-# If above is set to false, then provide the existing DB host
-existingDBHost: ""
 
 # Default values for one37id-ibm-studio.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+nameOverride: "one37id-studio"
+fullnameOverride: "one37id-studio"
+
+postgresName: one37id-pgsql
+tlsSecret: one37id-tls-dev
+studioHostname: ibm-studio.dev-one37.id
 
 replicaCount: 1
 
@@ -29,10 +24,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-ibm-studio-one37secrets"}]
+imagePullSecrets: [{"name": "one37id-ibm-studio-reposecret"}]
 
-nameOverride: "one37id-studio"
-fullnameOverride: "one37id-studio"
 
 liveCheck: false
 
@@ -114,9 +107,6 @@ environment:
 
 secrets:
   create: true
-  # read from db config
-  postgresSecretName: ""
-  # redisSecretName: "redis"
   app:
     STUDIO_PG_USER: postgres
     STUDIO_PG_ADMIN_USER: postgres

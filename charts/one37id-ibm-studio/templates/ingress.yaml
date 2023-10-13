@@ -1,6 +1,8 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "one37id-ibm-studio.fullname" . -}}
 {{- $annotate := .Values.ingress.annotations -}}
+{{- $tlsSecret := .Values.tlsSecret -}}
+{{- $studioHostname := .Values.studioHostname -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -16,7 +18,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "one37id-ibm-studio.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -32,14 +33,14 @@ spec:
     {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ $studioHostname | quote }}
         {{- end }}
-      secretName: {{ .secretName }}
+      secretName: {{ $tlsSecret }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ $studioHostname | quote }}
       http:
         paths:
           {{- range .paths }}

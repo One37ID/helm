@@ -8,11 +8,6 @@ annotations:
   category: Infrastructure
   licenses: Apache-2.0
 dependencies:
-  - name: postgresql
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-    - postgresql
-    version: 12.x.x
   - name: one37secrets
     repository: file://../one37secrets
     tags:
@@ -30,5 +25,5 @@ keywords:
 maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
-appVersion: "2.2310.10-2"
-version: 2.2310.10-2
+appVersion: "2.2310.13-2"
+version: 2.2310.13-2

@@ -5,8 +5,8 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 1.2310.13-3
-    created: "2023-10-13T17:50:28.5993073+02:00"
+    appVersion: 1.2310.13-4
+    created: "2023-10-13T18:58:59.0494801+02:00"
     dependencies:
     - name: one37secrets
       repository: file://../one37secrets
@@ -14,7 +14,7 @@ entries:
       - one37secrets
       version: 1.2310.10-2
     description: A Helm chart to deploy the One37 Business Connector Agent
-    digest: 5efb773bb6bb8e6f5724f7023cd3e933ef33507f6ef5b64f42dd1063a5d40375
+    digest: bfa498162886453b1370927f59ea83782ec9b2ee841f8956c96c94de49b78e35
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -31,21 +31,16 @@ entries:
     name: one37id-ibm-agent
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-agent-1.2310.13-3.tgz
-    version: 1.2310.13-3
+    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-agent-1.2310.13-4.tgz
+    version: 1.2310.13-4
   one37id-ibm-studio:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 2.2310.10-2
-    created: "2023-10-13T17:50:28.6081886+02:00"
+    appVersion: 2.2310.13-2
+    created: "2023-10-13T18:58:59.0500751+02:00"
     dependencies:
-    - name: postgresql
-      repository: oci://registry-1.docker.io/bitnamicharts
-      tags:
-      - postgresql
-      version: 12.x.x
     - name: one37secrets
       repository: file://../one37secrets
       tags:
@@ -53,7 +48,7 @@ entries:
       version: 1.2310.10-2
     description: Helm chart for the deployment of the One37 Business Studio (Agent
       Manager) on IBM Cloud Kubernetes Service.
-    digest: 2ce4579ab463aa1365cc413ad3b0e7afdc7c77384feabf29ca8fa59052b06b5f
+    digest: 5db87d55e753cf96e23ccb6351e9c7164f901fc68645a674e54ba401cc77e414
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -71,15 +66,15 @@ entries:
     name: one37id-ibm-studio
     type: application
     urls:
-    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-studio-2.2310.10-2.tgz
-    version: 2.2310.10-2
+    - https://fedoraman137.github.io/helm-test/packages/one37id-ibm-studio-2.2310.13-2.tgz
+    version: 2.2310.13-2
   one37id-pgsql:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2023-10-13T17:50:28.6137223+02:00"
+    created: "2023-10-13T18:58:59.0562305+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -105,7 +100,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2023-10-13T17:50:28.621392+02:00"
+    created: "2023-10-13T18:58:59.0621239+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -128,7 +123,7 @@ entries:
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2023-10-13T17:50:28.6227069+02:00"
+    created: "2023-10-13T18:58:59.0626482+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -139,7 +134,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2310.10-2
-    created: "2023-10-13T17:50:28.6237617+02:00"
+    created: "2023-10-13T18:58:59.063722+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
     digest: def0c4885785a1a60e6b4e11f56d450505ca674918b082ddac0ebc81b9f35e51
     name: one37secrets
@@ -147,4 +142,4 @@ entries:
     urls:
     - https://fedoraman137.github.io/helm-test/packages/one37secrets-1.2310.10-2.tgz
     version: 1.2310.10-2
-generated: "2023-10-13T17:50:28.5958+02:00"
+generated: "2023-10-13T18:58:59.0473868+02:00"

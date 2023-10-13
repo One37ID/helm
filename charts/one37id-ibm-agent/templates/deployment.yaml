@@ -1,6 +1,6 @@
 {{- $fullName := include "one37id-ibm-agent.fullname" . -}}
-{{- $postgresSecretName := printf "%s" .Values.secrets.postgresSecretName | trunc 63 | trimSuffix "-" -}}
-{{- $redisSecretName := printf "%s" .Values.secrets.redisSecretName | trunc 63 | trimSuffix "-" -}}
+{{- $postgresSecretName := printf "%s" .Values.postgresName -}}
+{{- $redisSecretName := printf "%s" .Values.redisName -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

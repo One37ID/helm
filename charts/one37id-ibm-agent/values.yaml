@@ -90,8 +90,6 @@ environment:
 
 secrets:
   create: true
-  postgresSecretName: "one37id-ibm-agent-psql"
-  redisSecretName: "one37id-ibm-agent-redis"
   app:
     PG_USER: postgres
     PG_ADMIN_USER: postgres

@@ -1,12 +1,6 @@
 {{- $fullName := include "one37id-ibm-studio.fullname" . -}}
 {{- $justName := include "one37id-ibm-studio.name" . -}}
-{{- $postgresSecretName := "default" }}
-{{- if .Values.postgresql.enabled }}
-  {{- $postgresSecretName = .Values.postgresql.fullnameOverride -}}
-{{- else }}
-  {{- $postgresSecretName = .Values.secrets.postgresSecretName -}}
-{{- end }}
-{{- $redisSecretName := printf "%s" .Values.secrets.redisSecretName | trunc 63 | trimSuffix "-" -}}
+{{- $postgresSecretName := .Values.postgresName -}}
 
 apiVersion: apps/v1
 kind: Deployment
