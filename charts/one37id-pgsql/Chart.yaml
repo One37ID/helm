@@ -1,0 +1,20 @@
+apiVersion: v2
+name: one37id-pgsql
+type: application
+description: A Helm chart to deploy One37 Business Connector Agent PostgreSQL database dependency
+home: https://one37id.com
+icon: https://www.one37id.com/images/connector.svg
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+dependencies:
+  - name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+    - postgresql
+    version: 12.x.x
+maintainers:
+  - name: One37 Solutions, Inc.
+    url: https://github.com/one37id/charts
+appVersion: "1.2310.12-1"
+version: 1.2310.12-1

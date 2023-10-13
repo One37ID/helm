@@ -1,0 +1,6 @@
+dependencies:
+- name: one37secrets
+  repository: file://../one37secrets
+  version: 1.2310.10-2
+digest: sha256:aee9af287594bccfdb0377e21b8eebc66d49239cfeffc6a4138a4f5ae26647e9
+generated: "2023-10-13T08:20:45.6874583+02:00"

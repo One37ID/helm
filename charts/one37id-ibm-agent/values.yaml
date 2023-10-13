@@ -1,35 +1,17 @@
 # Overide values for the redis subchart
-redis:
-  nameOverride: "one37id-ibm-agent-redis"
-  fullnameOverride: "one37id-ibm-agent-redis"
-  global:
-    storageClass: "ibmc-vpc-block-general-purpose"
-  persistence:
-    enabled: true
-    size: 10Gi
-  replica:
-    replicaCount: 1
-
-# Overide values for the postgres subchart
-postgresql:
-  nameOverride: "one37id-ibm-agent-psql"
-  fullnameOverride: "one37id-ibm-agent-psql"
-  global:
-    storageClass: "ibmc-vpc-block-general-purpose"
-  persistence:
-    enabled: true
-    size: 10Gi
-
 one37secrets:
-  nameOverride: "one37id-ibm-agent-db-one37secrets"
-  fullnameOverride: "one37id-ibm-agent-db-one37secrets"
+  nameOverride: one37id-ibm-agent-reposecret
+  fullnameOverride: one37id-ibm-agent-reposecret
 
 # Default values for one37 Business Connector.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: "one37id-ibm-agent"
-fullnameOverride: "one37id-ibm-agent"
+nameOverride: one37id-ibm-agent
+fullnameOverride: one37id-ibm-agent
+
+postgresName: one37id-pgsql
+redisName: one37id-redis
 
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
@@ -77,10 +59,9 @@ ingress:
           pathType: Prefix
           port: 8081
   tls:
-    - secretname: one37id-tls-dev
+    - secretName: one37id-tls-dev
       hosts:
         - ibm-agent.dev-one37.id
-
 
 configmap:
   ASPNETCORE_ENVIRONMENT: "Development"
@@ -88,12 +69,6 @@ configmap:
   USE_HTTPS_MESSAGE_TYPES: "false"
   USE_HTTPS: "false"
   IS_RUNNING_BEHIND_PROXY: "true"
-  PG_HOST: "one37id-ibm-agent-psql"
-  PG_PORT: "5432"
-  PG_CONNECTION: "one37id-ibm-agent-psql:5432"
-  # PG_DBNAME defined in the configmap will be used as the default database name
-  REDIS_HOST: "one37id-ibm-agent-redis-master"
-  REDIS_PORT: "6379"
   AGENT_GENESIS: https://raw.githubusercontent.com/One37ID/indy-did-networks/one37/networks/one37id/testnet/pool_transactions_genesis
   AGENT_POOL: "one37id-devnet"
   ARS_ALIAS: "ars"
@@ -141,7 +116,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-ibm-agent-db-one37secrets"}]
+imagePullSecrets: [{"name": "one37id-ibm-agent-one37secrets"}]
 
 extraVolumes:
 extraVolumeMounts:

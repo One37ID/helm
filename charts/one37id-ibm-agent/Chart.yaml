@@ -1,23 +1,13 @@
 apiVersion: v2
-name: one37id-ibm-agent-db
+name: one37id-ibm-agent
 type: application
-description: A Combo Helm chart to deploy One37 Business Connector Agent v1 and its database dependencies
+description: A Helm chart to deploy the One37 Business Connector Agent
 home: https://one37id.com
 icon: https://www.one37id.com/images/connector.svg
 annotations:
   category: Infrastructure
   licenses: Apache-2.0
 dependencies:
-  - name: postgresql
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-    - postgresql
-    version: 12.x.x
-  - name: redis
-    repository: oci://registry-1.docker.io/bitnamicharts
-    tags:
-    - redis
-    version: 18.x.x
   - name: one37secrets
     repository: file://../one37secrets
     tags:
@@ -34,5 +24,5 @@ keywords:
 maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
-appVersion: "1.2310.12-1"
-version: 1.2310.12-1
+appVersion: "1.2310.13-1"
+version: 1.2310.13-1

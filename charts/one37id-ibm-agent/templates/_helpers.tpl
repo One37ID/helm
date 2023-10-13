@@ -1,8 +1,8 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "one37id-ibm-agent-db.name" -}}
-{{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" }}
+{{- define "one37id-ibm-agent.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -10,11 +10,11 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "one37id-ibm-agent-db.fullname" -}}
-{{- if .Values.fullname }}
-{{- .Values.fullname | trunc 63 | trimSuffix "-" }}
+{{- define "one37id-ibm-agent.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default .Chart.Name .Values.name }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "one37id-ibm-agent-db.chart" -}}
+{{- define "one37id-ibm-agent.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "one37id-ibm-agent-db.labels" -}}
-helm.sh/chart: {{ include "one37id-ibm-agent-db.chart" . }}
-{{ include "one37id-ibm-agent-db.selectorLabels" . }}
+{{- define "one37id-ibm-agent.labels" -}}
+helm.sh/chart: {{ include "one37id-ibm-agent.chart" . }}
+{{ include "one37id-ibm-agent.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,10 +45,10 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "one37id-ibm-agent-db.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "one37id-ibm-agent-db.name" . }}
+{{- define "one37id-ibm-agent.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "one37id-ibm-agent.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-app: {{ include "one37id-ibm-agent-db.name" . }}
+app: {{ include "one37id-ibm-agent.name" . }}
 {{- end }}
 
 {{/*
@@ -57,9 +57,9 @@ app: {{ include "one37id-ibm-agent-db.name" . }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "one37id-ibm-agent-db.serviceAccountName" -}}
+{{- define "one37id-ibm-agent.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "one37id-ibm-agent-db.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "one37id-ibm-agent.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

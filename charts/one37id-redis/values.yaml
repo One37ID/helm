@@ -1,0 +1,12 @@
+# Overide values for the redis subchart
+redis:
+  nameOverride: "one37id-redis"
+  fullnameOverride: "one37id-redis"
+  global:
+    storageClass: "ibmc-vpc-block-general-purpose"
+  persistence:
+    enabled: true
+    size: 10Gi
+  replica:
+    replicaCount: 1
+

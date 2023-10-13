@@ -1,5 +1,5 @@
 {{- if .Values.autoscaling.enabled }}
-{{- $fullName := include "one37id-ibm-agent-db.fullname" . -}}
+{{- $fullName := include "one37id-ibm-agent.fullname" . -}}
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:

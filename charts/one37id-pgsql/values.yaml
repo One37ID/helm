@@ -1,0 +1,9 @@
+# Overide values for the postgres subchart
+postgresql:
+  nameOverride: "one37id-pgsql"
+  fullnameOverride: "one37id-pgsql"
+  global:
+    storageClass: "ibmc-vpc-block-general-purpose"
+  persistence:
+    enabled: true
+    size: 20Gi
