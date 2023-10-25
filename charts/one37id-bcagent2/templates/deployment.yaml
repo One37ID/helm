@@ -78,29 +78,29 @@ spec:
               protocol: TCP
           {{- end }}
           {{- if .Values.liveCheck }}
+          startupProbe:
+            httpGet:
+              path: /bc/health
+              port: 8083
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 30
           livenessProbe:
             httpGet:
-              path: /bc/studio/health
-              port: 8083
-          readinessProbe:
-            httpGet:
-              path: /bc/agency/health
-              port: 8081
+              path: /bc/health/agent
+              port: 8080
+            periodSeconds: 60
+            failureThreshold: 3
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - name: {{ .Values.resourceVolume.name }}
-            mountPath: {{ .Values.resourceVolume.mountPath }}
-          - name: {{ .Values.workflowVolume.name }}
-            mountPath: {{ .Values.workflowVolume.mountPath }}
+          - name: {{ $fullName}}-{{ .Values.volume.name }}
+            mountPath: {{ .Values.volume.mountPath }}
       volumes:
-        - name: {{ .Values.resourceVolume.name }}
+        - name: {{ $fullName}}-{{ .Values.volume.name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.resourceVolume.name }}
-        - name: {{ .Values.workflowVolume.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.workflowVolume.name }}
+            claimName: {{ $fullName}}-{{ .Values.volume.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -5,8 +5,9 @@ metadata:
   name: {{ $fullName }}
 data:
   PG_DBNAME: {{ $fullName }}_agent_db
-  # WORKFLOW_PG_DBNAME: {{ $fullName }}_workflow_db
-  # AUDIT_PG_DBNAME: {{ $fullName }}_audit_db
+  WALLET_PG_DBNAME: {{ $fullName }}_wallet_db
+  WORKFLOW_PG_DBNAME: {{ $fullName }}_workflow_db
+  AUDIT_PG_DBNAME: {{ $fullName }}_audit_db
 {{- range $key, $value := .Values.configmap }}
   {{ $key }}: {{ $value | quote }}
 {{- end }}

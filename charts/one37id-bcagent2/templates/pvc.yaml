@@ -1,13 +1,14 @@
-{{- if .Values.pvc.enabled }}
+{{- if .Values.volume.enabled }}
+{{- $fullName := include "one37id-bcagent2.fullname" . -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.pvc.name }}
+  name: {{ $fullName }}-{{ .Values.volume.name }}
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: {{ .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.volume.storageClass }}
   resources:
     requests:
-      storage: {{ .Values.pvc.size }}
+      storage: {{ .Values.volume.size }}
 {{- end }}

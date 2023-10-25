@@ -2,9 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: ""
-fullnameOverride: ""
-liveCheck: false
+nameOverride: "one37id-arsbc2"
+fullnameOverride: "one37id-arsbc2"
+liveCheck: true
 
 image:
   repository: registry.gitlab.com/one37id/registry/solitaire/private
@@ -61,9 +61,9 @@ service:
   type: "ClusterIP"
   twoPortMode: true
   ports:
-    bootport: "8083"
-    openport: "8080"
-    adminport: "8081"
+    bootport: 8083
+    openport: 8080
+    adminport: 8081
 
 
 ingress:
@@ -71,34 +71,34 @@ ingress:
   className: nginx
   annotations:
     # class: "nginx"
-    affinity: "cookie"
+    # affinity: "cookie"
     proxybodysize: "50m"
-    sessioncookietimeout: "36000"
+    # sessioncookietimeout: "36000"
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: bc2gdb.dev-one37.id
+    - host: ars.dev-one37.id
       paths:
-        - path: /bc/studio
-          pathType: Prefix
-          port: 8083
+        # - path: /bc/agent
+        #   pathType: Prefix
+        #   port: 8080
+        # - path: /bc/vc
+        #   pathType: Prefix
+        #   port: 8080
+        # - path: /bc/studio
+        #   pathType: Prefix
+        #   port: 8083
         - path: /bc/agent
           pathType: Prefix
           port: 8080
-        - path: /bc/vc
-          pathType: Prefix
-          port: 8080
-        - path: /
-          pathType: Prefix
-          port: 8083
-    - host: bc2gdb-admin.dev-one37.id
+    - host: ars.dev-one37.id
       paths:
         - path: /bc/agency
           pathType: Prefix
           port: 8081
   tls:
     - hosts:
-        - bc2gdb.dev-one37.id
-        - bc2gdb-admin.dev-one37.id
+        - ars.dev-one37.id
+        - ars-agent.dev-one37.id
       secretName: tls-dev-one37-id
 
 resources:
@@ -129,9 +129,14 @@ configmap:
   # PG_DBNAME defined in the configmap will be used as the default database name
 
 environment:
-  AGENT_NAME: "bc2gdb"
+  AGENT_NAME: "ARS Business Connector"
+  AGENT_CATEGORY: "Device"
   PG_HOST: "psql-postgresql"
+  WALLET_PG_HOST: "psql-postgresql"
+  AUDIT_PG_HOST: "psql-postgresql"
+  REDIS_HOST: "redis-master"
   PG_PORT: "5432"
+  USE_HTTPS: "false"
     #Metrics Support
   OTEL_METRICS_ENABLED: "false"
   OTEL_LOGGING_ENABLED: "false"
@@ -168,6 +173,7 @@ secretsREDISRef:
   REDIS_PSWD: "redis-password"
 
 
+
 # The name will be appended to the name of the deployment to create a unique name
 volume:
   enabled: true
@@ -177,6 +183,4 @@ volume:
     - ReadWriteOnce
   storageClass: default
   size: 1Gi
-
-
 
