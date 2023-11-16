@@ -1,119 +1,88 @@
-# Helm Chart Repository Test
+# One37 Helm Catalog for IBM Cloud Catalog
 
-## Add Helm Repositories
+This is the public Helm chart repository for One37 Helm Charts for IBM Cloud Catalog.
 
-``` bash
-# One37 ID Helm Charts
-helm repo add fedoraman137 https://fedoraman137.github.io/helm-test
-```
+These charts represent the latest stable release of the One37 Applications referenced in the IBM Cloud Catalog.
 
+View the available Catalog entries:
 
-``` bash
-# List the charts available from One37
-helm search repo fedoraman137
-```
+[https://cloud.ibm.com/catalog](https://cloud.ibm.com/catalog?search=One37#search_results)
+
+![](catalog_list.png)
+
+## Prerequisites
+
+* IBM Cloud Account
+* A deployed IBM Cloud Kubernetes Service (IKS) cluster with version 1.18 or later
+* IBM Cloud CLI configured to use the target cluster
+* Helm 3.0 or later
 
 ## Pre-Requisite Installation Steps
 
+There a few steps that need to be completed before you can install the One37 Catalog entries to your cluster.
+
+ 1. Create a namespace for the One37 Catalog entries
+ 3. Create a secret to store your One37 Container Registry credentials
+ 2. Create a secret to store your One37 license key
+
 ### Create One37 namespace
 
-#### OpenShift
+Using the IBM Cloud CLI, create a namespace for the One37 Catalog entries
 
 ```bash
-oc new-project one37 --display-name 'One37 Platform'
-oc project one37
+kubectl create namespace one37id
+kubectl config set-context --current --namespace=one37id
 ```
 
-#### Other Kubernetes
+### Create One37 Container Registry secret
 
-``` bash
-kubectl create namespace one37
-kubectl config set-context --current --namespace=one37
-```
-
-### Pull the chart to you local environment
+The one37secrets chart is configured to enable you to store your One37 Container Registry credentials. You will be issued these during the registration of your product.
 
 In a working folder in your setup, download the complete chart and it template files.
 
 ```bash
-helm pull fedoraman137/one37id-bcagent --untar
+helm pull one37id/one37secrets --untar
 ```
 
-### One37 Licensing & Secrets
+You will be required to edit and provide your own encoded credentials in the `charts/one37secrets/values.yaml` file.
 
-Update the 2 template files in `charts/one37secrets/templates/` with the values you where provided during the registration of the product.
 
-### Configure the included 3rd Party packages
 
-> OpenShift Note: <br/>
-> The Redis & PostgreSQL components need to be installed using OpenShift certified Operators? The component folders should be removed from the `charts` folder and the Operators installed using the OpenShift console.
+> To generate the encoded `dockerconfigjson` value for a Kubernetes Docker registry secret, you need to follow these steps:
+> 1. Generate a base64 encoded `username:password` string, you can use the following command: \
+> `echo -n 'username:password' | base64` \
+> Remember to replace `username:password` with your actual Docker username and password.
+> 2. Create a `config.json` file that contains the Docker registry authentication information. The file should look like this where the `auth` field is the base64 encoded string from the previous step: 
 
-#### REDIS
+```json
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "auth": "dXNlcm5hbWU6cGFzc3dvcmQ="
+    }
+  }
+}
+```
 
-This chart includes a default install of a replicated [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment using the Bitnami Redis sub-chart.
-The `charts/redis/values.yaml` file includes the following parameters to configure the Redis&reg; installation:
-
-##### Global parameters section
-
-| Name                    | Description                                            | Value |
-|-------------------------|--------------------------------------------------------|-------|
-| `global.storageClass`   | Global StorageClass for Persistent Volume(s). You must configure this according to the available classes defined in the k8s environment.          | `""`  |
-| `global.redis.password` | Global Redis&reg; password (overrides `auth.password`). Leave blank to have a random password generated and stored in a secret. | `""`  |
-
-#### PostgreSQL
-
-This chart includes a default install of a single instance [PostgreSQL](https://github.com/bitnami/containers/tree/main/bitnami/postgresql) as defined in the Bitnami postgresql sub-chart.
-The `charts/postgresql/values.yaml` file includes the following parameters to configure the PostgreSQL installation:
-
-##### Global parameters
-
-| Name                    | Description                                            | Value |
-|-------------------------|--------------------------------------------------------|-------|
-| `global.storageClass`   | StorageClass for Persistent Volume(s). You must configure this according to the available classes defined in the k8s environment.          | `""`  |
-| `global.postgresql.auth.postgresPassword` | 'postgres' user password override. Leave blank to have a random password generated and stored in a secret. | `""`  |
-
-#### 3. Database Admin Tool [optional]
-
-In non-production environments, you may want to manually install a database admin tool to simplify the process of managing your databases.
-
-For more information please refer to the [bitnami/phpmyadmin](https://github.com/bitnami/containers/tree/main/bitnami/phpmyadmin) image documentation.
-
-## One37 Component Configuration
-
-Please refer to the chart **README** for additional component configuration parameter documentation.
-
- > **Note:** <br>
- > A local `values.yaml` file of instance specific parameters **MUST** be specified in your installation command
-
-### One37 Business Studio&reg;
-
-One [Business Studio&reg;](https://github.com/FedoraMan137/helm-test/tree/main/charts/one37id-studio) instance is required to manage all your locally deployed Business Connector Agents.
-
-Edit the `charts/one37id-studio/values.yaml` file as required.
-
-### Configure the One37 Business Connector&reg; (Agent)
-
-The command deploys the [BusinessConnector&reg;](https://github.com/FedoraMan137/helm-test/tree/main/charts/one37id-bcagent) agent on the cluster.
-
-Using values you where given by One37 Support during the registration of your product, edit the `charts/values.yaml` file
-
-## Install the One37 Platform
+> 3. Base64 encode the entire `config.json` file. In a terminal, you can use the following command:
 
 ```bash
-helm upgrade --install -f values.yaml [RELEASE_NAME]  one37id-bcagent
+cat config.json | base64
 ```
 
- > **Note**: <br />
- > The [RELEASE_NAME] is the name you want to give to your installation. This name will be used to create and manage the Helm deployment.
- If this will be only unique instance of the One37 Platform, you can use the default name of `one37id-bcagent`
+> 4. The output of the above command is the encoded `dockerconfigjson` value that you can use in your Kubernetes Docker registry secret.
 
-## Uninstallation
+Once you have updated the `values.yaml` file, you can install the chart to your cluster.
 
-To uninstall/delete the `[RELEASE_NAME]` deployment:
-
-``` bash
-helm uninstall [RELEASE_NAME]
+```bash
+helm install one37secrets charts/one37secrets
 ```
 
- > **Note**: <br />
- > This command removes ALL the Kubernetes components, including any data stores, associated with the chart and deletes the release.
+## Install One37 Catalog entries
+
+Once you have completed the pre-requisite steps, you can install the One37 Catalog entries to your cluster.
+
+You can refer to the Installation Guide published on the One37 Documentation website for more details on the installation process.
+
+[https://docs.one37id.com](https://docs.one37id.com/docs/Installation/k8s-ibm-catalog/ibm-intro)
+

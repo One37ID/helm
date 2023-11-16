@@ -28,7 +28,7 @@ To publish a chart in the repository, do the following:
  2. Update the chart repo `index.yaml` file by running the following command from the `/` folder.
 
  ``` bash
-  helm repo index --url https://fedoraman137.github.io/helm-test/ .
+  helm repo index --url https://one37id.github.io/helm-ibm/ .
  ```
 
  3. Create a pull request to merge the chart into the `main` branch.

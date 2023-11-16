@@ -1,3 +1,3 @@
 nameOverride: "one37secrets"
 fullnameOverride: "one37secrets"
-dockerconfigjson: eyJhdXRocyI6IHsicmVnaXN0cnkuZ2l0bGFiLmNvbSI6IHsiYXV0aCI6ICJiMjVsTXpjdGNtVmhaRHBwZW00NVFqTktRV2hRWjJkb1RHczNhVVI2TlE9PSJ9fX0=
+dockerconfigjson: 
