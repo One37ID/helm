@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.13-4
-    created: "2023-11-16T22:48:51.5366304+02:00"
+    created: "2023-11-17T09:00:57.7804601+02:00"
     dependencies:
     - name: one37secrets
       repository: file://../one37secrets
@@ -39,7 +39,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2310.13-3
-    created: "2023-11-16T22:48:51.5403688+02:00"
+    created: "2023-11-17T09:00:57.7820955+02:00"
     dependencies:
     - name: one37secrets
       repository: file://../one37secrets
@@ -74,7 +74,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2023-11-16T22:48:51.5499818+02:00"
+    created: "2023-11-17T09:00:57.7877138+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -100,7 +100,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2023-11-16T22:48:51.5596468+02:00"
+    created: "2023-11-17T09:00:57.793186+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -123,7 +123,7 @@ entries:
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2023-11-16T22:48:51.5626491+02:00"
+    created: "2023-11-17T09:00:57.7937242+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -133,13 +133,13 @@ entries:
     version: 1.2310.8
   one37secrets:
   - apiVersion: v2
-    appVersion: 1.2310.10-2
-    created: "2023-11-16T22:48:51.5636511+02:00"
+    appVersion: 1.2311.17-1
+    created: "2023-11-17T09:00:57.7959972+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
-    digest: 03336af2d710fdb2337969afb79197e3489fe4eefbc08a6071f2c1e704ac707e
+    digest: 49b90f2ec6ad70284adeebe6e1accd116985601cc97c80a362c6637a57639bc4
     name: one37secrets
     type: application
     urls:
-    - https://one37id.github.io/helm-ibm/packages/one37secrets-1.2310.10-2.tgz
-    version: 1.2310.10-2
-generated: "2023-11-16T22:48:51.5288576+02:00"
+    - https://one37id.github.io/helm-ibm/packages/one37secrets-1.2311.17-1.tgz
+    version: 1.2311.17-1
+generated: "2023-11-17T09:00:57.777737+02:00"
