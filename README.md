@@ -1,3 +1,7 @@
+---
+title: One37 Helm Catalog for IBM Cloud Catalog
+layout: home
+---
 # One37 Helm Catalog for IBM Cloud Catalog
 
 This is the public Helm chart repository for One37 Helm Charts for IBM Cloud Catalog.
