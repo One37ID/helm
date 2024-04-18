@@ -4,6 +4,12 @@ postgresql:
   fullnameOverride: "one37id-pgsql"
   global:
     storageClass: "ibmc-vpc-block-general-purpose"
-  persistence:
+  image:
+    pullPolicy: Always
+  primary:
+    persistence:
+      size: 20Gi
+  backup:
     enabled: true
-    size: 20Gi
+    persistence:
+      size: 20Gi

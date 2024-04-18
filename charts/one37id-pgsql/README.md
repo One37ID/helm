@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This chart deploys the latest Bitnami v12.x [PostgreSQL]() chart on
+This chart deploys the latest Bitnami v15.x [PostgreSQL]() chart on
  [IBM Kubernetes Service](https://cloud.ibm.com/kubernetes/clusters) that is pre-configured for use by the [One37 Trust Platform]() components.
 
 It is available to execute as a simple Click & Configure installation through the

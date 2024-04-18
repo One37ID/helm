@@ -4,9 +4,11 @@ redis:
   fullnameOverride: "one37id-redis"
   global:
     storageClass: "ibmc-vpc-block-general-purpose"
-  persistence:
-    enabled: true
-    size: 10Gi
+  master:
+    persistence:
+      size: 10Gi
   replica:
     replicaCount: 1
+    persistence:
+      size: 10Gi
 
