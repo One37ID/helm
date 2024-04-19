@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.13-4
-    created: "2024-04-18T13:53:25.4867035+02:00"
+    created: "2024-04-19T14:19:50.4830734+02:00"
     dependencies:
     - name: one37secrets
       repository: file://../one37secrets
@@ -39,7 +39,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2310.13-3
-    created: "2024-04-18T13:53:25.4882804+02:00"
+    created: "2024-04-19T14:19:50.4863616+02:00"
     dependencies:
     - name: one37secrets
       repository: file://../one37secrets
@@ -73,8 +73,33 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: 1.2404.19-1
+    created: "2024-04-19T14:19:50.50902+02:00"
+    dependencies:
+    - name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - postgresql
+      version: latest
+    description: A Helm chart to deploy One37 Business Connector Agent PostgreSQL
+      database dependency
+    digest: c8586e7d1422a0cdd0980410b73e3b805d89d5019d957fa8e53b3abcf3b63f58
+    home: https://one37id.com
+    icon: https://www.one37id.com/images/connector.svg
+    maintainers:
+    - name: One37 Solutions, Inc.
+      url: https://github.com/one37id/charts
+    name: one37id-pgsql
+    type: application
+    urls:
+    - https://one37id.github.io/helm-ibm/packages/one37id-pgsql-1.2404.19-1.tgz
+    version: 1.2404.19-1
+  - annotations:
+      category: Infrastructure
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: 1.2404.18-1
-    created: "2024-04-18T13:53:25.4997577+02:00"
+    created: "2024-04-19T14:19:50.502006+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -99,7 +124,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2024-04-18T13:53:25.4942935+02:00"
+    created: "2024-04-19T14:19:50.4925022+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -124,8 +149,33 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
+    appVersion: 1.2404.19-1
+    created: "2024-04-19T14:19:50.5327227+02:00"
+    dependencies:
+    - name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - redis
+      version: latest
+    description: A Helm chart to deploy One37 Business Connector Agent REDIS database
+      dependency
+    digest: dcb78efe6ddc16138f1fdf904b61ecf0edd3545269a448a6e6434e11a4f5d98f
+    home: https://one37id.com
+    icon: https://www.one37id.com/images/connector.svg
+    maintainers:
+    - name: One37 Solutions, Inc.
+      url: https://github.com/one37id/charts
+    name: one37id-redis
+    type: application
+    urls:
+    - https://one37id.github.io/helm-ibm/packages/one37id-redis-1.2404.19-1.tgz
+    version: 1.2404.19-1
+  - annotations:
+      category: Infrastructure
+      licenses: Apache-2.0
+    apiVersion: v2
     appVersion: 1.2404.18-1
-    created: "2024-04-18T13:53:25.5123367+02:00"
+    created: "2024-04-19T14:19:50.5272098+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -150,7 +200,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2024-04-18T13:53:25.5069117+02:00"
+    created: "2024-04-19T14:19:50.5159953+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -173,7 +223,7 @@ entries:
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2024-04-18T13:53:25.5133844+02:00"
+    created: "2024-04-19T14:19:50.534917+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -184,7 +234,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2311.17-1
-    created: "2024-04-18T13:53:25.5139209+02:00"
+    created: "2024-04-19T14:19:50.5365982+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
     digest: 49b90f2ec6ad70284adeebe6e1accd116985601cc97c80a362c6637a57639bc4
     name: one37secrets
@@ -192,4 +242,4 @@ entries:
     urls:
     - https://one37id.github.io/helm-ibm/packages/one37secrets-1.2311.17-1.tgz
     version: 1.2311.17-1
-generated: "2024-04-18T13:53:25.483426+02:00"
+generated: "2024-04-19T14:19:50.4787001+02:00"

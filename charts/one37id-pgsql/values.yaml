@@ -9,6 +9,9 @@ postgresql:
   primary:
     persistence:
       size: 20Gi
+      persistentVolumeClaimRetentionPolicy:
+        enabled: true
+        whenDeleted: Delete
   backup:
     enabled: true
     persistence:

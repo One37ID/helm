@@ -7,6 +7,10 @@ redis:
   master:
     persistence:
       size: 10Gi
+      persistentVolumeClaimRetentionPolicy:
+        enabled: true
+        whenScaled: Retain
+        whenDeleted: Delete
   replica:
     replicaCount: 1
     persistence:
