@@ -23,8 +23,10 @@ spec:
       labels:
         {{- include "one37id-ibm-agent.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        - name: {{ .Values.one37secrets.fullnameOverride }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ include "one37id-ibm-agent.serviceAccountName" . }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       restartPolicy: Always
@@ -32,7 +34,8 @@ spec:
         - name: {{ $fullName }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:
               name: {{ $fullName }}
@@ -50,7 +53,8 @@ spec:
                   name: {{ $fullName }}
                   optional: false
             {{- end }}
-            {{- range $key, $value := .Values.secretsPGRef }}
+            {{- if .Values.postgres.useSecret }}
+            {{- range $key, $value := .Values.postgres.secretsPGRef }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
@@ -58,7 +62,8 @@ spec:
                   name: {{ $postgresSecretName | quote }}
                   optional: false
             {{- end }}
-            {{- range $key, $value := .Values.secretsREDISRef }}
+            {{- end }}
+            {{- range $key, $value := .Values.redis.secretsREDISRef }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
@@ -67,8 +72,6 @@ spec:
                   optional: false
             {{- end }}
           {{- end }}
-
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
           {{- range $key, $value := .Values.service.ports }}
             - name: {{ $key }}
@@ -83,10 +86,11 @@ spec:
           readinessProbe:
             httpGet:
               path: /bc/agency/health
-              port: {{ .Values.service.port.openPort }}
+              port: {{ .Values.service.port.bootPort }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.volume.enabled }}
           volumeMounts:
           - name: {{ $fullName}}-{{ .Values.volume.name }}
             mountPath: {{ .Values.volume.mountPath }}
@@ -94,6 +98,7 @@ spec:
         - name: {{ $fullName}}-{{ .Values.volume.name }}
           persistentVolumeClaim:
             claimName: {{ $fullName}}-{{ .Values.volume.name }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

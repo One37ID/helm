@@ -1,3 +1,4 @@
+{{- if .Values.volume.enabled }}
 {{- $fullName := include "one37id-ibm-agent.fullname" . -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -5,9 +6,9 @@ metadata:
   name: {{ $fullName}}-{{ .Values.volume.name }}
 spec:
   accessModes:
-{{ toYaml .Values.volume.accessModes | indent 4 }}
+    - ReadWriteOnce
   storageClassName: {{ .Values.volume.storageClass }}
   resources:
     requests:
       storage: {{ .Values.volume.size }}
-
+{{- end }}

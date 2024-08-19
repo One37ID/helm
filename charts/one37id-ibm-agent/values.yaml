@@ -9,147 +9,27 @@ one37secrets:
 
 nameOverride: one37id-ibm-agent
 fullnameOverride: one37id-ibm-agent
+# Enable this if you want have liveness and readiness probes
+liveCheck: false
+readyCheck: false
 
 postgresName: one37id-pgsql
 redisName: one37id-redis
 tlsSecret: one37id-tls-dev
 agentHostname: ibm-agent.dev-one37.id
 
-# Enable this if you want have liveness and readiness probes
-liveCheck: false
-
-
-# Any value here above 1 will require the REDIS or MQ service
-# to be enabled and specified below
-replicaCount: 1
-
-# The Business Connector can host the public and admin API on the different ports if needed
-service:
-  type: ClusterIP
-  twoPortMode: true
-  ports:
-    bootport: 8083
-    openport: 8080
-    adminport: 8081
-
-ingress:
-  enabled: true
-  # className: nginx # use this for Azure with open source nginx ingress controller
-  className: ""  # use this for IBM Cloud
-  annotations:
-    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
-    proxybodysize: "50m"
-  hosts:
-    - host: agentHostName
-      paths:
-        - path: /bc/studio
-          pathType: Prefix
-          port: 8083
-        - path: /bc/agent
-          pathType: Prefix
-          port: 8080
-        - path: /bc/vc
-          pathType: Prefix
-          port: 8080
-        - path: /
-          pathType: Prefix
-          port: 8083
-        - path: /metrics
-          pathType: Prefix
-          port: 8083
-        - path: /bc/agency
-          pathType: Prefix
-          port: 8081
-  tls:
-    - secretName: tlsSecret
-      hosts:
-        - agentHostname
-
-configmap:
-  ASPNETCORE_ENVIRONMENT: "Development"
-  MINIMUM_LOG_LEVEL: 1
-  USE_HTTPS_MESSAGE_TYPES: "false"
-  USE_HTTPS: "false"
-  IS_RUNNING_BEHIND_PROXY: "true"
-  AGENT_GENESIS: https://raw.githubusercontent.com/One37ID/indy-did-networks/one37/networks/one37id/testnet/pool_transactions_genesis
-  AGENT_POOL: "one37id-devnet"
-  ARS_ALIAS: "ars"
-  ARS_URL: https://ars.dev-one37.id
-  ARS_ENDPOINT: https://ars-agent.dev-one37.id/agent
-
-environment:
-  CREDENTIAL_CLEANER_SERVICE_CRON: "*/10 * * * *"
-  WORKFLOW_CLEANER_SERVICE_CRON: "*/2 * * * *"
-    #Metrics Support
-  OTEL_METRICS_ENABLED: "false"
-  OTEL_LOGGING_ENABLED: "false"
-  OTEL_PROMETHEUS_EXPORT: "false"
-  OTEL_ENDPOINT: "https://simplist-collector:4317"
-  OTEL_PROTOCOL: "GRPC"
-  PROMETHEUS_URL: http://prometheus:9090/api/v1
-
-secrets:
-  create: true
-  app:
-    PG_USER: postgres
-    PG_ADMIN_USER: postgres
-    APP_INSIGHTS_CS: "InstrumentationKey=c6090685-8a49-4d28-90d6-beaf004fc3b3;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/"
-
-  postgres:
-    passwordKey: "postgres-password"
-  redis:
-    passwordKey: "redis-password"
-
-
-#Read Secrets from Postgres Secrets
-secretsPGRef:
-  PG_PSWD: "postgres-password"
-  PG_ADMIN_PSWD: "postgres-password"
-
-#Read Secrets from Redis Instance Secrets
-secretsREDISRef:
-  REDIS_PSWD: "redis-password"
 
 image:
-  repository: registry.gitlab.com/one37id/registry/solitaire/private
+  repository: registry.gitlab.com/one37id/registry/solitaire/idnext-net8
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets: [{"name": "one37id-ibm-agent-one37secrets"}]
 
-extraVolumes:
-extraVolumeMounts:
-
-
-resources:
-  ## We usually recommend not to specify default resources and to leave this as a conscious
-  ## choice for the user. This also increases chances charts run on environments with little
-  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
-  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  ## limits:
-  ##   cpu: 100m
-  ##   memory: 128Mi
-  limits: {}
-  ## requests:
-  ##   cpu: 100m
-  ##   memory: 128Mi
-  requests: {}
-
-volume:
-  name: external
-  mountPath: /app/external
-  accessModes:
-    - ReadWriteOnce
-  size: 1Gi
-  storageClass: ibmc-vpc-block-general-purpose
-
-nodeSelector: {}
-
-tolerations:
-
-affinity: {}
-
+# Any value here above 1 will require the REDIS or MQ service
+# to be enabled and specified below
+replicaCount: 1
 # Supported values: redis, rabbitmq
 replicaQueHandler:
   enabled: false
@@ -173,17 +53,122 @@ serviceAccount:
 
 podAnnotations: {}
 
-
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 
 containerSecurityContext:
   runAsUser: 1001
+  runAsGroup: 0
   runAsNonRoot: true
 
 updateStrategy:
-#   ## StrategyType
-#   ## Can be set to RollingUpdate or OnDelete
-#   ##
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
   type: "OnDelete"
+
+# The Business Connector can host the public and admin API on the different ports if needed
+service:
+  type: ClusterIP
+  twoPortMode: true
+  ports:
+    bootport: 8083
+
+ingress:
+  enabled: true
+  # className: nginx # use this for Azure with open source nginx ingress controller
+  className: ""  # use this for IBM Cloud
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    proxybodysize: "50m"
+  hosts:
+    - host: agentHostName
+      paths:
+        - path: /
+          pathType: Prefix
+          port: 8083
+  tls:
+    - secretName: tlsSecret
+      hosts:
+        - agentHostname
+
+configmap:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  MINIMUM_LOG_LEVEL: 1
+
+
+environment:
+  CREDENTIAL_CLEANER_SERVICE_CRON: "*/10 * * * *"
+  WORKFLOW_CLEANER_SERVICE_CRON: "*/2 * * * *"
+    #Metrics Support
+  #Metrics Support
+  LOCAL_METRICS_ENABLED: "true"
+  STATS_BUFFER_TIME: 1
+  OTEL_METRICS_ENABLED: "false"
+  OTEL_LOGGING_ENABLED: "false"
+  OTEL_PROMETHEUS_EXPORT: "false"
+  OTEL_INSTRUMENTATION_ENABLED: "false"
+  # OTEL_ENDPOINT: "http://otel-collector:4318"
+  # OTEL_PROTOCOL: "GRPC"
+  # APP_INSIGHTS_CS: "InstrumentationKey=fe47e6cf-d4bc-44a8-96ae-7ede2471e1f8;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+  # PROMETHEUS_URL: http://prometheus-server/api/v1
+  #Postgres Config
+  PG_HOST: "one37id-pgsql"
+  PG_PORT: "5432"
+  PG_DBNAME: "one37id-idnext_agency"
+  AGENT_NAME: "TEST_AGENT"
+  AGENCY_URL: "https://idnext.trusdid.com"
+
+secrets:
+  create: true
+  app:
+    PG_USER: postgres
+    PG_ADMIN_USER: postgres
+    
+#Read Secrets from Postgres Secrets
+postgres:
+  useSecret: true
+  secretName: "one37id-pgsql"
+  secretRef:
+    PG_PSWD: "postgres-password"
+    PG_ADMIN_PSWD: "postgres-password"
+
+#Read Secrets from Redis Instance Secrets
+redis:
+  secretName: "one37id-redis"
+  secretRef:
+    REDIS_PSWD: "redis-password"
+
+volume:
+  enabled: true
+  name: external
+  mountPath: /app/external
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+  storageClass: ibmc-vpc-block-general-purpose
+
+extraVolumes:
+extraVolumeMounts:
+
+
+resources:
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## limits:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  limits: {}
+  ## requests:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  requests: {}
+
+nodeSelector: {}
+
+tolerations:
+
+affinity: {}
