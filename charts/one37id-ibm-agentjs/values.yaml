@@ -1,0 +1,195 @@
+# Default values for one37 Business Connector NestJS component.
+# This container must start after the .NET Agent container has started
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  agentHostname: ibm-agent.dev-one37.id
+  # Enable this if you want have liveness and readiness probes
+  liveCheck: false
+  readyCheck: false
+
+nameOverride: one37id-ibm-agentjs
+postgresName: one37id-pgsql
+redisName: one37id-redis
+tlsSecret: one37id-tls-dev
+
+
+liveCheck: false
+readyCheck: false
+
+image:
+  repository: registry.gitlab.com/one37id/registry/one37id-bc2-js/staging
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: [{"name": "one37id-ibm-agent-one37secrets"}]
+
+replicaCount: 1
+
+# Supported values: redis, rabbitmq
+replicaQueHandler:
+  enabled: true
+  handler: redis
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+updateStrategy:
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
+  type: "OnDelete"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+containerSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 0
+  runAsNonRoot: true
+
+## make sure to use the ports as defined in the Studio Configuration
+service:
+  type: "ClusterIP"
+  twoPortMode: true
+  ports:
+    bootport: 5000
+    adminport: 5001
+    openport: 5002
+
+ingress:
+  enabled: true
+  # className: nginx # use this for Azure with open source nginx ingress controller
+  className: ""  # use this for IBM Cloud
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    affinity: "cookie"
+    proxybodysize: "50m"
+    sessioncookietimeout: "36000"
+  hosts:
+    - host: ibm-agent.dev-one37.id
+      paths:
+        - path: /bc/boot
+          pathType: Prefix
+          port: 5000
+        - path: /bc/admin
+          pathType: Prefix
+          port: 5001
+        - path: /bc/public
+          pathType: Prefix
+          port: 5002
+        - path: /.well-known
+          pathType: Prefix
+          port: 5002
+  tls:
+    - secretName: tlsSecret
+      hosts:
+        - ibm-agent.dev-one37.id
+
+resources:
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## limits:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  limits: {}
+  ## requests:
+  ##   cpu: 100m
+  ##   memory: 128Mi
+  requests: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+configmap:
+  #Metrics Support
+  LOCAL_METRICS_ENABLED: "true"
+  STATS_BUFFER_TIME: 1
+  STATS_BATCH_SIZE: 10
+  #Postgres Config
+  DB_DRIVER: "postgres"
+  PG_HOST: "one37id-pgsql"
+  PG_PORT: "5432"
+  # PG_DBNAME: "test-idnext_agent" # name MUST be the same as .NET Agent db name
+  PG_DB_AGENCY: "one37id-ibm-agentjs_agency"
+  # FCM Push Settings - API key in secrets
+  PUSH_URL: https://push.dev-one37.id/api/v1/notify
+  # Email Verification Settings
+  SMTP_HOST:  ""                        # smtp.office365.com
+  SMTP_PORT:  587                       # 587
+  SMTP_USER:  ""                        # info@one37id.com
+  EMAIL_FROM: ""                        # info@one37id.com
+  EMAIL_SCHEMA_ID: http://localhost:5002/bc/public/schemas/com.one37id.email/1.0
+
+
+environment:
+  NODE_ENV: production
+  # Logs
+  MINIMUM_LOG_LEVEL: 1
+  LOG_LEVEL: debug
+  NO_COLOR: "true"
+  # Bootstrap
+  PORT: 5000 # Is this the bootstrap port?
+  BC_DOTNET_BASE_URL: "http://one37id-ibm-agent:8083"
+  # BC_ADMIN_BASE_URL: "http://0.0.0.0:5001"
+  SD_JWT_ENABLED: true
+  LINKED_DOMAIN: "https://{{ .Values.agentHostName }}"       #    "https://idnext.trusdid.com"
+  ALIAS_REALM: aliasRealm                 #    trusdid.idnext
+  WELLKNOWN_DIDCONFIG_ENABLED: true
+  WS_AUTH_ENABLED: false
+  WS_REDIS_ENABLED: true
+  WS_REDIS_MONITOR_ENABLED: false
+
+
+secrets:
+  create: true
+  app:
+    PG_USER: postgres
+    PG_ADMIN_USER: postgres
+    DB_ENCRYPTION_KEY: randAlphaNum               # provided by the user
+    PUSH_API_KEY: api-key                         # provided by the user
+    SMTP_PSWD: 'VerySuperStrongPassword!12#34'
+
+
+#Read Secrets from Postgres Secrets
+postgres:
+  useSecret: true
+  secretName: "one37id-pgsql"
+  secretRef:
+    PG_PSWD: "postgres-password"
+    PG_ADMIN_PSWD: "postgres-password"
+
+#Read Secrets from Redis Instance Secrets
+redis:
+  secretName: "one37id-redis"
+  secretRef:
+    REDIS_PSWD: "redis-password"
+
+volume:
+  enabled: false
+  # name: data
+  # mountPath: /app/external
+  # accessModes:
+  #   - ReadWriteOnce
+  # storageClass: default
+  # size: 1Gi
