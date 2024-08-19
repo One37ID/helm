@@ -1,6 +1,7 @@
 {{- $fullName := include "one37id-ibm-studio.fullname" . -}}
 {{- $justName := include "one37id-ibm-studio.name" . -}}
-{{- $postgresSecretName := .Values.postgresName -}}
+{{- $postgresSecretName := .Values.secrets.postgresSecretName -}}
+{{- $redisSecretName := .Values.secrets.redisSecretName -}}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -68,15 +69,24 @@ spec:
           {{- if .Values.liveCheck }}
           livenessProbe:
             httpGet:
-              path: /health
+              path: /
               port: {{ .Values.service.port }}
           readinessProbe:
             httpGet:
-              path: /health
+              path: /
               port: {{ .Values.service.port }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.volume.enabled }}
+          volumeMounts:
+          - name: {{ $fullName}}-{{ .Values.volume.name }}
+            mountPath: {{ .Values.volume.mountPath }}
+      volumes:
+        - name: {{ $fullName}}-{{ .Values.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName}}-{{ .Values.volume.name }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

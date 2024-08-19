@@ -1,6 +1,6 @@
 # One37 Business Studio package for IBM Cloud Kubernetes Service
 
-v 2.2310.10-2
+v 2.2408.14-1
 
 The One37 Business Studio is the web-based tool for the configuration and management of the One37 Business Connector agents.
 

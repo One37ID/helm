@@ -1,0 +1,14 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "one37id-ibm-studio.serviceAccountName" . }}-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "one37id-ibm-studio.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace | quote }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "one37id-ibm-studio.serviceAccountRoleName" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end}}

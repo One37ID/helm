@@ -1,0 +1,10 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "one37id-ibm-studio.serviceAccountRoleName" . }}
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments/scale", "deployments"]
+    verbs: ["list", "get", "update", "patch"]
+{{- end}}

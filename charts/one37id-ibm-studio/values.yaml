@@ -19,7 +19,7 @@ studioHostname: ibm-studio.dev-one37.id
 replicaCount: 1
 
 image:
-  repository: registry.gitlab.com/one37id/registry/private-studio-fe/dev
+  repository: registry.gitlab.com/one37id/registry/studio-fe/net8.idnext
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -37,6 +37,7 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+  roleName: ""
 
 podAnnotations: {}
 
@@ -59,6 +60,10 @@ ingress:
   className: ""  # use this for IBM Cloud
   annotations:
     kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    affinity: "cookie"
+    proxybodysize: "50m"
+    sessioncookietimeout: "36000"
+    nginx.org/websocket-services: "one37id-studio"
   hosts:
     - host: ibm-studio.dev-one37.id
       paths:
@@ -97,16 +102,29 @@ affinity: {}
 
 configmap:
   ASPNETCORE_ENVIRONMENT: Development
+  MINIMUM_LOG_LEVEL: 1
+  LOG_LEVEL: debug
   # REACT_APP_API_URL: https://aks-studio.dev-one37.id
   # REACT_APP_AUTO_LOGOUT_IN_MINUTES: 180
 
 environment:
   MINIMUM_LOG_LEVEL: 1
   # STUDIO database params defined in configmap
+  STUDIO_PG_HOST: one37id-pgsql
+  STUDIO_PG_PORT: 5432
+  # Access the Kubernetes API to set replica count
+  # Is the Studio running in the same Kubernetes as the managed agents. Empty string disables the feature.
+  RUN_IN_SAME_K8s: ""
+  # Path to the kubeconfig file, either mounted as a volume secret or to a file on local disk
+  K8S_CONFIG_PATH: "/etc/kubeconfig"
+  K8S_AGENT_DEPLOYMENT_NAME: one37id-ibm-agentjs
+  K8S_AGENT_NAMESPACE: one37id
 
 
 secrets:
   create: true
+  postgresSecretName: "one37id-pgsql"
+  redisSecretName: "one37id-redis"
   app:
     STUDIO_PG_USER: postgres
     STUDIO_PG_ADMIN_USER: postgres
@@ -119,3 +137,9 @@ secrets:
 secretsPGRef:
   STUDIO_PG_PSWD: "postgres-password"
   STUDIO_PG_ADMIN_PSWD: "postgres-password"
+
+
+volume:
+  enabled: false
+  name: ""
+  mountPath: ""
