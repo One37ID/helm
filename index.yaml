@@ -1,14 +1,47 @@
 apiVersion: v1
 entries:
-  one37id-ibm-agent:
+  one37id-bc:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 1.2408.21-1
-    created: "2024-08-22T11:32:45.4447152+02:00"
+    appVersion: 2.2408.22-1
+    created: "2024-08-22T13:40:20.6705126+02:00"
+    dependencies:
+    - name: one37id-bc-ctrl
+      repository: file://../one37id-bc-ctrl
+      tags:
+      - one37id-bc-ctrl
+      version: 2.2408.22-1
+    description: A Helm chart to deploy the One37 Business Connector
+    digest: e77f79bf4c2811847b2af65ff3a7f7f470dab3d4a7a683dc45dd47dbc3b32762
+    home: https://one37id.com
+    icon: https://www.one37id.com/images/connector.svg
+    keywords:
+    - businessconnector
+    - ssi
+    - oid4vc
+    - agent
+    - one37id
+    - one37
+    - one37id.com
+    maintainers:
+    - name: One37 Solutions, Inc.
+      url: https://github.com/one37id/charts
+    name: one37id-bc
+    type: application
+    urls:
+    - https://one37id.github.io/helm-ibm/packages/one37id-bc-2.2408.22-1.tgz
+    version: 2.2408.22-1
+  one37id-bc-ctrl:
+  - annotations:
+      category: Infrastructure
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2.2408.22-1
+    created: "2024-08-22T13:40:20.6722194+02:00"
     description: A Helm chart to deploy the One37 Business Connector Controller .Net
-    digest: 53b776442b903f9e7ba0ab13225eae9f59f3ccd56274514b0a629117a0514c28
+    digest: 618faca84c97ac83d217cc3961ced41937b6d67d922caa09a1b8bb462778d896
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     keywords:
@@ -22,83 +55,18 @@ entries:
     maintainers:
     - name: One37 Solutions, Inc.
       url: https://github.com/one37id/charts
-    name: one37id-ibm-agent
+    name: one37id-bc-ctrl
     type: application
     urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-agent-1.2408.21-1.tgz
-    version: 1.2408.21-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 1.2310.13-4
-    created: "2024-08-22T11:32:45.4431128+02:00"
-    dependencies:
-    - name: one37secrets
-      repository: file://../one37secrets
-      tags:
-      - one37secrets
-      version: 1.2310.10-2
-    description: A Helm chart to deploy the One37 Business Connector Agent
-    digest: bfa498162886453b1370927f59ea83782ec9b2ee841f8956c96c94de49b78e35
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    keywords:
-    - businessconnector
-    - ssi
-    - aries
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-ibm-agent
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-agent-1.2310.13-4.tgz
-    version: 1.2310.13-4
-  one37id-ibm-agentjs:
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 1.2408.21-1
-    created: "2024-08-22T11:32:45.4479813+02:00"
-    dependencies:
-    - name: one37id-ibm-agent
-      repository: file://../one37id-ibm-agent
-      tags:
-      - one37id-ibm-agent
-      version: 1.2408.21-1
-    description: A Helm chart to deploy the One37 Business Connector Agent JS
-    digest: 8f6a8eb93a94a5701de1e13c6a95ebd818ad3b63bcd76bb8e27832295da69572
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    keywords:
-    - businessconnector
-    - ssi
-    - oid4vc
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-ibm-agentjs
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-agentjs-1.2408.21-1.tgz
-    version: 1.2408.21-1
+    - https://one37id.github.io/helm-ibm/packages/one37id-bc-ctrl-2.2408.22-1.tgz
+    version: 2.2408.22-1
   one37id-ibm-studio:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-1
-    created: "2024-08-22T11:32:45.4523339+02:00"
+    created: "2024-08-22T13:40:20.6749929+02:00"
     description: Helm chart for the deployment of the One37 Business Studio (Agent
       Manager) on IBM Cloud Kubernetes Service.
     digest: 6179f293abbbc7f5106ddde786af9c0b253b4713ae5790898509b2455162b094
@@ -121,109 +89,13 @@ entries:
     urls:
     - https://one37id.github.io/helm-ibm/packages/one37id-ibm-studio-2.2408.22-1.tgz
     version: 2.2408.22-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 2.2408.21-1
-    created: "2024-08-22T11:32:45.4511786+02:00"
-    description: Helm chart for the deployment of the One37 Business Studio (Agent
-      Manager) on IBM Cloud Kubernetes Service.
-    digest: d005f115a84923eada45d0539c047bd64d7e4351e8226f1a7240f5eaf7306b6b
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    keywords:
-    - studio
-    - agent manager
-    - workflows
-    - schema
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-ibm-studio
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-studio-2.2408.21-1.tgz
-    version: 2.2408.21-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 2.2408.14-1
-    created: "2024-08-22T11:32:45.4506457+02:00"
-    dependencies:
-    - name: one37secrets
-      repository: file://../one37secrets
-      tags:
-      - one37secrets
-      version: 1.2310.10-2
-    description: Helm chart for the deployment of the One37 Business Studio (Agent
-      Manager) on IBM Cloud Kubernetes Service.
-    digest: 2d57bf17a4521e621d9fcf5b92e8511016ce3979d91be419dba7f1e445a0104a
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    keywords:
-    - studio
-    - agent manager
-    - workflows
-    - schema
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-ibm-studio
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-studio-2.2408.14-1.tgz
-    version: 2.2408.14-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 2.2310.13-3
-    created: "2024-08-22T11:32:45.4490477+02:00"
-    dependencies:
-    - name: one37secrets
-      repository: file://../one37secrets
-      tags:
-      - one37secrets
-      version: 1.2310.10-2
-    description: Helm chart for the deployment of the One37 Business Studio (Agent
-      Manager) on IBM Cloud Kubernetes Service.
-    digest: efafb5557e304fcd25074294ea05509c83b1195d591a84822d49e4600ee49e7e
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    keywords:
-    - studio
-    - agent manager
-    - workflows
-    - schema
-    - agent
-    - one37id
-    - one37
-    - one37id.com
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-ibm-studio
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-ibm-studio-2.2310.13-3.tgz
-    version: 2.2310.13-3
   one37id-pgsql:
   - annotations:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2404.19-1
-    created: "2024-08-22T11:32:45.4666793+02:00"
+    created: "2024-08-22T13:40:20.6896128+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -248,7 +120,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2404.18-1
-    created: "2024-08-22T11:32:45.4625344+02:00"
+    created: "2024-08-22T13:40:20.6851854+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -273,7 +145,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2024-08-22T11:32:45.4577633+02:00"
+    created: "2024-08-22T13:40:20.679338+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -299,7 +171,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2404.19-1
-    created: "2024-08-22T11:32:45.484734+02:00"
+    created: "2024-08-22T13:40:20.7086678+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -324,7 +196,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2404.18-1
-    created: "2024-08-22T11:32:45.4777117+02:00"
+    created: "2024-08-22T13:40:20.7026422+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -349,7 +221,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2310.12-1
-    created: "2024-08-22T11:32:45.4732004+02:00"
+    created: "2024-08-22T13:40:20.695887+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -372,7 +244,7 @@ entries:
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2408.21
-    created: "2024-08-22T11:32:45.4852467+02:00"
+    created: "2024-08-22T13:40:20.7096758+02:00"
     description: Deploy the development TLS certificate for *.dev-one37.id
     digest: c70881c8caf4d436eb169e5a2c8ad26c1cb0ec8457d483de99cac55959a498af
     name: one37id-tls-dev
@@ -382,7 +254,7 @@ entries:
     version: 1.2408.21
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2024-08-22T11:32:45.4852467+02:00"
+    created: "2024-08-22T13:40:20.7086678+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -393,7 +265,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2311.17-1
-    created: "2024-08-22T11:32:45.486255+02:00"
+    created: "2024-08-22T13:40:20.7106577+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
     digest: 49b90f2ec6ad70284adeebe6e1accd116985601cc97c80a362c6637a57639bc4
     name: one37secrets
@@ -401,4 +273,4 @@ entries:
     urls:
     - https://one37id.github.io/helm-ibm/packages/one37secrets-1.2311.17-1.tgz
     version: 1.2311.17-1
-generated: "2024-08-22T11:32:45.440397+02:00"
+generated: "2024-08-22T13:40:20.6671543+02:00"

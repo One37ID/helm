@@ -1,0 +1,9 @@
+{{- $fullName := include "one37id-bc-ctrl.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+data:
+{{- range $key, $value := .Values.configmap }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}

@@ -1,0 +1,22 @@
+apiVersion: v2
+name: one37id-bc-ctrl
+type: application
+description: A Helm chart to deploy the One37 Business Connector Controller .Net
+home: https://one37id.com
+icon: https://www.one37id.com/images/connector.svg
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+keywords:
+  - businessconnector
+  - ssi
+  - oid4vc
+  - agent
+  - one37id
+  - one37
+  - one37id.com
+maintainers:
+  - name: One37 Solutions, Inc.
+    url: https://github.com/one37id/charts
+appVersion: "2.2408.22-1"
+version: 2.2408.22-1

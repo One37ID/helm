@@ -105,7 +105,7 @@ environment:
   RUN_IN_SAME_K8s: "true"
   # Path to the kubeconfig file, either mounted as a volume secret or to a file on local disk
   K8S_CONFIG_PATH: "/etc/kubeconfig"
-  K8S_AGENT_DEPLOYMENT_NAME: one37id-ibm-agentjs
+  K8S_AGENT_DEPLOYMENT_NAME: one37id-bc
   K8S_AGENT_NAMESPACE: one37id
 
 
