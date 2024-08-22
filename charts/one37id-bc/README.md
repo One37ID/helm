@@ -1,5 +1,7 @@
 # One37 Business Connector JS package for IBM Cloud Kubernetes Service
 
+v 2.2408.22
+
 The One37ID Business Connector is a Verifiable Credentials exchange platform.
 
 ## Introduction
@@ -27,19 +29,27 @@ In IBM Cloud, you can configure your installation by using IBM Cloud Schematics,
 
 The following table lists the configurable parameters of the One37 Business Connector chart and their default values.
 
-| Name                     | Description                                                                               | Value                            |
-|--------------------------|-------------------------------------------------------------------------------------------|----------------------------------|
-| `nameOverride`           | String to partially override the Kubernetes instance name. Same as fullnameOverride       | "one37-ibm-agentjs"                |
-| `tlsSecret`              | Provide the name if the secret for installed TLS Certificate to use for external access.  | "__NOT_SET__"                    |
-| `global.agentHostname`   | Provide the public DNS host name where the services will be accessed. (Not a URL)          | "ibm-agent.example.com"          |
-| `volume.storageClass`    | Select the StorageClass for the App Persistent Volume                                     | "ibmc-vpc-block-general-purpose" |
-| `postgresName`           | Instance Name of the installed PostgreSQL database chart                                  | "one37id-pgsql"                  |
-| `redisName`              | Instance Name of the installed REDIS database chart                                       | "one37id-redis"                  |
-| `configmap.SMTP_HOST`    | The SMTP server HOST to use when sending Email verification messages              | "__NOT_SET__" |
-| `configmap.SMTP_PORT`    | The SMTP server PORT to use when sending Email verification messages                                  | "__NOT_SET__"                  |
-| `configmap.SMTP_USER`    | The SMTP authentication  USER ACCOUNT to use when sending Email verification messages     | "__NOT_SET__"                  |
-| `configmap.EMAIL_FROM`   | The SMTP FROM address  to use when sending Email verification messages                                          | "__NOT_SET__"                    |
-| `environment.AGENT_NAME` | String value to set the public name of the Agent                                          | "__NOT_SET__"                    |
+| Name                            | Description                                                                              | Value                            |
+|---------------------------------|------------------------------------------------------------------------------------------|----------------------------------|
+| `nameOverride`                  | Name to use for the Business Connector Kubernetes instance.                              | "one37id-bc"                     |
+| `agentHostname`                 | Public DNS host name where the Business Connector services will be accessed. (Not a URL) | "agent.example.com"              |
+| `one37id-bc-ctrl.nameOverride`  | Name to use for the Controller Kubernetes instance.                                      | "one37id-bc-ctrl"                |
+| `one37id-bc-ctrl.agentHostname` | Public DNS host name where the Controller services will be accessed. (Not a URL)         | "agent-ctrl.example.com"         |
+| `global.tlsSecret`              | Name if the Secret for installed TLS Certificate to use.                                 | "__NOT_SET__"                    |
+| `global.postgresName`           | Instance Name of the installed PostgreSQL database chart                                 | "one37id-pgsql"                  |
+| `global.redisName`              | Instance Name of the installed REDIS database chart                                      | "one37id-redis"                  |
+| `volume.storageClass`           | Select the StorageClass for the App Persistent Volume                                    | "ibmc-vpc-block-general-purpose" |
+| `configmap.SMTP_HOST`           | The SMTP server HOST to use when sending Email verification messages                     | "__NOT_SET__"                    |
+| `configmap.SMTP_PORT`           | The SMTP server PORT to use when sending Email verification messages                     | "__NOT_SET__"                    |
+| `configmap.EMAIL_FROM`          | The SMTP FROM address to use when sending Email verification messages                    | "__NOT_SET__"                    |
+| `configmap.SMTP_USER`           | The SMTP authentication USER ACCOUNT to use when sending Email verification messages     | "__NOT_SET__"                    |
+| `secrets.app.SMTP_PSWD`         | The SMTP account password                                                                | "__NOT_SET__"                    |
+| `secrets.app.DB_ENCRYPTION_KEY` | The Wallet Encryption Key                                                                | "__NOT_SET__"                    |
+| `environment.ALIAS_REALM`       | The REALM to which user ALIASES will be associated. See Docs.                            | "com.example"                    |
+| `environment.LINKED_DOMAIN`     | Full URL of the Business Connector Agent service.                                        | "__NOT_SET__"                    |
+| `environment.LOG_LEVEL`         | 'debug', 'information', 'warning'                                                        | "debug"                          |
+
+ALIAS_REALM
 
 ## Upgrading to a new version
 
