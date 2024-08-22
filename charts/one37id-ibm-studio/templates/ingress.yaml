@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "one37id-ibm-studio.fullname" . -}}
-{{- $annotate := .Values.ingress.annotations -}}
 {{- $tlsSecret := .Values.tlsSecret -}}
 {{- $studioHostname := .Values.studioHostname -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
@@ -28,16 +27,10 @@ spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.ingress.className }}
   {{- end }}
-  {{- if .Values.ingress.tls }}
   tls:
-    {{- range .Values.ingress.tls }}
     - hosts:
-        {{- range .hosts }}
         - {{ $studioHostname | quote }}
-        {{- end }}
       secretName: {{ $tlsSecret }}
-    {{- end }}
-  {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
     - host: {{ $studioHostname | quote }}

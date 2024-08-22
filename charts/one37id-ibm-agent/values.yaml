@@ -1,22 +1,19 @@
-# Overide values for the redis subchart
-one37secrets:
-  nameOverride: one37id-ibm-agent-reposecret
-  fullnameOverride: one37id-ibm-agent-reposecret
+
+global:
+  postgresName: one37id-pgsql
+  redisName: one37id-redis
+  tlsSecret: one37id-tls-dev
+
 
 # Default values for one37 Business Connector.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+agentHostname: ibm-agent.dev-one37.id
 nameOverride: one37id-ibm-agent
-fullnameOverride: one37id-ibm-agent
 # Enable this if you want have liveness and readiness probes
 liveCheck: false
 readyCheck: false
-
-postgresName: one37id-pgsql
-redisName: one37id-redis
-tlsSecret: one37id-tls-dev
-agentHostname: ibm-agent.dev-one37.id
 
 
 image:
@@ -25,7 +22,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-ibm-agent-one37secrets"}]
+imagePullSecrets: [{"name": "one37secrets"}]
 
 # Any value here above 1 will require the REDIS or MQ service
 # to be enabled and specified below
@@ -54,7 +51,6 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext:
-  enabled: true
   fsGroup: 1001
 
 containerSecurityContext:
@@ -78,20 +74,20 @@ service:
 ingress:
   enabled: true
   # className: nginx # use this for Azure with open source nginx ingress controller
-  className: ""  # use this for IBM Cloud
+  className: "public-iks-k8s-nginx"  # leave blank for IBM Cloud
   annotations:
-    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    # kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
     proxybodysize: "50m"
   hosts:
-    - host: agentHostName
-      paths:
+    # - host: agenthostname # ibm-ctrl.dev-one37.id - use global override
+    - paths:
         - path: /
           pathType: Prefix
           port: 8083
   tls:
     - secretName: tlsSecret
-      hosts:
-        - agentHostname
+      # hosts:
+      #   - agenthostname # ibm-ctrl.dev-one37.id
 
 configmap:
   ASPNETCORE_ENVIRONMENT: "Development"
@@ -101,7 +97,6 @@ configmap:
 environment:
   CREDENTIAL_CLEANER_SERVICE_CRON: "*/10 * * * *"
   WORKFLOW_CLEANER_SERVICE_CRON: "*/2 * * * *"
-    #Metrics Support
   #Metrics Support
   LOCAL_METRICS_ENABLED: "true"
   STATS_BUFFER_TIME: 1
@@ -116,16 +111,16 @@ environment:
   #Postgres Config
   PG_HOST: "one37id-pgsql"
   PG_PORT: "5432"
-  PG_DBNAME: "one37id-idnext_agency"
-  AGENT_NAME: "TEST_AGENT"
-  AGENCY_URL: "https://idnext.trusdid.com"
+  PG_USER: postgres
+  PG_ADMIN_USER: postgres
+  PG_DBNAME: "one37id-ibm-agentjs_agency"
+  AGENT_NAME: "IBM_AGENT"
+  AGENCY_URL: "https://ibm-agentjs.dev-one37.id"
 
 secrets:
-  create: true
+  create: false
   app:
-    PG_USER: postgres
-    PG_ADMIN_USER: postgres
-    
+
 #Read Secrets from Postgres Secrets
 postgres:
   useSecret: true

@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "one37id-ibm-agentjs.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $tlsSecret := .Values.global.tlsSecret -}}
+{{- $agentHostname := .Values.agentHostname -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -28,17 +29,13 @@ spec:
   {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
-    {{- range .Values.ingress.tls }}
     - hosts:
-        {{- range .hosts }}
-        - {{ . | quote }}
-        {{- end }}
-      secretName: {{ .secretName }}
-    {{- end }}
+        - {{ $agentHostname | quote }}
+      secretName: {{ $tlsSecret }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    # {{- range .Values.ingress.hosts }}
+    - host: {{ $agentHostname | quote }}
       http:
         paths:
           {{- range .paths }}

@@ -1,12 +1,12 @@
-# One37 Business Connector package for IBM Cloud Kubernetes Service
+# One37 Business Connector Controller package for IBM Cloud Kubernetes Service
 
 The One37 Business Connector is a Verifiable Credentials exchange platform.
 
 ## Introduction
 
-This chart bootstraps a [Business Connector v1.2]() deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a **Business Connector Controller** deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It is available to execute as a simple Click & Configure installation through the IBM Cloud Catalog.
+This chart should not be used in isolation. It is designed to be called as a subchart from the One37 Business Connector JS chart. The Business Connector JS chart will install the Business Connector Controller as a dependency.
 
 ## Requirements
 

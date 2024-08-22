@@ -1,6 +1,6 @@
 # One37 Business Studio package for IBM Cloud Kubernetes Service
 
-v 2.2408.14-1
+v 2.2408.21-1
 
 The One37 Business Studio is the web-based tool for the configuration and management of the One37 Business Connector agents.
 
@@ -13,10 +13,10 @@ It is available to execute as a simple Click & Configure installation through th
 ## Requirements
 
 - IBM Cloud Kubernetes Service Cluster deployed  v1.19+
-- PostgreSQL database. **
+- PostgreSQL database
 
-> ** The One37 Business Studio requires a PostgreSQL database instance to store its configuration data.
-> One37 also provides a IBM Cloud Catalog item for easy deployment of a pre-configured PostgreSQL database instance.
+> One37 also provides a IBM Cloud Catalog item for easy deployment of a pre-configured PostgreSQL database instance suitable for simple use-cases with the One37 Business Studio.
+>
 
 ## Installing the software from the IBM Cloud catalog
 
@@ -27,11 +27,10 @@ In IBM Cloud, you can configure your installation by using IBM Cloud Schematics,
 The following table lists the configurable parameters of the One37 Business Studio chart and their default values.
 | Name               | Description                                                                  | Value                    |
 |--------------------|------------------------------------------------------------------------------|--------------------------|
-| `nameOverride`     | String to partially override the Kubernetes instance name.                   | "one37-ibm-studio"       |
-| `fullnameOverride` | String to partially override the Kubernetes instance name.                   | "one37-ibm-studio"       |
+| `nameOverride`     | String to partially override the Kubernetes instance name.                   | one37-studio             |
 | `tlsSecret`        | Name if the installed Ingress certificate secret to use for external access. | ""                       |
-| `postgresName`     | Name if the installed Postgres database to use.                              | "one37id-pgsql"          |
-| `studioHostname`   | Public Hostname for the service to use for external access. (Not URL)        | "ibm-studio.example.com" |
+| `postgresName`     | Hostname if the installed Postgres database to use.                          | one37id-pgsql            |
+| `studioHostname`   | Public Hostname for the service to use for external access. (Not URL)        |                          |
 
 ## Uninstalling the chart
 
@@ -45,7 +44,7 @@ Complete the following steps to uninstall a Helm Chart from your account.
 
 ## License
 
-Copyright &copy; 2023 One37 Solutions, Inc.
+Copyright &copy; 2024 One37 Solutions, Inc.
 One37 Business Studio is licensed under the [One37 EULA]([Title](https://www.one37id.com/resources/BC-EULA.html)).
 
 Portions of the codebase are licensed under the Apache 2.0 License. See [LICENSE]([Title](https://www.apache.org/licenses/LICENSE-2.0)) for details.

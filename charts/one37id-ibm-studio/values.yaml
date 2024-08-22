@@ -1,17 +1,10 @@
 
-# Overide values for the postgres subchart
-one37secrets:
-  nameOverride: "one37id-ibm-studio-reposecret"
-  fullnameOverride: "one37id-ibm-studio-reposecret"
-
 
 # Default values for one37id-ibm-studio.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: "one37id-studio"
-fullnameOverride: "one37id-studio"
-
+nameOverride: one37id-studio
 postgresName: one37id-pgsql
 tlsSecret: one37id-tls-dev
 studioHostname: ibm-studio.dev-one37.id
@@ -24,7 +17,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: [{"name": "one37id-ibm-studio-reposecret"}]
+imagePullSecrets: [{"name": "one37secrets"}]
 
 
 liveCheck: false
@@ -42,7 +35,6 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext:
-  enabled: true
   fsGroup: 1001
 
 containerSecurityContext:
@@ -57,23 +49,19 @@ service:
 ingress:
   enabled: true
   # className: nginx # use this for Azure with open source nginx ingress controller
-  className: ""  # use this for IBM Cloud
+  className: "public-iks-k8s-nginx"  # use this for IBM Cloud
   annotations:
-    kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
+    # kubernetes.io/ingress.class: public-iks-k8s-nginx  # Only use this for IBM Cloud
     affinity: "cookie"
     proxybodysize: "50m"
     sessioncookietimeout: "36000"
     nginx.org/websocket-services: "one37id-studio"
   hosts:
-    - host: ibm-studio.dev-one37.id
-      paths:
+    - paths:
         - path: /
           pathType: Prefix
           port: 8084
-  tls:
-    - secretName: one37id-tls-dev
-      hosts:
-        - ibm-studio.dev-one37.id
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -114,7 +102,7 @@ environment:
   STUDIO_PG_PORT: 5432
   # Access the Kubernetes API to set replica count
   # Is the Studio running in the same Kubernetes as the managed agents. Empty string disables the feature.
-  RUN_IN_SAME_K8s: ""
+  RUN_IN_SAME_K8s: "true"
   # Path to the kubeconfig file, either mounted as a volume secret or to a file on local disk
   K8S_CONFIG_PATH: "/etc/kubeconfig"
   K8S_AGENT_DEPLOYMENT_NAME: one37id-ibm-agentjs

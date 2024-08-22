@@ -1,6 +1,6 @@
 {{- $fullName := include "one37id-ibm-agent.fullname" . -}}
-{{- $postgresSecretName := printf "%s" .Values.postgresName -}}
-{{- $redisSecretName := printf "%s" .Values.redisName -}}
+{{- $postgresSecretName := printf "%s" .Values.global.postgresName -}}
+{{- $redisSecretName := printf "%s" .Values.global.redisName -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,12 +28,17 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "one37id-ibm-agent.serviceAccountName" . }}
-      securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       restartPolicy: Always
       containers:
         - name: {{ $fullName }}
+          {{- with .Values.containerSecurityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -53,8 +58,9 @@ spec:
                   name: {{ $fullName }}
                   optional: false
             {{- end }}
-            {{- if .Values.postgres.useSecret }}
-            {{- range $key, $value := .Values.postgres.secretsPGRef }}
+          {{- end }}
+          {{- if .Values.postgres.useSecret }}
+            {{- range $key, $value := .Values.postgres.secretRef }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
@@ -62,8 +68,8 @@ spec:
                   name: {{ $postgresSecretName | quote }}
                   optional: false
             {{- end }}
-            {{- end }}
-            {{- range $key, $value := .Values.redis.secretsREDISRef }}
+          {{- end }}
+            {{- range $key, $value := .Values.redis.secretRef }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
@@ -71,7 +77,6 @@ spec:
                   name: {{ $redisSecretName | quote }}
                   optional: false
             {{- end }}
-          {{- end }}
           ports:
           {{- range $key, $value := .Values.service.ports }}
             - name: {{ $key }}

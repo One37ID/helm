@@ -8,11 +8,15 @@ This chart bootstraps a [Business Connector v2]() deployment on a [Kubernetes](h
 
 It is available to execute as a simple Click & Configure installation through the IBM Cloud Catalog.
 
+It will also deploy the following sub-charts:
+ - one37id-ibm-agent
+ - one37secrets
+
 ## Requirements
 
 - IBM Cloud Kubernetes Service Cluster deployed  v1.19+
 - PostgreSQL database and Redis cache. **
-- At least one instance of the One37 Business Studio ** must be installed to manage this Agent.
+- At least one instance of the _**One37 Business Studio**_ must be installed to manage this Agent. **
 
 > ** These are available as a Click & Configure installations through the IBM Cloud Catalog.
 

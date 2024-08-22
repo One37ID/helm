@@ -1,3 +1,6 @@
+{{- $fullName := include "one37id-ibm-agent.fullname" . -}}
+{{- $postgresSecretName := printf "%s" .Values.global.postgresName -}}
+{{- $redisSecretName := printf "%s" .Values.global.redisName -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,28 +28,82 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "one37id-ibm-agentjs.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Always
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ $fullName }}
+          {{- with .Values.containerSecurityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ $fullName }}
+          env:
+            {{- range $key, $value := .Values.environment }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- if .Values.secrets.create }}
+            {{- range $key, $value := .Values.secrets.app }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $key }}
+                  name: {{ $fullName }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+          {{- if .Values.postgres.useSecret }}
+            {{- range $key, $value := .Values.postgres.secretRef }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $value | quote }}
+                  name: {{ $postgresSecretName | quote }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+            {{- range $key, $value := .Values.redis.secretRef }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $value | quote }}
+                  name: {{ $redisSecretName | quote }}
+                  optional: false
+            {{- end }}
           ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
+          {{- range $key, $value := .Values.service.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
               protocol: TCP
+          {{- end }}
+          {{- if .Values.liveCheck }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /bc/studio/health
+              port: {{ .Values.service.port.bootPort }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /bc/agency/health
+              port: {{ .Values.service.port.bootPort }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.volume.enabled }}
+          volumeMounts:
+          - name: {{ $fullName}}-{{ .Values.volume.name }}
+            mountPath: {{ .Values.volume.mountPath }}
+      volumes:
+        - name: {{ $fullName}}-{{ .Values.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName}}-{{ .Values.volume.name }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
