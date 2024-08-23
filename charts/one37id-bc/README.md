@@ -17,9 +17,10 @@ It will also deploy the following sub-charts:
 
 - IBM Cloud Kubernetes Service Cluster deployed  v1.19+
 - PostgreSQL database and Redis cache. **
+- A valid TLS certificate, configured as a secret, for the Agent and Controller services.
 - At least one instance of the _**One37 Business Studio**_ must be installed to manage this Agent. **
 
-> ** These are available as a Click & Configure installations through the IBM Cloud Catalog.
+> The provided PostgreSQL and Redis catalog charts are not configured for high-availability or disaster recovery. Please consult the documentation for those charts to configure them for your specific needs.
 
 ## Installing the software from the IBM Cloud catalog
 
@@ -75,9 +76,9 @@ Complete the following steps to uninstall a Helm Chart from your account.
 
 ## License
 
-Copyright &copy; 2023 One37 Solutions, Inc.
+Copyright &copy; 2024 One37 Solutions, Inc.
 
-[LICENSE](https://raw.githubusercontent.com/FedoraMan137/helm-test/main/LICENSE.md)
+[LICENSE](https://raw.githubusercontent.com/One37ID/helm-ibm/main/LICENSE.md)
 
 Portions of the codebase are licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
 

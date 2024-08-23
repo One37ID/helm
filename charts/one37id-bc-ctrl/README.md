@@ -61,9 +61,9 @@ Complete the following steps to uninstall a Helm Chart from your account.
 
 ## License
 
-Copyright &copy; 2023 One37 Solutions, Inc.
+Copyright &copy; 2024 One37 Solutions, Inc.
 
-[LICENSE](https://raw.githubusercontent.com/FedoraMan137/helm-test/main/LICENSE.md)
+[LICENSE](https://raw.githubusercontent.com/One37ID/helm-ibm/main/LICENSE.md)
 
 Portions of the codebase are licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
 

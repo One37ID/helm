@@ -1,7 +1,7 @@
 apiVersion: v2
 name: one37id-bc-ctrl
 type: application
-description: A Helm chart to deploy the One37 Business Connector Controller .Net
+description: A Helm chart to deploy the One37 Business Connector Controller
 home: https://one37id.com
 icon: https://www.one37id.com/images/connector.svg
 annotations:
@@ -17,6 +17,6 @@ keywords:
   - one37id.com
 maintainers:
   - name: One37 Solutions, Inc.
-    url: https://github.com/one37id/charts
-appVersion: "2.2408.22-2"
-version: 2.2408.22-2
+    url: https://github.com/One37ID/helm-ibm
+appVersion: "2.2408.22-3"
+version: 2.2408.22-3
