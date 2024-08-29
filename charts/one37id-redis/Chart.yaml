@@ -12,9 +12,9 @@ dependencies:
     repository: oci://registry-1.docker.io/bitnamicharts
     tags:
     - redis
-    version: latest
+    version: 20.0.3
 maintainers:
   - name: One37 Solutions, Inc.
     url: https://github.com/one37id/charts
-appVersion: "1.2404.19-1"
-version: 1.2404.19-1
+appVersion: "1.2404.29-1"
+version: 1.2404.29-1

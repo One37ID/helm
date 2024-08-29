@@ -6,7 +6,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-3
-    created: "2024-08-29T12:49:11.6401983+02:00"
+    created: "2024-08-29T12:55:15.6563721+02:00"
     dependencies:
     - name: one37id-bc-ctrl
       repository: file://../one37id-bc-ctrl
@@ -38,7 +38,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-2
-    created: "2024-08-29T12:49:11.6375586+02:00"
+    created: "2024-08-29T12:55:15.6541602+02:00"
     dependencies:
     - name: one37id-bc-ctrl
       repository: file://../one37id-bc-ctrl
@@ -71,7 +71,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-3
-    created: "2024-08-29T12:49:11.6435724+02:00"
+    created: "2024-08-29T12:55:15.6619932+02:00"
     description: A Helm chart to deploy the One37 Business Connector Controller
     digest: 9d1e870523dd547cd0c244d1eb7042d8603c1e2c886d67b31c84d57d25de8a9a
     home: https://one37id.com
@@ -97,7 +97,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-2
-    created: "2024-08-29T12:49:11.6419672+02:00"
+    created: "2024-08-29T12:55:15.6599926+02:00"
     description: A Helm chart to deploy the One37 Business Connector Controller .Net
     digest: fd35d3fab2916d9d21cc03bbeb078eb2ab90696052728d847db90500231dc266
     home: https://one37id.com
@@ -124,7 +124,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2.2408.22-1
-    created: "2024-08-29T12:49:11.644647+02:00"
+    created: "2024-08-29T12:55:15.6624991+02:00"
     description: Helm chart for the deployment of the One37 Business Studio (Agent
       Manager) on IBM Cloud Kubernetes Service.
     digest: 6179f293abbbc7f5106ddde786af9c0b253b4713ae5790898509b2455162b094
@@ -153,7 +153,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.2408.29-1
-    created: "2024-08-29T12:49:11.6520777+02:00"
+    created: "2024-08-29T12:55:15.668091+02:00"
     dependencies:
     - name: postgresql
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -178,17 +178,17 @@ entries:
       category: Infrastructure
       licenses: Apache-2.0
     apiVersion: v2
-    appVersion: 1.2404.19-1
-    created: "2024-08-29T12:49:11.6695504+02:00"
+    appVersion: 1.2404.29-1
+    created: "2024-08-29T12:55:15.6751366+02:00"
     dependencies:
     - name: redis
       repository: oci://registry-1.docker.io/bitnamicharts
       tags:
       - redis
-      version: latest
+      version: 20.0.3
     description: A Helm chart to deploy One37 Business Connector Agent REDIS database
       dependency
-    digest: dcb78efe6ddc16138f1fdf904b61ecf0edd3545269a448a6e6434e11a4f5d98f
+    digest: 48575219555ebacc6a883b1d8478f2755d79ab92cb1afaa7faebb566961ce9de
     home: https://one37id.com
     icon: https://www.one37id.com/images/connector.svg
     maintainers:
@@ -197,62 +197,12 @@ entries:
     name: one37id-redis
     type: application
     urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-redis-1.2404.19-1.tgz
-    version: 1.2404.19-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 1.2404.18-1
-    created: "2024-08-29T12:49:11.6642034+02:00"
-    dependencies:
-    - name: redis
-      repository: oci://registry-1.docker.io/bitnamicharts
-      tags:
-      - redis
-      version: latest
-    description: A Helm chart to deploy One37 Business Connector Agent REDIS database
-      dependency
-    digest: 311725e72fbb5b4f5738d017901621edb4048b60bef777657128c2f7fd040571
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-redis
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-redis-1.2404.18-1.tgz
-    version: 1.2404.18-1
-  - annotations:
-      category: Infrastructure
-      licenses: Apache-2.0
-    apiVersion: v2
-    appVersion: 1.2310.12-1
-    created: "2024-08-29T12:49:11.6569482+02:00"
-    dependencies:
-    - name: redis
-      repository: oci://registry-1.docker.io/bitnamicharts
-      tags:
-      - redis
-      version: 18.x.x
-    description: A Helm chart to deploy One37 Business Connector Agent REDIS database
-      dependency
-    digest: e41edd9e76efd9a22916235469c71cdabfb32bef4e7933dc846651701d1b6514
-    home: https://one37id.com
-    icon: https://www.one37id.com/images/connector.svg
-    maintainers:
-    - name: One37 Solutions, Inc.
-      url: https://github.com/one37id/charts
-    name: one37id-redis
-    type: application
-    urls:
-    - https://one37id.github.io/helm-ibm/packages/one37id-redis-1.2310.12-1.tgz
-    version: 1.2310.12-1
+    - https://one37id.github.io/helm-ibm/packages/one37id-redis-1.2404.29-1.tgz
+    version: 1.2404.29-1
   one37id-tls-dev:
   - apiVersion: v2
     appVersion: 1.2408.21
-    created: "2024-08-29T12:49:11.67066+02:00"
+    created: "2024-08-29T12:55:15.6771381+02:00"
     description: Deploy the development TLS certificate for *.dev-one37.id
     digest: c70881c8caf4d436eb169e5a2c8ad26c1cb0ec8457d483de99cac55959a498af
     name: one37id-tls-dev
@@ -262,7 +212,7 @@ entries:
     version: 1.2408.21
   - apiVersion: v2
     appVersion: 1.2310.8
-    created: "2024-08-29T12:49:11.6701065+02:00"
+    created: "2024-08-29T12:55:15.6761127+02:00"
     description: Deply the development TLS certificate for *.dev-one37.id
     digest: c50a416b41661c53dd99f58b3b858f90f1d0df96eae0ab496e64147c354b9f2b
     name: one37id-tls-dev
@@ -273,7 +223,7 @@ entries:
   one37secrets:
   - apiVersion: v2
     appVersion: 1.2311.17-1
-    created: "2024-08-29T12:49:11.6712162+02:00"
+    created: "2024-08-29T12:55:15.6771381+02:00"
     description: Add Kubernetes Secrets to the One37 GitLab Registry
     digest: 49b90f2ec6ad70284adeebe6e1accd116985601cc97c80a362c6637a57639bc4
     name: one37secrets
@@ -281,4 +231,4 @@ entries:
     urls:
     - https://one37id.github.io/helm-ibm/packages/one37secrets-1.2311.17-1.tgz
     version: 1.2311.17-1
-generated: "2024-08-29T12:49:11.6336538+02:00"
+generated: "2024-08-29T12:55:15.6514249+02:00"
