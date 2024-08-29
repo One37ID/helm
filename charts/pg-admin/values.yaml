@@ -1,0 +1,100 @@
+# Default values for pg-admin.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+namespace:
+  name: one37id
+
+replicaCount: 1
+image:
+  repository: dpage/pgadmin4
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+imagePullSecrets: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 5050
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 5050
+
+service:
+  type: ClusterIP
+  port: 5050
+
+ingress:
+  enabled: true
+  className: "public-iks-k8s-nginx"  # use this for IBM Cloud
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: ibm-pg-admin.dev-one37.id
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretName: one37id-tls-dev
+     hosts:
+       - ibm-pg-admin.dev-one37.id
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+environment:
+  PGADMIN_LISTEN_PORT: 5050
+  PGADMIN_DISABLE_POSTFIX: true
+
+secrets:
+  create: true
+  app:
+    PGADMIN_DEFAULT_PASSWORD: pgadmin@1threeseven
+    PGADMIN_DEFAULT_EMAIL: pgadmin@one37id.com
+
+secretsRef:
+  PGADMIN_DEFAULT_PASSWORD: PGADMIN_DEFAULT_PASSWORD
+  PGADMIN_DEFAULT_EMAIL: PGADMIN_DEFAULT_EMAIL
+
+dataVolume:
+  enabled: true
+  name: pgadmin-data
+  mountPath: /var/lib/pgadmin
+  accessModes:
+    - ReadWriteOnce
+  labels: {}
+  annotations: {}
+  #existingClaim: ""
+  storageClass: ibmc-vpc-block-general-purpose
+  size: 1Gi

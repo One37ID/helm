@@ -1,0 +1,29 @@
+{{- if not .Values.dataVolume.existingClaim -}}
+{{- $fullName := include "pg-admin.fullname" . -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  {{- if .Values.dataVolume.annotations }}
+  annotations:
+{{ toYaml .Values.dataVolume.annotations | indent 4 }}
+  {{- end }}
+  labels:
+    {{- include "pg-admin.labels" . | nindent 4 }}
+  name: {{ .Values.dataVolume.name }}
+spec:
+  accessModes:
+{{ toYaml .Values.dataVolume.accessModes | indent 4 }}
+{{- if .Values.dataVolume.storageClass }}
+  storageClassName: {{ .Values.dataVolume.storageClass }}
+{{- end }}
+{{- if .Values.dataVolume.volumeBindingMode }}
+  volumeBindingMode: {{ .Values.dataVolume.volumeBindingMode }}
+{{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.dataVolume.size }}
+{{- if .Values.dataVolume.selector }}
+  selector:
+  {{- toYaml .Values.dataVolume.selector | nindent 4 }}
+{{- end -}}
+{{- end -}}
