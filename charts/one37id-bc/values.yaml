@@ -121,11 +121,11 @@ configmap:
   STATS_BUFFER_TIME: 1
   STATS_BATCH_SIZE: 10
   #Postgres Config
-  DB_DRIVER: "postgres"
-  PG_HOST: "one37id-pgsql"
+  DB_DRIVER: postgres
+  PG_HOST: one37id-pgsql
   PG_PORT: "5432"
-  # PG_DBNAME: "test-idnext_agent" # name MUST be the same as .NET Agent db name
-  PG_DB_AGENCY: "one37id-bc_agency"
+  # PG_DBNAME: one37id-bc_agent"
+  PG_DB_AGENCY: one37id-bc_agency
   # FCM Push Settings - API key in secrets
   PUSH_URL: https://push.dev-one37.id/api/v1/notify
   # Email Verification Settings
@@ -291,12 +291,12 @@ one37id-bc-ctrl:
     # APP_INSIGHTS_CS: "InstrumentationKey=fe47e6cf-d4bc-44a8-96ae-7ede2471e1f8;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
     # PROMETHEUS_URL: http://prometheus-server/api/v1
     #Postgres Config
-    PG_HOST: "one37id-pgsql"
+    PG_HOST: one37id-pgsql
     PG_PORT: "5432"
     PG_USER: postgres
     PG_ADMIN_USER: postgres
-    PG_DBNAME: "one37id-bc_agency"
-    AGENT_NAME: "IBM_AGENT"
+    PG_DBNAME: one37id-bc_agency
+    AGENT_NAME: IBM_AGENT
     AGENCY_URL: "https://ibm-agentjs.dev-one37.id"
 
   secrets:
