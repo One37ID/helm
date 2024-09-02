@@ -1,0 +1,63 @@
+{
+  "activeModel": "gpt4",
+  "server": {
+    "clusterName": "development",
+    "instanceName": "Arbiter",
+    "port": 7500,
+    "keepAliveInSeconds": 5,
+    "role": "arbiter",
+    "enableLog": true,
+    "enableRealtimeKPI": true
+  },
+  "arbiter": {
+    "thresholdFailedAttemptToProcess": 3,
+    "messageLockTimeoutInSeconds": 15,
+    "orphanedSnapshotTimeoutInSeconds": 10,
+    "lockSafeIntervalInSeconds": 2
+  },
+  "workflow": {
+    "idleTimeoutInSeconds": 300,
+    "timeAfterWaitCallToHibernateInSeconds": 10
+  },
+  "postgres": {
+    "host": "localhost",
+    "database": "workflowengine",
+    "username": "postgres",
+    "password": "postgres",
+    "port": "5432"
+  },
+  "sqlite": {
+    "database": "wfengine"
+  },
+  "provider": {
+    "type": "redis"
+  },
+  "redis": {
+    "host": "localhost",
+    "port": "6379",
+    "cacheToPostgresFlushTimeoutInMinutes": 5
+  },
+  "filesystem": {
+    "folderName": "./storage"
+  },
+  "azure": {
+    "url": "https://t3-formrecognizer.cognitiveservices.azure.com/",
+    "key": "<key>"
+  },
+  "gpt4": {
+    "openaiEndpoint": "https://one37-openai-us2.openai.azure.com/",
+    "openaiApiKey": "<key>",
+    "openaiInstanceName": "one37-openai-us2",
+    "openaiDeploymentName": "gpt-4-32k",
+    "openaiModelName": "gpt-4-32k",
+    "openaiVersion": "2023-12-01-preview"
+  },
+  "gpt35": {
+    "openaiEndpoint": "https://One37OpenAI.openai.azure.com/",
+    "openaiApiKey": "<key>",
+    "openaiInstanceName": "One37OpenAI",
+    "openaiDeploymentName": "gpt-35-turbo-16k",
+    "openaiModelName": "gpt-35-turbo-16k",
+    "openaiVersion": "2023-12-01-preview"
+  }
+}

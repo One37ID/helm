@@ -1,0 +1,126 @@
+{{- $fullName := include "one37id-workflow.fullname" . -}}
+{{- $postgresSecretName := printf "%s" .Values.global.postgresName -}}
+{{- $redisSecretName := printf "%s" .Values.global.redisName -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "one37id-workflow.fullname" . }}
+  labels:
+    {{- include "one37id-workflow.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "one37id-workflow.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "one37id-workflow.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "one37id-workflow.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ $fullName }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ $fullName }}
+          env:
+            {{- range $key, $value := .Values.environment }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- if .Values.secrets.create }}
+            {{- range $key, $value := .Values.secrets.app }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $key }}
+                  name: {{ $fullName }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+          {{- if .Values.postgres.useSecret }}
+            {{- range $key, $value := .Values.postgres.secretRef }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $value | quote }}
+                  name: {{ $postgresSecretName | quote }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+          {{- if .Values.redis.useSecret }}
+            {{- range $key, $value := .Values.redis.secretRef }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $value | quote }}
+                  name: {{ $redisSecretName | quote }}
+                  optional: false
+            {{- end }}
+          {{- end }}
+          ports:
+          {{- range $key, $value := .Values.service.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
+              protocol: TCP
+          {{- end }}
+          {{- if .Values.liveCheck }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port:  {{ .Values.service.port }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ $fullName}}-config-volume
+              mountPath: /app/config.json  # The path inside the container where the file will be mounted
+              subPath: config.json
+      {{- if .Values.volume.enabled }}
+            - name: {{ $fullName}}-{{ .Values.volume.name }}
+              mountPath: {{ .Values.volume.mountPath }}
+      {{- end }}
+      volumes:
+        - name: {{ $fullName}}-config-volume
+          configMap:
+            name: {{ $fullName}}-config
+            items:
+              - key: config.json
+                path: config.json
+      {{- if .Values.volume.enabled }}
+        - name: {{ $fullName}}-{{ .Values.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName}}-{{ .Values.volume.name }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

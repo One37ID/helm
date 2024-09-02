@@ -1,0 +1,8 @@
+{{- $fullName := include "one37id-workflow.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}-config
+data:
+  config.json: |-
+{{ .Files.Get "config.json" | indent 4 }}

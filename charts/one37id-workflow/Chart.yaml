@@ -1,0 +1,21 @@
+apiVersion: v2
+name: one37id-workflow
+type: application
+description: A Helm chart to deploy the One37 Workflow Engine - Maestro
+home: https://www.one37id.com
+icon: https://www.one37id.com/images/connector.svg
+annotations:
+  category: Infrastructure
+  licenses: Apache-2.0
+keywords:
+  - workflow
+  - workflowengine
+  - maestro
+  - one37id
+  - one37
+  - one37id.com
+maintainers:
+  - name: One37 Solutions, Inc.
+    url: https://github.com/one37id/charts
+appVersion: "1.2409.1-1"
+version: 1.2409.1-1
