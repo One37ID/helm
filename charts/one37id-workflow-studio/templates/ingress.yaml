@@ -1,7 +1,6 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "one37id-workflow.fullname" . -}}
-{{- $tlsSecret := .Values.global.tlsSecret -}}
-{{- $publicHostname := .Values.publicHostname -}}
+{{- $fullName := include "one37id-workflow-studio.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -18,7 +17,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "one37id-workflow.labels" . | nindent 4 }}
+    {{- include "one37id-workflow-studio.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -31,15 +30,15 @@ spec:
   tls:
     {{- range .Values.ingress.tls }}
     - hosts:
-        # {{- range .hosts }}
-        - {{ $publicHostname | quote }}
-        # {{- end }}
-      secretName: {{ $tlsSecret }}
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ $publicHostname | quote }}
+    - host: {{ .host | quote }}
       http:
         paths:
           {{- range .paths }}
@@ -52,10 +51,10 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ .port }}
+                  number: {{ $svcPort }}
               {{- else }}
               serviceName: {{ $fullName }}
-              servicePort: {{ .port }}
+              servicePort: {{ $svcPort }}
               {{- end }}
           {{- end }}
     {{- end }}

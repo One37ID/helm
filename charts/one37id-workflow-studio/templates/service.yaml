@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "one37id-workflow-studio.fullname" . }}
+  labels:
+    {{- include "one37id-workflow-studio.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "one37id-workflow-studio.selectorLabels" . | nindent 4 }}

@@ -1,17 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "one37id-workflow.fullname" . }}
-  labels:
-    {{- include "one37id-workflow.labels" . | nindent 4 }}
+  name: {{include "one37id-workflow.fullname" .}}
+  labels: {{- include "one37id-workflow.labels" . | nindent 4}}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{.Values.service.type}}
   ports:
-    {{- range $key, $value := .Values.service.ports }}
-    - port: {{ $value }}
-      targetPort: {{ $value }}
+    - port: {{.Values.service.port}}
+      targetPort: {{.Values.service.port}}
       protocol: TCP
-      name: {{ $key}}
-    {{- end }}
-  selector:
-    {{- include "one37id-workflow.selectorLabels" . | nindent 4 }}
+      name: http
+  selector: {{- include "one37id-workflow.selectorLabels" . | nindent 4}}

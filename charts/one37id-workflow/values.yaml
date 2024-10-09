@@ -13,7 +13,7 @@ readyCheck: false
 
 replicaCount: 1
 image:
-  repository: registry.gitlab.com/one37id/registry/one37id-workflow/staging
+  repository: registry.gitlab.com/one37id/registry/one37id-workflow-engine/staging
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -44,7 +44,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 7500
 
 ingress:
   enabled: true
@@ -58,6 +58,7 @@ ingress:
     - paths:
         - path: /
           pathType: ImplementationSpecific
+          port: 7500
   tls:
     - secretName: chart-example-tls
 
@@ -123,7 +124,7 @@ redis:
 volume:
   enabled: true
   name: data
-  mountPath: /app/external
+  mountPath: /app/uploads
   accessModes:
     - ReadWriteOnce
   storageClass: default

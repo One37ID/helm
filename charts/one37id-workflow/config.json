@@ -20,10 +20,10 @@
     "timeAfterWaitCallToHibernateInSeconds": 10
   },
   "postgres": {
-    "host": "localhost",
+    "host": "one37id-pgsql",
     "database": "workflowengine",
     "username": "postgres",
-    "password": "postgres",
+    "password": "AS1cvTf0sD",
     "port": "5432"
   },
   "sqlite": {
@@ -33,8 +33,9 @@
     "type": "redis"
   },
   "redis": {
-    "host": "localhost",
+    "host": "one37id-redis",
     "port": "6379",
+    "password": "fcdxm8fN1N",
     "cacheToPostgresFlushTimeoutInMinutes": 5
   },
   "filesystem": {
