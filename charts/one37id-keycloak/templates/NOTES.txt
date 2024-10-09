@@ -1,0 +1,4 @@
+This chart has deployed its Keycloak instance with the following default credentials:
+
+    Username: admin
+    Password: one37id
